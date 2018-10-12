@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
-import '../css/board.css';
 import { renderIdeas } from "./idea";
+import { colors } from'./../constants/index.json'
 
-
+var styles = {
+	board: {
+	    width: "100%",
+	    height: "100vh",
+	    background: colors.board.background,
+	    position: "relative"
+	}
+}
 class Board extends Component {
 
 	dataLoader = (fromIndex, toIndex, JSON_DATA) => {
@@ -22,7 +29,7 @@ class Board extends Component {
   	const {dropedIdeas, handleOffset} = this.props
   	const ideasDisplay = (dropedIdeas)? renderIdeas(dropedIdeas, handleOffset) : null
     return (
-	    	<div id="board" onDrop={this.props.handleDrop} onDragOver={this.allowDrop}> 
+	    	<div style={styles.board} onDrop={this.props.handleDrop} onDragOver={this.allowDrop}> 
 				{ ideasDisplay }
 			</div>
     );

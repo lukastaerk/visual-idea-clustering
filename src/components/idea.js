@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './../css/board.css';
+import { colors } from'./../constants/index.json'
 
 export const renderIdeas = (ideas, handleOffset) => {
 
@@ -8,6 +8,19 @@ export const renderIdeas = (ideas, handleOffset) => {
 		})
 		return ideasRender
 	}
+
+var styles = {
+	ideaBox: {
+		position: "absolute",
+	    width: 120,
+	    height: 120,
+	    background: colors.idea.background,
+	    cursor: "move"
+		},
+	description:  {
+	    fontSize: 10
+		}
+	};
 
 class Idea extends Component {
 	constructor(props){
@@ -26,11 +39,12 @@ class Idea extends Component {
 
   render() {
   	const { data, position } = this.props
-  	const style = {top: position.y, left: position.x}
+  	var style = {top: position.y, left: position.x}
+  	Object.assign(style, styles.ideaBox)
     return (
-    	<div id={"idea"+data.id} className="idea" draggable onDragStart={this.drag} ref={this.ideaRef} style={style}>
+    	<div id={"idea"+data.id} style={style} draggable onDragStart={this.drag} ref={this.ideaRef}>
 				<h6 >{"Idea "+ data.id}</h6>
-				<div className="description">{data.description}</div>
+				<div style={styles.description}>{data.description}</div>
 		</div>
     );
   }

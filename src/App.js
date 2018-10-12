@@ -3,7 +3,6 @@ import Board from "./components/board";
 import Header from "./components/header";
 import MenuBar from "./components/menuBar";
 import IdeaStack from "./components/ideaStack";
-import IdeaTrash from "./components/ideaTrash";
 import CHI19S1_ideas from './data/CHI19S1-ideas.json';
 
 class App extends Component {
@@ -123,8 +122,8 @@ class App extends Component {
 				<div className="row">
 				<div className="col-2">
 					<MenuBar handleNextIdeas={this.handleNextIdeas}/>
-					<IdeaStack nextIdeas={nextIdeas} handleOffset={this.handleOffset} />
-					<IdeaTrash handleDropTrash={this.handleDropTrash} />
+					<IdeaStack isTrash={false} nextIdeas={nextIdeas} handleOffset={this.handleOffset} />
+					<IdeaStack isTrash={true} handleDropTrash={this.handleDropTrash} />
 				</div>
 				<div className="col-10" ref={this.boardRef} >
 					<Board dropedIdeas={dropedIdeas} handleDrop={this.handleDrop} handleOffset={this.handleOffset}/>
