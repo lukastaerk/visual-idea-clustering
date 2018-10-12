@@ -26,8 +26,8 @@ class Board extends Component {
 	}
 
   render() {
-  	const {dropedIdeas, handleOffset} = this.props
-  	const ideasDisplay = (dropedIdeas)? renderIdeas(dropedIdeas, handleOffset) : null
+  	const {dropedIdeas} = this.props
+  	const ideasDisplay = (dropedIdeas)? renderIdeas(dropedIdeas, true) : null
     return (
 	    	<div style={styles.board} onDrop={this.props.handleDrop} onDragOver={this.allowDrop}> 
 				{ ideasDisplay }

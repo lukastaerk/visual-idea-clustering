@@ -13,7 +13,6 @@ class App extends Component {
 			nextIdeas: [],
 			dropedIdeas: [],
 			nextIdeasIndex: 0,
-			offset: {x:0,y:0},
 			boardPosition:{
 				top: 0,
 				left: 0
@@ -49,15 +48,15 @@ class App extends Component {
 	handleDrop = (ev) => {
 		ev.preventDefault();
 		const { top, left} = this.state.boardPosition
-		const { x, y } = this.state.offset
-		var data = ev.dataTransfer.getData("text");
+		var data = JSON.parse(ev.dataTransfer.getData("text"));
+		const { x, y } = data.offset
 		console.log("drop", data)
-		var id = parseInt(data.slice(4))
+
 		var { nextIdeas, dropedIdeas } = this.state
 		console.log(nextIdeas,dropedIdeas)
-		var index = dropedIdeas.findIndex(idea=>idea.id==id)
+		var index = dropedIdeas.findIndex(idea=>idea.id==data.id)
 		if(index<0) {
-			index = nextIdeas.findIndex(i=>i.id==id)
+			index = nextIdeas.findIndex(i=>i.id==data.id)
 			var idea = nextIdeas.splice(index,1)
 			idea[0].position = {x:ev.clientX - left - x, y:ev.clientY - top - y}
 			dropedIdeas.push(idea[0])
@@ -76,12 +75,11 @@ class App extends Component {
 	handleDropTrash = (ev) => {
 		ev.preventDefault();
 		var { nextIdeas, dropedIdeas } = this.state
-		var data = ev.dataTransfer.getData("text");
-		var id = parseInt(data.slice(4))
-
-		var index = dropedIdeas.findIndex(idea=>idea.id==id)
+		var data = JSON.parse(ev.dataTransfer.getData("text"));
+		
+		var index = dropedIdeas.findIndex(idea=>idea.id==data.id)
 		if(index<0) {
-			index = nextIdeas.findIndex(i=>i.id==id)
+			index = nextIdeas.findIndex(i=>i.id==data.id)
 			nextIdeas.splice(index,1)
 		} else {
 			dropedIdeas.splice(index,1)
@@ -94,22 +92,16 @@ class App extends Component {
 
 	handleNextIdeas = () => {
 		console.log("handleNextIdeas")
-		const { nextIdeasIndex } = this.state
-		const nextIdeas = this.dataLoader(nextIdeasIndex+5, nextIdeasIndex+10, CHI19S1_ideas)
+		const { nextIdeasIndex, nextIdeas } = this.state
+
+		if(nextIdeas.length !== 0) return null; //when stack still holdes ideas don't give more ideas
+
+		const nextStack = this.dataLoader(nextIdeasIndex+5, nextIdeasIndex+10, CHI19S1_ideas)
 		this.setState((prevState)=>{
 			return {
 				nextIdeasIndex: prevState.nextIdeasIndex+5,
-				nextIdeas: prevState.nextIdeas.concat(nextIdeas)
+				nextIdeas: prevState.nextIdeas.concat(nextStack)
 			}
-		})
-	}
-
-	handleOffset = (x,y) => {
-		this.setState({
-			offset:{
-				x: y,
-				y: x
-			} 
 		})
 	}
 
@@ -122,11 +114,11 @@ class App extends Component {
 				<div className="row">
 				<div className="col-2">
 					<MenuBar handleNextIdeas={this.handleNextIdeas}/>
-					<IdeaStack isTrash={false} nextIdeas={nextIdeas} handleOffset={this.handleOffset} />
+					<IdeaStack isTrash={false} nextIdeas={nextIdeas} />
 					<IdeaStack isTrash={true} handleDropTrash={this.handleDropTrash} />
 				</div>
 				<div className="col-10" ref={this.boardRef} >
-					<Board dropedIdeas={dropedIdeas} handleDrop={this.handleDrop} handleOffset={this.handleOffset}/>
+					<Board dropedIdeas={dropedIdeas} handleDrop={this.handleDrop}/>
 				</div>
 				
 				</div>

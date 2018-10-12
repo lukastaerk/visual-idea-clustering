@@ -7,7 +7,9 @@ var styles = {
 		position: "relative",
 	    margin: "0 auto",
 	    marginTop: 20, 
-	    borderStyle: "solid", 
+	    borderRadius: 10,
+	    borderStyle: "solid",
+	    borderColor: colors.header.background, 
 	    width: 150,
 	    height: 170,
 	    backgroundColor: colors.board.background
@@ -19,8 +21,8 @@ var styles = {
 	    height: 120
 	},
 	h6: {
+		color: colors.header.background,
 		textAlign: "center",
-
 	}
 }
 
@@ -29,8 +31,8 @@ class IdeaStack extends Component {
 	allowDrop = (ev) =>{
 		ev.preventDefault();
 		console.log(ev.type)
-		if(ev.type=="drop") this.props.handleDropTrash(ev)
-		ev.target.style.backgroundColor = (ev.type == "dragover")? "#f78a8a" : "yellow"
+		if(ev.type==="drop") this.props.handleDropTrash(ev)
+		ev.target.style.backgroundColor = (ev.type === "dragover")? colors.stack.warning : styles.ideaStack.backgroundColor
 	}
 
 	renderContainer = (isTrash, ideasDisplay = null) => {
@@ -46,7 +48,7 @@ class IdeaStack extends Component {
 
 	render(){
 		const { nextIdeas, isTrash} = this.props
-		const ideasDisplay = (nextIdeas)? renderIdeas(nextIdeas, this.props.handleOffset): null
+		const ideasDisplay = (nextIdeas)? renderIdeas(nextIdeas): null
 		const ideaContainer = this.renderContainer(isTrash, ideasDisplay)
 		return(
 			<div style={styles.ideaStack}>

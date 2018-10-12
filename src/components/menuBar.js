@@ -4,8 +4,6 @@ import MenuList from '@material-ui/core/MenuList';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-
 const styles = theme => ({
 		  menuItem: {
 		    '&:focus': {
@@ -24,7 +22,7 @@ class MenuBar extends Component {
 	render(){
 		const { classes, handleNextIdeas } = this.props;
 		return(
-			<Paper>
+		
 				<MenuList>
 					<MenuItem className={classes.menuItem}>
 			          <ListItemText classes={{ primary: classes.primary }} inset primary="Draw Cluster" />
@@ -33,7 +31,7 @@ class MenuBar extends Component {
 			          <ListItemText classes={{ primary: classes.primary }} inset primary="Next Ideas" />
 			        </MenuItem>
 			    </MenuList>
-			</Paper>
+		
 			)
 	}
 }

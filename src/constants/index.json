@@ -2,12 +2,17 @@
 	"App_Name":"Visual Idea Clustering",
 	"colors":{
 		"board":{
-			"background":"#ddd"
+			"background":"#ddd",
+			"idea":"rgba(95, 204, 122, 0.5)"
 		}, 
 		"idea": {
-			"background": "#5fcc7a"
+			"background": "rgb(95, 204, 122)",
+			"border": "rgb(72, 158, 93)"
 		}, 
 		"stack": {
+			"warning": "#f78a8a"
+		},
+		"header":{
 			"background": "#282c34"
 		} 
 	}
