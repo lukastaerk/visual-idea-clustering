@@ -1,43 +1,57 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import MenuList from '@material-ui/core/MenuList';
-import MenuItem from '@material-ui/core/MenuItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import { withStyles } from '@material-ui/core/styles';
-const styles = theme => ({
-		  menuItem: {
-		    '&:focus': {
-		      backgroundColor: theme.palette.primary.main,
-		      '& $primary, & $icon': {
-		        color: theme.palette.common.white,
-		      },
-		    },
-		  },
-		  primary: {},
-		  icon: {},
-		});
+import { colors } from'./../constants/index.json'
+
+var style = {
+	box:{
+	    margin: "0 auto",
+	    marginTop: 20, 
+	    borderRadius: 10,
+	    borderStyle: "solid",
+	    borderColor: colors.header.background, 
+	    width: 150,
+	    backgroundColor: colors.board.background
+	},
+	menu: {
+		
+	},
+	list:{
+		width: "100%",
+		display:"inline-block",
+		textAlign: "center"
+	}
+}
 
 class MenuBar extends Component {
 
 	render(){
 		const { classes, handleNextIdeas } = this.props;
 		return(
+			<div style={style.box}>
+				<div style={style.menu}>
+					<ListItem name={"Draw Cluster"} />
+			        <ListItem name={"Next Ideas"} onClick={handleNextIdeas}/>
+			    </div>
+			   </div>
+			)
+	}
+}
+class ListItem extends Component {
+
+	handleMouse = (ev) => {
+		ev.target.style.background = (ev.type=="mouseenter")? colors.header.background : null
+		ev.target.style.color = (ev.type=="mouseenter")? "white" : colors.header.background
 		
-				<MenuList>
-					<MenuItem className={classes.menuItem}>
-			          <ListItemText classes={{ primary: classes.primary }} inset primary="Draw Cluster" />
-			        </MenuItem>
-			        <MenuItem className={classes.menuItem} onClick={handleNextIdeas}>
-			          <ListItemText classes={{ primary: classes.primary }} inset primary="Next Ideas" />
-			        </MenuItem>
-			    </MenuList>
-		
+	}
+	render(){
+		const {name, onClick} = this.props
+		return(
+			<li style={style.list} onClick={onClick} >
+			  <div  onMouseEnter={this.handleMouse} onMouseLeave={this.handleMouse}>{name}</div>
+			</li>
 			)
 	}
 }
 
-MenuBar.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
-export default withStyles(styles)(MenuBar);
+
+export default MenuBar;
