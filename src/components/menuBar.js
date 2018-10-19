@@ -8,8 +8,7 @@ var style = {
 	    borderRadius: 10,
 	    borderStyle: "solid",
 	    borderColor: colors.header.background, 
-	    width: 150,
-	    backgroundColor: colors.board.background
+	    width: 150
 	},
 	menu: {
 		

@@ -1,8 +1,19 @@
 ## Visual Idea Clustering
 
+### Run:
+- `npm install`
+- `npm start`
 
-# Anforderungen
-1. Anzeige von 5 ideen
-2. Drag and drop logik
-3. Dynamische Anzahl von Ideen
-4. Clustering Logik
+### Related Work
+- [IdeaHound](http://www.eecs.harvard.edu/~kgajos/papers/2016/siangliulue16ideahound-uist.shtml)
+
+### Anforderungen
+- [x] Anzeige von 5 ideen
+- [x] Drag and drop logik
+- [x] Dynamische Anzahl von Ideen
+- [ ] Clustering Logik
+- [ ] Zoomable Map of idea space, how to navigate on the map?
+
+## Anwendung 
+- bring ideas in relation, find Clusters, summerize and fliter them to generate quality ideas from that. 
+
