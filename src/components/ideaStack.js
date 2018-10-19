@@ -52,7 +52,7 @@ class IdeaStack extends Component {
 		const ideaContainer = this.renderContainer(isTrash, ideasDisplay)
 		return(
 			<div style={styles.ideaStack}>
-				<h6 style={styles.h6}>{(isTrash)? "Idea Stack":"Idea Trash"}</h6>
+				<h6 style={styles.h6}>{(isTrash)? "Idea Trash":"Idea Stack"}</h6>
 				{ideaContainer}
 			</div>
 			)

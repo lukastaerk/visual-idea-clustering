@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { colors } from'./../constants/index.json'
-//import  "./idea.css";
 export const renderIdeas = (ideas, isOnBoard = false) => {
 
 		const ideasRender = ideas.map((idea, i)=>{
@@ -10,12 +9,18 @@ export const renderIdeas = (ideas, isOnBoard = false) => {
 	}
 
 function ellipsizeTextBox(id) {
+	var textHeight = 0; 
     var el = document.getElementById(id);
+    var text = el.innerHTML;
     var wordArray = el.innerHTML.split(' ');
+    textHeight = el.scrollHeight; 
     while(el.scrollHeight > el.offsetHeight) {
         wordArray.pop();
-        el.innerHTML = wordArray.join(' ') + '...';
+        text = wordArray.join(' ') + '...';
+        el.innerHTML = text;
+        
      }
+     return {textHeight:textHeight, text:text}; 
 }
 
 
@@ -29,7 +34,8 @@ var styles = {
 	    cursor: "move"
 		},
 	description:  {
-	    fontSize: 10
+	    fontSize: 10,
+	    maxHeight: 80
 		}, 
 	h6: {
 		textAlign:"center"
@@ -39,11 +45,19 @@ var styles = {
 class Idea extends Component {
 	constructor(props){
 		super(props)
+		this.state = {
+			textHeight: styles.description.maxHeight,
+			displayFull: false
+		}
 		this.ideaRef = React.createRef()
 	}
 
-	componentDidUpdate(){
-		//ellipsizeTextBox("des"+this.props.data.id)
+	componentDidMount(){
+		const{ textHeight, text } = ellipsizeTextBox("des"+this.props.data.id)
+		this.setState({
+			textHeight: textHeight,
+			ellipText: text
+		})
 	}
 
 	drag = (ev) => {
@@ -55,14 +69,29 @@ class Idea extends Component {
 		ev.dataTransfer.setData("text", JSON.stringify(data));
 	}
 
+	handleDisplayFullText = (ev) => {
+		this.setState(prevState=>{
+			return { displayFull: !prevState.displayFull }
+		})
+	}
+
   render() {
   	const { data, position, isOnBoard } = this.props
+  	const { displayFull, textHeight, ellipText } = this.state
+  	const handleDisplayFullText = (this.state.textHeight>styles.description.maxHeight)? this.handleDisplayFullText : null
   	var style = {top: position.y, left: position.x, background: (isOnBoard)? colors.board.idea : colors.idea.background,}
   	Object.assign(style, styles.ideaBox)
+  	var styleTextBox = styles.description
+  	var description = (ellipText)? ellipText : data.description
+  	if(displayFull){
+  		style.height = style.height + textHeight - 80
+  		styleTextBox = { maxHeight:textHeight, fontSize:10 }
+  		description = data.description
+  	}
     return (
     	<div id={"idea"+data.id} style={style} draggable onDragStart={this.drag} ref={this.ideaRef}>
 				<h6 style={styles.h6}>{"Idea "+ data.id}</h6>
-				<div id={"des"+data.id} className="block-with-text" style={styles.description}>{data.description}</div>
+				<div id={"des"+data.id} style={styleTextBox} onClick={handleDisplayFullText}>{description}</div>
 		</div>
     );
   }

@@ -43,7 +43,7 @@ class App extends Component {
 			idea.position = {x:0,y:0}
 			return idea
 		})
-		return ideas; 
+		return ideas.reverse(); 
 	}
 	handleDrop = (ev) => {
 		ev.preventDefault();
