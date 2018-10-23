@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { colors } from'./../constants/index.json'
+
 export const renderIdeas = (ideas, isOnBoard = false) => {
 
 		const ideasRender = ideas.map((idea, i)=>{
@@ -31,7 +32,8 @@ var styles = {
 		border: "2px solid "+ colors.idea.border,
 	    width: 120,
 	    height: 120,
-	    cursor: "move"
+	    cursor: "move",
+	    zIndex: 2
 		},
 	description:  {
 	    fontSize: 10,

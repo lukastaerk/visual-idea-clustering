@@ -20,7 +20,10 @@
 
 .App {
   text-align: center;
-  width: 100%;
-  margin: 15px auto;
+  width: 100vw;
+  margin: 0px auto;
 }
 
+.board {
+  min-height: 0px;
+}

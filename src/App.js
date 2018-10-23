@@ -4,6 +4,7 @@ import Header from "./components/header";
 import MenuBar from "./components/menuBar";
 import IdeaStack from "./components/ideaStack";
 import CHI19S1_ideas from './data/CHI19S1-ideas.json';
+import './App.css';
 
 class App extends Component {
 	constructor(props){
@@ -13,10 +14,12 @@ class App extends Component {
 			nextIdeas: [],
 			dropedIdeas: [],
 			nextIdeasIndex: 0,
+			clusters: [],
 			boardPosition:{
 				top: 0,
 				left: 0
-			}
+			},
+			isDrawingCluster: false
 		}
 	}
 	componentDidMount(){
@@ -105,20 +108,26 @@ class App extends Component {
 		})
 	}
 
+	handleDrawCluster = (ev) => {
+		this.setState(prevState => {
+			return {isDrawingCluster: !prevState.isDrawingCluster}
+		})
+	}
+
 	render(){
-		const { nextIdeas, dropedIdeas } = this.state
+		const { nextIdeas, dropedIdeas, isDrawingCluster, clusters } = this.state
 		
 		return(
-			<div>
+			<div className="App">
 				<Header/>
 				<div className="row">
 				<div className="col-2">
-					<MenuBar handleNextIdeas={this.handleNextIdeas}/>
+					<MenuBar handleNextIdeas={this.handleNextIdeas} handleDrawCluster={this.handleDrawCluster} isDrawingCluster={isDrawingCluster}/>
 					<IdeaStack isTrash={false} nextIdeas={nextIdeas} />
 					<IdeaStack isTrash={true} handleDropTrash={this.handleDropTrash} />
 				</div>
-				<div className="col-10" ref={this.boardRef} >
-					<Board dropedIdeas={dropedIdeas} handleDrop={this.handleDrop}/>
+				<div className="col-9 board" ref={this.boardRef} >
+					<Board dropedIdeas={dropedIdeas} clusters={clusters} handleDrop={this.handleDrop} isDrawingCluster={isDrawingCluster}/>
 				</div>
 				
 				</div>
