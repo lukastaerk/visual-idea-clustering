@@ -27,6 +27,22 @@ class Board extends Component {
 		ev.preventDefault();
 	}
 
+	handleDrawCluster = (ev) => {
+		if(ev.type=="onmousedown"){
+			this.setState({
+				cluster:{
+					x: ev.clientX,
+					y: ev.clientY
+				}
+			})
+		} else if(ev.type == "onmouseup"){
+			const {x,y} = this.state.cluster
+			this.props.createCluster(x,y,ev.clientX-x,ev.clientY-y)
+		} else {
+			//do nothing yet
+		}
+	}
+
 
   render() {
   	const {dropedIdeas} = this.props
@@ -34,7 +50,7 @@ class Board extends Component {
     return (
 
     	<div style={styles.container}>
-	    	<div style={styles.board} onDrop={this.props.handleDrop} onDragOver={this.allowDrop}> 
+	    	<div style={styles.board} onDrop={this.props.handleDrop} onDragOver={this.allowDrop} onMouseDown={this.handleDrawCluster} onMouseUp={this.handleDrawCluster}> 
 				{ ideasDisplay }
 				<Cluster id={1}/>
 			</div>

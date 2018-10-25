@@ -81,7 +81,7 @@ class Idea extends Component {
   	const { data, position, isOnBoard } = this.props
   	const { displayFull, textHeight, ellipText } = this.state
   	const handleDisplayFullText = (this.state.textHeight>styles.description.maxHeight)? this.handleDisplayFullText : null
-  	var style = {top: position.y, left: position.x, background: (isOnBoard)? colors.board.idea : colors.idea.background,}
+  	var style = {top: position.y, left: position.x, background: (isOnBoard)? colors.board.idea : colors.idea.background}
   	Object.assign(style, styles.ideaBox)
   	var styleTextBox = styles.description
   	var description = (ellipText)? ellipText : data.description
