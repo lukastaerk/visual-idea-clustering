@@ -15,29 +15,16 @@ class App extends Component {
 			dropedIdeas: [],
 			nextIdeasIndex: 0,
 			clusters: [],
-			boardPosition:{
-				top: 0,
-				left: 0
-			},
 			isDrawingCluster: false
 		}
 	}
 	componentDidMount(){
-		const boardPos = this.boardRef.current.getBoundingClientRect()
 		const { nextIdeasIndex } = this.state
 		const nextIdeas = this.dataLoader(nextIdeasIndex, nextIdeasIndex+5, CHI19S1_ideas)
 		const dropedIdeas = []
 		this.setState({
 			nextIdeas:nextIdeas,
-			dropedIdeas: dropedIdeas,
-			boardPosition:{
-				top: boardPos.y,
-				left: boardPos.x
-			}, 
-			offset: {
-				x:0,
-				y:0
-			}
+			dropedIdeas: dropedIdeas
 		})
 	}
 	dataLoader = (fromIndex, toIndex, JSON_DATA) => {
@@ -48,48 +35,66 @@ class App extends Component {
 		})
 		return ideas.reverse(); 
 	}
-	handleDrop = (ev) => {
+	handleDrop = (ev, pos) => {
 		ev.preventDefault();
-		const { top, left} = this.state.boardPosition
 		var data = JSON.parse(ev.dataTransfer.getData("text"));
 		const { x, y } = data.offset
-		console.log("drop", data)
+		console.log(pos.top, pos.left)
 
-		var { nextIdeas, dropedIdeas } = this.state
-		console.log(nextIdeas,dropedIdeas)
-		var index = dropedIdeas.findIndex(idea=>idea.id==data.id)
-		if(index<0) {
-			index = nextIdeas.findIndex(i=>i.id==data.id)
-			var idea = nextIdeas.splice(index,1)
-			idea[0].position = {x:ev.clientX - left - x, y:ev.clientY - top - y}
-			dropedIdeas.push(idea[0])
-			this.setState({
-				nextIdeas:nextIdeas,
-				dropedIdeas: dropedIdeas
-			})
-		} else {
-			dropedIdeas[index].position = {x:ev.clientX - left - x, y:ev.clientY - top - y}
-			this.setState({
-				dropedIdeas: dropedIdeas
-			})
+		var index 
+		switch(data.type){
+			case "clusters":
+				var { clusters } = this.state
+				index = clusters.findIndex(cluster=>cluster.id==data.id)
+				clusters[index].position = { ...clusters[index].position, ...{left:ev.clientX - pos.left - x, top:ev.clientY - pos.top - y}}
+				this.setState({
+					clusters: clusters
+				})
+				break
+			case "dropedIdeas":
+				var { dropedIdeas } = this.state
+				index = dropedIdeas.findIndex(idea=>idea.id==data.id)
+				dropedIdeas[index].position = {x:ev.clientX - pos.left - x, y:ev.clientY - pos.top - y}
+				this.setState({
+					dropedIdeas: dropedIdeas
+				})
+				break
+			case "nextIdeas":
+				var { nextIdeas, dropedIdeas } = this.state
+				index = nextIdeas.findIndex(i=>i.id==data.id)
+				console.log(index)
+				var idea = nextIdeas.splice(index,1)
+				idea[0].position = {x:ev.clientX - pos.left - x, y:ev.clientY - pos.top - y}
+				dropedIdeas.push(idea[0])
+				this.setState({
+					nextIdeas:nextIdeas,
+					dropedIdeas: dropedIdeas
+				})
+				break
 		}
 	}
 
 	handleDropTrash = (ev) => {
 		ev.preventDefault();
-		var { nextIdeas, dropedIdeas } = this.state
 		var data = JSON.parse(ev.dataTransfer.getData("text"));
 		
-		var index = dropedIdeas.findIndex(idea=>idea.id==data.id)
-		if(index<0) {
-			index = nextIdeas.findIndex(i=>i.id==data.id)
-			nextIdeas.splice(index,1)
-		} else {
-			dropedIdeas.splice(index,1)
+		var list = []
+		switch(data.type) {
+			case "clusters":
+				list = this.state.clusters
+				break
+			case "dropedIdeas":
+				list = this.state.dropedIdeas
+				break
+			case "nextIdeas":
+				list = this.state.nextIdeas
+				break
 		}
+		
+		var index = list.findIndex(idea=>idea.id==data.id)
+		list.splice(index,1)
 		this.setState({
-				nextIdeas:nextIdeas,
-				dropedIdeas: dropedIdeas
+				[data.type]:list
 			})
 	}
 
@@ -113,6 +118,14 @@ class App extends Component {
 			return {isDrawingCluster: !prevState.isDrawingCluster}
 		})
 	}
+	createCluster = (x,y,width,height) => {
+		let nextClusterId = this.state.clusters.length+1
+		var cluster = {id:nextClusterId,position:{top:y,left:x, width:width, height:height}}
+		this.setState((prevState)=>{
+			return {clusters: [...prevState.clusters, cluster]}
+		})
+		console.log(this.state.clusters)
+	}
 
 	render(){
 		const { nextIdeas, dropedIdeas, isDrawingCluster, clusters } = this.state
@@ -127,7 +140,7 @@ class App extends Component {
 					<IdeaStack isTrash={true} handleDropTrash={this.handleDropTrash} />
 				</div>
 				<div className="col-9 board" ref={this.boardRef} >
-					<Board dropedIdeas={dropedIdeas} clusters={clusters} handleDrop={this.handleDrop} isDrawingCluster={isDrawingCluster}/>
+					<Board dropedIdeas={dropedIdeas} clusters={clusters} handleDrop={this.handleDrop} isDrawingCluster={isDrawingCluster} createCluster={this.createCluster}/>
 				</div>
 				
 				</div>

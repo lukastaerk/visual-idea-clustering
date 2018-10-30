@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import Draggable from "./draggable";
 import { colors } from'./../constants/index.json'
 
 export const renderIdeas = (ideas, isOnBoard = false) => {
-
 		const ideasRender = ideas.map((idea, i)=>{
 			return <Idea position={idea.position} key={idea.id} data={idea} isOnBoard={isOnBoard}/>
 		})
@@ -62,15 +62,6 @@ class Idea extends Component {
 		})
 	}
 
-	drag = (ev) => {
-		const idea = this.ideaRef.current
-		var rect = idea.getBoundingClientRect()
-		var x = ev.clientX - rect.x 
-		var y = ev.clientY - rect.y
-		var data = {id:ev.target.id.slice(4), offset: {x:x,y:y}}
-		ev.dataTransfer.setData("text", JSON.stringify(data));
-	}
-
 	handleDisplayFullText = (ev) => {
 		this.setState(prevState=>{
 			return { displayFull: !prevState.displayFull }
@@ -80,9 +71,11 @@ class Idea extends Component {
   render() {
   	const { data, position, isOnBoard } = this.props
   	const { displayFull, textHeight, ellipText } = this.state
+
   	const handleDisplayFullText = (this.state.textHeight>styles.description.maxHeight)? this.handleDisplayFullText : null
   	var style = {top: position.y, left: position.x, background: (isOnBoard)? colors.board.idea : colors.idea.background}
-  	Object.assign(style, styles.ideaBox)
+  	style = { ...styles.ideaBox, ...style}
+  	
   	var styleTextBox = styles.description
   	var description = (ellipText)? ellipText : data.description
   	if(displayFull){
@@ -91,10 +84,12 @@ class Idea extends Component {
   		description = data.description
   	}
     return (
-    	<div id={"idea"+data.id} style={style} draggable onDragStart={this.drag} ref={this.ideaRef}>
-				<h6 style={styles.h6}>{"Idea "+ data.id}</h6>
-				<div id={"des"+data.id} style={styleTextBox} onClick={handleDisplayFullText}>{description}</div>
-		</div>
+    	<Draggable id={data.id} type={isOnBoard? "dropedIdeas" : "nextIdeas"} style={ style }>
+	    	<div >
+					<h6 style={styles.h6}>{"Idea "+ data.id}</h6>
+					<div id={"des"+data.id} style={styleTextBox} onClick={handleDisplayFullText}>{description}</div>
+			</div>
+		</Draggable>
     );
   }
 }

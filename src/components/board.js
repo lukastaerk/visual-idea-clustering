@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { renderIdeas } from "./idea";
-import Cluster from "./cluster";
+import { renderClusters, Cluster } from "./cluster";
 import { colors } from'./../constants/index.json'
 
 var styles = {
@@ -13,6 +13,10 @@ var styles = {
 	container: { overflow:"auto", height: "100vh"}
 }
 class Board extends Component {
+	constructor(props){
+		super(props)
+		this.boardRef = React.createRef(); 
+	}
 
 	dataLoader = (fromIndex, toIndex, JSON_DATA) => {
 		const data = JSON_DATA.slice(fromIndex,toIndex); 
@@ -27,17 +31,29 @@ class Board extends Component {
 		ev.preventDefault();
 	}
 
+	drop = (ev) => {
+		const pos = this.boardRef.current.getBoundingClientRect()
+		this.props.handleDrop(ev, pos)
+	}
+
 	handleDrawCluster = (ev) => {
-		if(ev.type=="onmousedown"){
+		console.log(ev.type)
+		if(ev.type=="mousedown"){
 			this.setState({
 				cluster:{
 					x: ev.clientX,
 					y: ev.clientY
 				}
 			})
-		} else if(ev.type == "onmouseup"){
+		} else if(ev.type == "mouseup"){
 			const {x,y} = this.state.cluster
-			this.props.createCluster(x,y,ev.clientX-x,ev.clientY-y)
+			console.log(x,y)
+			let width = ev.clientX-x,
+				height = ev.clientY-y
+			if(width > 120 && height > 100){
+				const {left, top} = this.boardRef.current.getBoundingClientRect()
+				this.props.createCluster(x-left, y-top, width, height)
+			}
 		} else {
 			//do nothing yet
 		}
@@ -45,14 +61,15 @@ class Board extends Component {
 
 
   render() {
-  	const {dropedIdeas} = this.props
+  	const {dropedIdeas, clusters } = this.props
+  	const clustersDisplay = (clusters)? renderClusters(clusters, true) : null
   	const ideasDisplay = (dropedIdeas)? renderIdeas(dropedIdeas, true) : null
     return (
 
     	<div style={styles.container}>
-	    	<div style={styles.board} onDrop={this.props.handleDrop} onDragOver={this.allowDrop} onMouseDown={this.handleDrawCluster} onMouseUp={this.handleDrawCluster}> 
+	    	<div ref={this.boardRef} style={styles.board} onDrop={this.drop} onDragOver={this.allowDrop} onMouseDown={this.handleDrawCluster} onMouseUp={this.handleDrawCluster}> 
 				{ ideasDisplay }
-				<Cluster id={1}/>
+				{clustersDisplay}
 			</div>
 		</div>
     );
