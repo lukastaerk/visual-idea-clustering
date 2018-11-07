@@ -33,9 +33,15 @@ class Board extends Component {
   };
 
   drop = ev => {
-    const pos = this.boardRef.current.getBoundingClientRect();
+    ev.preventDefault();
+    const { top, left } = this.boardRef.current.getBoundingClientRect();
+    var data = JSON.parse(ev.dataTransfer.getData("text"));
+    const { x, y } = data.offset;
     console.log(ev.target);
-    this.props.handleDrop(ev, pos);
+    this.props.handleDrop(data, {
+      top: ev.clientY - top - y,
+      left: ev.clientX - left - x
+    });
   };
 
   handleDrawCluster = ev => {

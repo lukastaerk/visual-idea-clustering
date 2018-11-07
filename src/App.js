@@ -5,6 +5,8 @@ import MenuBar from "./components/menuBar";
 import IdeaStack from "./components/ideaStack";
 import CHI19S1_ideas from "./data/CHI19S1-ideas.json";
 import "./App.css";
+import Cluster from "./models/cluster";
+const { isDistanceSmaler } = require("./utils/helpers");
 
 class App extends Component {
   constructor(props) {
@@ -34,55 +36,54 @@ class App extends Component {
   dataLoader = (fromIndex, toIndex, JSON_DATA) => {
     const data = JSON_DATA.slice(fromIndex, toIndex);
     var ideas = data.map(idea => {
-      idea.position = { x: 0, y: 0 };
+      idea.position = { left: 0, top: 0 };
       return idea;
     });
     return ideas.reverse();
   };
-  handleDrop = (ev, pos) => {
-    ev.preventDefault();
-    var data = JSON.parse(ev.dataTransfer.getData("text"));
-    const { x, y } = data.offset;
-
+  handleDrop = (data, position) => {
+    var { state } = this;
+    var closeIdeas = state.dropedIdeas.filter(idea =>
+      isDistanceSmaler(position, idea.position, 40)
+    );
+    console.log(closeIdeas);
     var index;
+    if (closeIdeas.length > 0) {
+      index = state[data.type].findIndex(i => i.id == data.id);
+      var idea = state[data.type].splice(index, 1);
+      var newCluster = new Cluster(closeIdeas[0].position, [
+        ...closeIdeas,
+        idea
+      ]);
+      console.log(newCluster);
+      return this.setState({
+        clusters: [...state.clusters, newCluster]
+      });
+    }
+
     switch (data.type) {
       case "clusters":
-        var { clusters } = this.state;
-        index = clusters.findIndex(cluster => cluster.id == data.id);
-        clusters[index].position = {
-          ...clusters[index].position,
-          ...{ left: ev.clientX - pos.left - x, top: ev.clientY - pos.top - y }
+        index = state.clusters.findIndex(cluster => cluster.id == data.id);
+        state.clusters[index].position = {
+          ...state.clusters[index].position,
+          ...position
         };
-        this.setState({
-          clusters: clusters
-        });
         break;
       case "dropedIdeas":
-        var { dropedIdeas } = this.state;
-        index = dropedIdeas.findIndex(idea => idea.id == data.id);
-        dropedIdeas[index].position = {
-          x: ev.clientX - pos.left - x,
-          y: ev.clientY - pos.top - y
-        };
-        this.setState({
-          dropedIdeas: dropedIdeas
-        });
+        index = state.dropedIdeas.findIndex(idea => idea.id == data.id);
+        state.dropedIdeas[index].position = position;
+
         break;
       case "nextIdeas":
-        var { nextIdeas, dropedIdeas } = this.state;
-        index = nextIdeas.findIndex(i => i.id == data.id);
-        var idea = nextIdeas.splice(index, 1);
-        idea[0].position = {
-          x: ev.clientX - pos.left - x,
-          y: ev.clientY - pos.top - y
-        };
-        dropedIdeas.push(idea[0]);
-        this.setState({
-          nextIdeas: nextIdeas,
-          dropedIdeas: dropedIdeas
-        });
+        index = state.nextIdeas.findIndex(i => i.id == data.id);
+        var idea = state.nextIdeas.splice(index, 1);
+        idea[0].position = position;
+        state.dropedIdeas.push(idea[0]);
         break;
     }
+    this.setState({
+      state
+    });
   };
 
   handleDropTrash = ev => {
@@ -137,7 +138,9 @@ class App extends Component {
     let nextClusterId = this.state.clusters.length + 1;
     var cluster = {
       id: nextClusterId,
-      position: { top: y, left: x, width: width, height: height }
+      position: { top: y, left: x },
+      width: width,
+      height: height
     };
     this.setState(prevState => {
       return { clusters: [...prevState.clusters, cluster] };
