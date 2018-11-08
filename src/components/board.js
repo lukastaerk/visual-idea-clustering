@@ -37,7 +37,7 @@ class Board extends Component {
     const { top, left } = this.boardRef.current.getBoundingClientRect();
     var data = JSON.parse(ev.dataTransfer.getData("text"));
     const { x, y } = data.offset;
-    console.log(ev.target);
+    //console.log(ev.target);
     this.props.handleDrop(data, {
       top: ev.clientY - top - y,
       left: ev.clientX - left - x
@@ -69,9 +69,11 @@ class Board extends Component {
   };
 
   render() {
-    const { dropedIdeas, clusters } = this.props;
-    const clustersDisplay = clusters ? renderClusters(clusters, true) : null;
-    const ideasDisplay = dropedIdeas ? renderIdeas(dropedIdeas, true) : null;
+    const { boardIdeas, clusters } = this.props;
+    const clustersDisplay = clusters ? renderClusters(clusters) : null;
+    const ideasDisplay = boardIdeas
+      ? renderIdeas(boardIdeas, "boardIdeas")
+      : null;
     return (
       <div style={styles.container}>
         <div style={styles.board}>

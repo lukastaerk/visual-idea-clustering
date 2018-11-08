@@ -14,7 +14,7 @@ class App extends Component {
     this.boardRef = React.createRef();
     this.state = {
       nextIdeas: [],
-      dropedIdeas: [],
+      boardIdeas: [],
       nextIdeasIndex: 0,
       clusters: [],
       isDrawingCluster: false
@@ -27,10 +27,8 @@ class App extends Component {
       nextIdeasIndex + 5,
       CHI19S1_ideas
     );
-    const dropedIdeas = [];
     this.setState({
-      nextIdeas: nextIdeas,
-      dropedIdeas: dropedIdeas
+      nextIdeas: nextIdeas
     });
   }
   dataLoader = (fromIndex, toIndex, JSON_DATA) => {
@@ -43,8 +41,9 @@ class App extends Component {
   };
   handleDrop = (data, position) => {
     var { state } = this;
-    var closeIdeas = state.dropedIdeas.filter(idea =>
-      isDistanceSmaler(position, idea.position, 40)
+
+    var closeIdeas = state.boardIdeas.filter(idea =>
+      isDistanceSmaler(position, idea.position, 20)
     );
     console.log(closeIdeas);
     var index;
@@ -53,34 +52,32 @@ class App extends Component {
       var idea = state[data.type].splice(index, 1);
       var newCluster = new Cluster(closeIdeas[0].position, [
         ...closeIdeas,
-        idea
+        idea[0]
       ]);
+      state.clusters = [...state.clusters, newCluster];
       console.log(newCluster);
       return this.setState({
-        clusters: [...state.clusters, newCluster]
+        state
       });
     }
-
+    console.log(data.type);
     switch (data.type) {
       case "clusters":
         index = state.clusters.findIndex(cluster => cluster.id == data.id);
-        state.clusters[index].position = {
-          ...state.clusters[index].position,
-          ...position
-        };
+        state.clusters[index].position = position;
         break;
-      case "dropedIdeas":
-        index = state.dropedIdeas.findIndex(idea => idea.id == data.id);
-        state.dropedIdeas[index].position = position;
-
+      case "boardIdeas":
+        index = state.boardIdeas.findIndex(idea => idea.id == data.id);
+        state.boardIdeas[index].position = position;
         break;
       case "nextIdeas":
         index = state.nextIdeas.findIndex(i => i.id == data.id);
         var idea = state.nextIdeas.splice(index, 1);
         idea[0].position = position;
-        state.dropedIdeas.push(idea[0]);
+        state.boardIdeas.push(idea[0]);
         break;
     }
+    console.log(state);
     this.setState({
       state
     });
@@ -95,8 +92,8 @@ class App extends Component {
       case "clusters":
         list = this.state.clusters;
         break;
-      case "dropedIdeas":
-        list = this.state.dropedIdeas;
+      case "boardIdeas":
+        list = this.state.boardIdeas;
         break;
       case "nextIdeas":
         list = this.state.nextIdeas;
@@ -150,7 +147,7 @@ class App extends Component {
   };
 
   render() {
-    const { nextIdeas, dropedIdeas, isDrawingCluster, clusters } = this.state;
+    const { nextIdeas, boardIdeas, isDrawingCluster, clusters } = this.state;
 
     return (
       <div className="App">
@@ -167,7 +164,7 @@ class App extends Component {
           </div>
           <div className="col-9 board" ref={this.boardRef}>
             <Board
-              dropedIdeas={dropedIdeas}
+              boardIdeas={boardIdeas}
               clusters={clusters}
               handleDrop={this.handleDrop}
               isDrawingCluster={isDrawingCluster}

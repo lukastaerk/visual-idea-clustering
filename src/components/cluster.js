@@ -46,7 +46,6 @@ export class Cluster extends Component {
 
   allowDrop = ev => {
     ev.preventDefault();
-    console.log(ev.type);
   };
 
   drop = ev => {
@@ -69,20 +68,19 @@ export class Cluster extends Component {
     const { width, height } = this.state;
     var pos = position ? position : {};
     var style = { ...styles.clusterBox, ...this.state };
-    var displayIdeas = ideas ? renderIdeas(ideas, true) : null;
+    var displayIdeas = ideas ? renderIdeas(ideas, "cluster" + id) : null;
 
     return (
       <div
         ref={elem => (this.nv = elem)}
         onMouseUp={this.handleResize}
-        onDragLeave={this.allowDrop}
         onDragOver={this.allowDrop}
         onDrop={this.drop}
         style={{
-          resize: "both",
-          border: "1px solid black",
+          //resize: "both",
+          //border: "1px solid black",
           position: "absolute",
-          overflow: "auto",
+          //overflow: "auto",
           top: pos.top,
           left: pos.left,
           width: width + 3,

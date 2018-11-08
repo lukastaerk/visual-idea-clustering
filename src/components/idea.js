@@ -2,15 +2,10 @@ import React, { Component } from "react";
 import Draggable from "./draggable";
 import { colors } from "./../constants/index.json";
 
-export const renderIdeas = (ideas, isOnBoard = false) => {
+export const renderIdeas = (ideas, type = false) => {
   const ideasRender = ideas.map((idea, i) => {
     return (
-      <Idea
-        position={idea.position}
-        key={idea.id}
-        data={idea}
-        isOnBoard={isOnBoard}
-      />
+      <Idea position={idea.position} key={idea.id} data={idea} type={type} />
     );
   });
   return ideasRender;
@@ -74,7 +69,7 @@ class Idea extends Component {
   };
 
   render() {
-    const { data, position, isOnBoard } = this.props;
+    const { data, position, type } = this.props;
     const { displayFull, textHeight, ellipText } = this.state;
 
     const handleDisplayFullText =
@@ -82,7 +77,8 @@ class Idea extends Component {
         ? this.handleDisplayFullText
         : null;
     var style = {
-      background: isOnBoard ? colors.board.idea : colors.idea.background,
+      background:
+        type == "boardIdeas" ? colors.board.idea : colors.idea.background,
       ...styles.ideaBox,
       ...position
     };
@@ -95,11 +91,7 @@ class Idea extends Component {
       description = data.description;
     }
     return (
-      <Draggable
-        id={data.id}
-        type={isOnBoard ? "dropedIdeas" : "nextIdeas"}
-        style={style}
-      >
+      <Draggable id={data.id} type={type} style={style}>
         <div>
           <h6 style={styles.h6}>{"Idea " + data.id}</h6>
           <div
