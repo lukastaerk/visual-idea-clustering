@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import Board from "./components/board";
 import Header from "./components/header";
 import MenuBar from "./components/menuBar";
@@ -6,6 +7,9 @@ import IdeaStack from "./components/ideaStack";
 import CHI19S1_ideas from "./data/CHI19S1-ideas.json";
 import "./App.css";
 import Cluster from "./models/cluster";
+
+import { simpleAction } from "./actions/simpleAction";
+
 const { isDistanceSmaler } = require("./utils/helpers");
 
 class App extends Component {
@@ -180,4 +184,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect()(App);

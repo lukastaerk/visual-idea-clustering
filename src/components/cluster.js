@@ -10,8 +10,6 @@ export const renderClusters = clusters => {
         position={cluster.position}
         key={cluster.id}
         id={cluster.id}
-        width={cluster.width}
-        height={cluster.height}
         ideas={cluster.ideas}
       />
     );
@@ -58,10 +56,10 @@ export class Cluster extends Component {
       ...pos,
       ...{ width: 140 * ideas.length, height: 160 }
     };
-    var displayIdeas = ideas ? renderIdeas(ideas, "cluster") : null;
+    var displayIdeas = ideas ? renderIdeas(ideas, "cluster" + id) : null;
 
     return (
-      <Draggable id={id} type={"clusters"} style={style}>
+      <Draggable id={"cluster" + id} type={"clusters"} style={style}>
         <div id={"cluster" + id} onDragOver={this.allowDrop} onDrop={this.drop}>
           <h6 style={styles.h6}>{"Cluster " + id}</h6>
           {displayIdeas}

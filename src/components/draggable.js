@@ -19,17 +19,16 @@ class Draggable extends Component {
 
   // methods
   render() {
-    const { style } = this.props;
+    const { style, id } = this.props;
     return (
-      <div>
-        <div
-          style={style}
-          ref={this.node}
-          draggable
-          onDragStart={this.dragStart}
-        >
-          {this.props.children}
-        </div>
+      <div
+        className={id}
+        style={style}
+        ref={this.node}
+        draggable
+        onDragStart={this.dragStart}
+      >
+        {this.props.children}
       </div>
     );
   }
