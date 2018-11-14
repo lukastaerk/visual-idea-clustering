@@ -5,7 +5,14 @@ import { colors } from "./../constants/index.json";
 export const renderIdeas = (ideas, type = false) => {
   const ideasRender = ideas.map((idea, i) => {
     return (
-      <Idea position={idea.position} key={idea.id} data={idea} type={type} />
+      <Idea
+        position={
+          type == "cluster" ? { position: null, float: "left" } : idea.position
+        }
+        key={idea.id}
+        data={idea}
+        type={type}
+      />
     );
   });
   return ideasRender;

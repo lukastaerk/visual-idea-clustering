@@ -43,7 +43,7 @@ class App extends Component {
     var { state } = this;
 
     var closeIdeas = state.boardIdeas.filter(idea =>
-      isDistanceSmaler(position, idea.position, 20)
+      isDistanceSmaler(position, idea.position, 40)
     );
     console.log(closeIdeas);
     var index;
@@ -55,9 +55,12 @@ class App extends Component {
         idea[0]
       ]);
       state.clusters = [...state.clusters, newCluster];
-      console.log(newCluster);
+      state.boardIdeas = state.boardIdeas.filter(
+        i => !closeIdeas.some(ci => i.id === ci.id)
+      );
+      console.log(state);
       return this.setState({
-        state
+        ...state
       });
     }
     console.log(data.type);
@@ -79,7 +82,7 @@ class App extends Component {
     }
     console.log(state);
     this.setState({
-      state
+      ...state
     });
   };
 

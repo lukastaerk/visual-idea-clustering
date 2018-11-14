@@ -21,7 +21,7 @@ export const renderClusters = clusters => {
 
 var styles = {
   clusterBox: {
-    //position: "absolute",
+    position: "absolute",
     borderRadius: 10,
     border: "2px solid " + colors.idea.border,
     background: colors.cluster.background,
@@ -38,10 +38,6 @@ var styles = {
 export class Cluster extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      width: props.width,
-      height: props.height
-    };
   }
 
   allowDrop = ev => {
@@ -54,51 +50,23 @@ export class Cluster extends Component {
     console.log(data.id, data.type);
   };
 
-  handleResize = event => {
-    const current = this.nv;
-    console.log("resize", current.offsetWidth, current.offsetHeight);
-    this.setState({
-      width: current.offsetWidth,
-      height: current.offsetHeight
-    });
-  };
-
   render() {
     const { id, position, ideas } = this.props;
-    const { width, height } = this.state;
     var pos = position ? position : {};
-    var style = { ...styles.clusterBox, ...this.state };
-    var displayIdeas = ideas ? renderIdeas(ideas, "cluster" + id) : null;
+    var style = {
+      ...styles.clusterBox,
+      ...pos,
+      ...{ width: 140 * ideas.length, height: 160 }
+    };
+    var displayIdeas = ideas ? renderIdeas(ideas, "cluster") : null;
 
     return (
-      <div
-        ref={elem => (this.nv = elem)}
-        onMouseUp={this.handleResize}
-        onDragOver={this.allowDrop}
-        onDrop={this.drop}
-        style={{
-          //resize: "both",
-          //border: "1px solid black",
-          position: "absolute",
-          //overflow: "auto",
-          top: pos.top,
-          left: pos.left,
-          width: width + 3,
-          height: height + 3,
-          zIndex: 1
-        }}
-      >
-        <Draggable id={id} type={"clusters"} style={style}>
-          <div
-            id={"cluster" + id}
-            onDragOver={this.allowDrop}
-            onDrop={this.drop}
-          >
-            <h6 style={styles.h6}>{"Cluster " + id}</h6>
-            {displayIdeas}
-          </div>
-        </Draggable>
-      </div>
+      <Draggable id={id} type={"clusters"} style={style}>
+        <div id={"cluster" + id} onDragOver={this.allowDrop} onDrop={this.drop}>
+          <h6 style={styles.h6}>{"Cluster " + id}</h6>
+          {displayIdeas}
+        </div>
+      </Draggable>
     );
   }
 }
