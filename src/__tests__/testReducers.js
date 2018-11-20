@@ -20,10 +20,10 @@ it("simple Increment Test", () => {
 it("add ideas to nextIdeas", () => {
   expect(
     loadIdeaReducer(
-      { nextIdeas: [1, 2, 3] },
+      { stackIdeas: [1, 2, 3] },
       { type: "LOAD_IDEAS", ideas: [5, 6] }
     )
-  ).toEqual({ nextIdeas: [1, 2, 3, 5, 6] });
+  ).toEqual({ stackIdeas: [1, 2, 3, 5, 6] });
 });
 
 it("move idea on board", () => {
@@ -36,6 +36,26 @@ it("move idea on board", () => {
     moveIdeaReducer(stateBefor, {
       type: "MOVE_IDEA_BOARD_BOARD",
       id: 1,
+      position: 2
+    })
+  ).toEqual(stateAfter);
+});
+it("move idea from stack to board", () => {
+  const stateBefor = {
+    stackIdeas: [{ id: 2, position: 0 }],
+    boardIdeas: [{ id: 1, position: 1 }]
+  };
+  const stateAfter = {
+    stackIdeas: [],
+    boardIdeas: [{ id: 1, position: 1 }, { id: 2, position: 2 }]
+  };
+  deepFreeze(stateBefor);
+  deepFreeze(stateAfter);
+
+  expect(
+    moveIdeaReducer(stateBefor, {
+      type: "MOVE_IDEA_STACK_BOARD",
+      id: 2,
       position: 2
     })
   ).toEqual(stateAfter);
