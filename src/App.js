@@ -12,6 +12,14 @@ import { simpleAction } from "./actions/simpleAction";
 
 const { isDistanceSmaler } = require("./utils/helpers");
 
+const mapStateToProps = state => ({
+  ...state
+});
+
+const mapDispatchToProps = dispatch => ({
+  simpleAction: () => dispatch(simpleAction())
+});
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -19,8 +27,8 @@ class App extends Component {
     this.state = {
       nextIdeas: [],
       boardIdeas: [],
-      nextIdeasIndex: 0,
       clusters: [],
+      nextIdeasIndex: 0,
       isDrawingCluster: false
     };
   }
@@ -152,6 +160,9 @@ class App extends Component {
     this.handleDrawCluster();
     console.log(this.state.clusters);
   };
+  simpleAction = event => {
+    this.props.simpleAction();
+  };
 
   render() {
     const { nextIdeas, boardIdeas, isDrawingCluster, clusters } = this.state;
@@ -159,8 +170,10 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
+        <pre>{JSON.stringify(this.props)}</pre>
         <div className="row">
           <div className="col-2">
+            <button onClick={this.simpleAction}> Test redux action</button>
             <MenuBar
               handleNextIdeas={this.handleNextIdeas}
               handleDrawCluster={this.handleDrawCluster}
@@ -184,4 +197,7 @@ class App extends Component {
   }
 }
 
-export default connect()(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

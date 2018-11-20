@@ -21,6 +21,7 @@ export const renderIdeas = (ideas, type = false) => {
 function ellipsizeTextBox(id) {
   var textHeight = 0;
   var el = document.getElementById(id);
+  if (!el) return { textHeight: null, text: null };
   var text = el.innerHTML;
   var wordArray = el.innerHTML.split(" ");
   textHeight = el.scrollHeight;

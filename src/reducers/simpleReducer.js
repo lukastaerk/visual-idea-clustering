@@ -1,9 +1,7 @@
-export default (state = {}, action) => {
+export default (state = 0, action) => {
   switch (action.type) {
-    case "SIMPLE_ACTION":
-      return {
-        result: action.payload
-      };
+    case "INCREMENT":
+      return state + 1;
     default:
       return state;
   }
