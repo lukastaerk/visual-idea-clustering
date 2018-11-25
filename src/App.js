@@ -17,7 +17,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  simpleAction: () => dispatch(simpleAction())
+  simpleAction: (...props) => dispatch(simpleAction(...props))
 });
 
 class App extends Component {
@@ -28,8 +28,7 @@ class App extends Component {
       nextIdeas: [],
       boardIdeas: [],
       clusters: [],
-      nextIdeasIndex: 0,
-      isDrawingCluster: false
+      nextIdeasIndex: 0
     };
   }
   componentDidMount() {
@@ -139,26 +138,6 @@ class App extends Component {
         nextIdeas: prevState.nextIdeas.concat(nextStack)
       };
     });
-  };
-
-  handleDrawCluster = ev => {
-    this.setState(prevState => {
-      return { isDrawingCluster: !prevState.isDrawingCluster };
-    });
-  };
-  createCluster = (x, y, width, height) => {
-    let nextClusterId = this.state.clusters.length + 1;
-    var cluster = {
-      id: nextClusterId,
-      position: { top: y, left: x },
-      width: width,
-      height: height
-    };
-    this.setState(prevState => {
-      return { clusters: [...prevState.clusters, cluster] };
-    });
-    this.handleDrawCluster();
-    console.log(this.state.clusters);
   };
   simpleAction = event => {
     this.props.simpleAction();

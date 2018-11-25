@@ -6,11 +6,13 @@ class Cluster {
     this.position = position;
     this.height = height;
     this.width = width;
-    this.ideas = ideas;
+    this.ideas = ideas.map(idea => {
+      return { ...idea, position: position };
+    });
   }
 
   addIdea(idea) {
-    this.ideas.push(idea);
+    this.ideas.push({ ...idea, position: this.position });
   }
 }
 

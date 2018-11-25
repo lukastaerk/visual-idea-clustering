@@ -56,7 +56,9 @@ export class Cluster extends Component {
       ...pos,
       ...{ width: 140 * ideas.length, height: 160 }
     };
-    var displayIdeas = ideas ? renderIdeas(ideas, "cluster" + id) : null;
+    var displayIdeas = ideas
+      ? renderIdeas(ideas, { type: "CLUSTER", id: id })
+      : null;
 
     return (
       <Draggable id={"cluster" + id} type={"clusters"} style={style}>

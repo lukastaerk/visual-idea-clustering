@@ -2,16 +2,14 @@ import React, { Component } from "react";
 import Draggable from "./draggable";
 import { colors } from "./../constants/index.json";
 
-export const renderIdeas = (ideas, type = false) => {
+export const renderIdeas = (ideas, container) => {
   const ideasRender = ideas.map((idea, i) => {
     return (
       <Idea
-        position={
-          type == "cluster" ? { position: null, float: "left" } : idea.position
-        }
+        position={idea.position}
+        container={container}
         key={idea.id}
         data={idea}
-        type={type}
       />
     );
   });
@@ -77,7 +75,7 @@ class Idea extends Component {
   };
 
   render() {
-    const { data, position, type } = this.props;
+    const { data, position, container } = this.props;
     const { displayFull, textHeight, ellipText } = this.state;
 
     const handleDisplayFullText =
@@ -86,7 +84,9 @@ class Idea extends Component {
         : null;
     var style = {
       background:
-        type == "boardIdeas" ? colors.board.idea : colors.idea.background,
+        container.type == "boardIdeas"
+          ? colors.board.idea
+          : colors.idea.background,
       ...styles.ideaBox,
       ...position
     };
@@ -99,7 +99,7 @@ class Idea extends Component {
       description = data.description;
     }
     return (
-      <Draggable id={data.id} type={type} style={style}>
+      <Draggable id={data.id} type={"idea"} container={container} style={style}>
         <div>
           <h6 style={styles.h6}>{"Idea " + data.id}</h6>
           <div
