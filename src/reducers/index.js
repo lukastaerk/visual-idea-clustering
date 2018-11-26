@@ -1,10 +1,6 @@
 import { combineReducers } from "redux";
-import simpleReducer from "./simpleReducer";
-import moveIdeaReducer from "./moveIdeaReducer";
-import loadIdeaReducer from "./loadIdeaReducer";
+import clusteringReducer from "./clusteringReducer";
 
 export default combineReducers({
-  simpleReducer,
-  moveIdeaReducer,
-  loadIdeaReducer
+  clusteringReducer
 });

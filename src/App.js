@@ -8,7 +8,8 @@ import CHI19S1_ideas from "./data/CHI19S1-ideas.json";
 import "./App.css";
 import Cluster from "./models/cluster";
 
-import { simpleAction } from "./actions/simpleAction";
+import { loadIdeas } from "./actions/loadIdeas";
+import { moveIdea } from "./actions/moveIdea";
 
 const { isDistanceSmaler } = require("./utils/helpers");
 
@@ -17,30 +18,19 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  simpleAction: (...props) => dispatch(simpleAction(...props))
+  loadIdeas: (...props) => dispatch(loadIdeas(...props)),
+  moveIdea: (...props) => dispatch(moveIdea(...props))
 });
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.boardRef = React.createRef();
-    this.state = {
-      nextIdeas: [],
-      boardIdeas: [],
-      clusters: [],
-      nextIdeasIndex: 0
-    };
   }
   componentDidMount() {
-    const { nextIdeasIndex } = this.state;
-    const nextIdeas = this.dataLoader(
-      nextIdeasIndex,
-      nextIdeasIndex + 5,
-      CHI19S1_ideas
-    );
-    this.setState({
-      nextIdeas: nextIdeas
-    });
+    const { nextIndex } = this.props.clusteringReducer;
+    const nextIdeas = this.dataLoader(nextIndex, nextIndex + 5, CHI19S1_ideas);
+    this.props.loadIdeas(nextIdeas);
   }
   dataLoader = (fromIndex, toIndex, JSON_DATA) => {
     const data = JSON_DATA.slice(fromIndex, toIndex);
@@ -50,125 +40,47 @@ class App extends Component {
     });
     return ideas.reverse();
   };
-  handleDrop = (data, position) => {
-    var { state } = this;
-
-    var closeIdeas = state.boardIdeas.filter(idea =>
-      isDistanceSmaler(position, idea.position, 40)
-    );
-    console.log(closeIdeas);
-    var index;
-    if (closeIdeas.length > 0) {
-      index = state[data.type].findIndex(i => i.id == data.id);
-      var idea = state[data.type].splice(index, 1);
-      var newCluster = new Cluster(closeIdeas[0].position, [
-        ...closeIdeas,
-        idea[0]
-      ]);
-      state.clusters = [...state.clusters, newCluster];
-      state.boardIdeas = state.boardIdeas.filter(
-        i => !closeIdeas.some(ci => i.id === ci.id)
-      );
-      console.log(state);
-      return this.setState({
-        ...state
-      });
-    }
-    console.log(data.type);
-    switch (data.type) {
-      case "clusters":
-        index = state.clusters.findIndex(cluster => cluster.id == data.id);
-        state.clusters[index].position = position;
-        break;
-      case "boardIdeas":
-        index = state.boardIdeas.findIndex(idea => idea.id == data.id);
-        state.boardIdeas[index].position = position;
-        break;
-      case "nextIdeas":
-        index = state.nextIdeas.findIndex(i => i.id == data.id);
-        var idea = state.nextIdeas.splice(index, 1);
-        idea[0].position = position;
-        state.boardIdeas.push(idea[0]);
-        break;
-    }
-    console.log(state);
-    this.setState({
-      ...state
-    });
-  };
 
   handleDropTrash = ev => {
     ev.preventDefault();
     var data = JSON.parse(ev.dataTransfer.getData("text"));
-
-    var list = [];
-    switch (data.type) {
-      case "clusters":
-        list = this.state.clusters;
-        break;
-      case "boardIdeas":
-        list = this.state.boardIdeas;
-        break;
-      case "nextIdeas":
-        list = this.state.nextIdeas;
-        break;
-    }
-
-    var index = list.findIndex(idea => idea.id == data.id);
-    list.splice(index, 1);
-    this.setState({
-      [data.type]: list
-    });
+    const {
+      id,
+      type,
+      container,
+      offset: { x: x, y: y }
+    } = data;
+    if (type !== "idea") return null;
+    this.props.moveIdea(container, { type: "TRASH" }, id);
   };
 
   handleNextIdeas = () => {
     console.log("handleNextIdeas");
-    const { nextIdeasIndex, nextIdeas } = this.state;
-
-    if (nextIdeas.length !== 0) return null; //when stack still holdes ideas don't give more ideas
+    const { stackIdeas, nextIndex } = this.props.clusteringReducer;
+    if (stackIdeas.length !== 0) return null; //when stack still holdes ideas don't give more ideas
 
     const nextStack = this.dataLoader(
-      nextIdeasIndex + 5,
-      nextIdeasIndex + 10,
+      nextIndex + 5,
+      nextIndex + 10,
       CHI19S1_ideas
     );
-    this.setState(prevState => {
-      return {
-        nextIdeasIndex: prevState.nextIdeasIndex + 5,
-        nextIdeas: prevState.nextIdeas.concat(nextStack)
-      };
-    });
-  };
-  simpleAction = event => {
-    this.props.simpleAction();
+    this.props.loadIdeas(nextStack);
   };
 
   render() {
-    const { nextIdeas, boardIdeas, isDrawingCluster, clusters } = this.state;
-
+    const { stackIdeas, boardIdeas, clusters } = this.props.clusteringReducer;
+    console.log(this.props.clusteringReducer);
     return (
       <div className="App">
         <Header />
-        <pre>{JSON.stringify(this.props)}</pre>
         <div className="row">
           <div className="col-2">
-            <button onClick={this.simpleAction}> Test redux action</button>
-            <MenuBar
-              handleNextIdeas={this.handleNextIdeas}
-              handleDrawCluster={this.handleDrawCluster}
-              isDrawingCluster={isDrawingCluster}
-            />
-            <IdeaStack isTrash={false} nextIdeas={nextIdeas} />
+            <MenuBar handleNextIdeas={this.handleNextIdeas} />
+            <IdeaStack isTrash={false} nextIdeas={stackIdeas} />
             <IdeaStack isTrash={true} handleDropTrash={this.handleDropTrash} />
           </div>
           <div className="col-9 board" ref={this.boardRef}>
-            <Board
-              boardIdeas={boardIdeas}
-              clusters={clusters}
-              handleDrop={this.handleDrop}
-              isDrawingCluster={isDrawingCluster}
-              createCluster={this.createCluster}
-            />
+            <Board boardIdeas={boardIdeas} clusters={clusters} />
           </div>
         </div>
       </div>

@@ -54,7 +54,9 @@ class IdeaStack extends Component {
 
   render() {
     const { nextIdeas, isTrash } = this.props;
-    const ideasDisplay = nextIdeas ? renderIdeas(nextIdeas, "nextIdeas") : null;
+    const ideasDisplay = nextIdeas
+      ? renderIdeas(nextIdeas, { type: "STACK" }, "STACK")
+      : null;
     const ideaContainer = this.renderContainer(isTrash, ideasDisplay);
     return (
       <div style={styles.ideaStack}>

@@ -38,32 +38,27 @@ export class Cluster extends Component {
     super(props);
   }
 
-  allowDrop = ev => {
-    ev.preventDefault();
-  };
-
-  drop = ev => {
-    ev.preventDefault();
-    var data = JSON.parse(ev.dataTransfer.getData("text"));
-    console.log(data.id, data.type);
-  };
-
   render() {
     const { id, position, ideas } = this.props;
+    const sqrtUp = Math.round(Math.sqrt(ideas.length) + 0.49);
+    const diff = parseInt((sqrtUp ** 2 - ideas.length) / sqrtUp);
     var pos = position ? position : {};
     var style = {
       ...styles.clusterBox,
       ...pos,
-      ...{ width: 140 * ideas.length, height: 160 }
+      ...{ width: 3 + 120 * sqrtUp, height: 120 * (sqrtUp - diff) + 50 }
     };
+    const dropZone = "CLUSTER" + id;
     var displayIdeas = ideas
-      ? renderIdeas(ideas, { type: "CLUSTER", id: id })
+      ? renderIdeas(ideas, { type: "CLUSTER", id: id }, dropZone)
       : null;
 
     return (
-      <Draggable id={"cluster" + id} type={"clusters"} style={style}>
-        <div id={"cluster" + id} onDragOver={this.allowDrop} onDrop={this.drop}>
-          <h6 style={styles.h6}>{"Cluster " + id}</h6>
+      <Draggable id={id} dropZone={dropZone} type={"cluster"} style={style}>
+        <div id={id} className={dropZone}>
+          <h6 className={dropZone} style={styles.h6}>
+            {"Cluster " + id}
+          </h6>
           {displayIdeas}
         </div>
       </Draggable>

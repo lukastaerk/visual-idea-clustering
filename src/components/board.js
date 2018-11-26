@@ -1,7 +1,10 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { renderIdeas } from "./idea";
 import { renderClusters, Cluster } from "./cluster";
 import { colors } from "./../constants/index.json";
+import { moveIdea } from "../actions/moveIdea";
+import { moveCluster } from "../actions/moveCluster";
 
 var styles = {
   board: {
@@ -13,6 +16,31 @@ var styles = {
   },
   container: { overflow: "auto", height: "100vh" }
 };
+
+const mapDispatchToProps = dispatch => ({
+  moveIdea: (...props) => dispatch(moveIdea(...props)),
+  moveCluster: (...props) => dispatch(moveCluster(...props))
+});
+
+const mapStateToProps = state => ({
+  ...state
+});
+
+const getSinkFormTarget = target => {
+  if (target.classList[0].slice(0, 7) === "CLUSTER") {
+    return {
+      type: target.classList[0].slice(0, 7),
+      id: parseInt(target.classList[0].slice(7))
+    };
+  } else if (target.classList[0].slice(0, 4) === "IDEA") {
+    return {
+      type: target.classList[0].slice(0, 4),
+      id: parseInt(target.classList[0].slice(4))
+    };
+  }
+  return { type: target.classList[0] };
+};
+
 class Board extends Component {
   constructor(props) {
     super(props);
@@ -32,39 +60,29 @@ class Board extends Component {
     ev.preventDefault();
   };
 
-  drop = ev => {
-    ev.preventDefault();
+  drop = event => {
+    event.preventDefault();
     const { top, left } = this.boardRef.current.getBoundingClientRect();
-    var data = JSON.parse(ev.dataTransfer.getData("text"));
-    const { x, y } = data.offset;
-    //console.log(ev.target);
-    this.props.handleDrop(data, {
-      top: ev.clientY - top - y,
-      left: ev.clientX - left - x
-    });
-  };
-
-  handleDrawCluster = ev => {
-    if (!this.props.isDrawingCluster) return false;
-    console.log(ev.type);
-    if (ev.type == "mousedown") {
-      this.setState({
-        cluster: {
-          x: ev.clientX,
-          y: ev.clientY
-        }
-      });
-    } else if (ev.type == "mouseup") {
-      const { x, y } = this.state.cluster;
-      console.log(x, y);
-      let width = ev.clientX - x,
-        height = ev.clientY - y;
-      if (width > 120 && height > 100) {
-        const { left, top } = this.boardRef.current.getBoundingClientRect();
-        this.props.createCluster(x - left, y - top, width, height);
-      }
-    } else {
-      //do nothing yet
+    var data = JSON.parse(event.dataTransfer.getData("text"));
+    const {
+      id,
+      type,
+      container,
+      offset: { x: x, y: y }
+    } = data;
+    let position = {
+      left: event.clientX - x - left,
+      top: event.clientY - y - top
+    };
+    console.log("drop ", type);
+    if (type === "idea") {
+      let sink = getSinkFormTarget(event.target);
+      console.log(sink, position);
+      if (sink.type === "IDEA" && sink.id === id) sink = { type: "BOARD" };
+      if (container.type === "CLUSTER" && container === sink) return null;
+      this.props.moveIdea(container, sink, id, position);
+    } else if (type === "cluster") {
+      this.props.moveCluster(id, position);
     }
   };
 
@@ -72,19 +90,18 @@ class Board extends Component {
     const { boardIdeas, clusters } = this.props;
     const clustersDisplay = clusters ? renderClusters(clusters) : null;
     const ideasDisplay = boardIdeas
-      ? renderIdeas(boardIdeas, "boardIdeas")
+      ? renderIdeas(boardIdeas, { type: "BOARD" })
       : null;
     return (
       <div style={styles.container}>
         <div style={styles.board}>
           <div
             id="board"
+            className="BOARD"
             ref={this.boardRef}
             style={styles.board}
             onDrop={this.drop}
             onDragOver={this.allowDrop}
-            onMouseDown={this.handleDrawCluster}
-            onMouseUp={this.handleDrawCluster}
           >
             {ideasDisplay}
             {clustersDisplay}
@@ -95,4 +112,7 @@ class Board extends Component {
   }
 }
 
-export default Board;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Board);

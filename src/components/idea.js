@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import Draggable from "./draggable";
 import { colors } from "./../constants/index.json";
 
-export const renderIdeas = (ideas, container) => {
+export const renderIdeas = (ideas, container, dropZone) => {
   const ideasRender = ideas.map((idea, i) => {
     return (
       <Idea
         position={idea.position}
         container={container}
+        dropZone={dropZone ? dropZone : "IDEA" + idea.id}
         key={idea.id}
         data={idea}
       />
@@ -40,6 +41,12 @@ var styles = {
     height: 120,
     cursor: "move",
     zIndex: 2
+  },
+  inCluster: {
+    position: "relative",
+    top: 0,
+    left: 0,
+    float: "left"
   },
   description: {
     fontSize: 10,
@@ -75,7 +82,7 @@ class Idea extends Component {
   };
 
   render() {
-    const { data, position, container } = this.props;
+    const { data, position, container, dropZone } = this.props;
     const { displayFull, textHeight, ellipText } = this.state;
 
     const handleDisplayFullText =
@@ -84,12 +91,13 @@ class Idea extends Component {
         : null;
     var style = {
       background:
-        container.type == "boardIdeas"
-          ? colors.board.idea
-          : colors.idea.background,
+        container.type == "BOARD" ? colors.board.idea : colors.idea.background,
       ...styles.ideaBox,
       ...position
     };
+    if (container.type === "CLUSTER") {
+      style = { ...style, ...styles.inCluster };
+    }
 
     var styleTextBox = styles.description;
     var description = ellipText ? ellipText : data.description;
@@ -99,10 +107,19 @@ class Idea extends Component {
       description = data.description;
     }
     return (
-      <Draggable id={data.id} type={"idea"} container={container} style={style}>
-        <div>
-          <h6 style={styles.h6}>{"Idea " + data.id}</h6>
+      <Draggable
+        id={data.id}
+        dropZone={dropZone}
+        type={"idea"}
+        container={container}
+        style={style}
+      >
+        <div className={dropZone}>
+          <h6 className={dropZone} style={styles.h6}>
+            {"Idea " + data.id}
+          </h6>
           <div
+            className={dropZone}
             id={"des" + data.id}
             style={styleTextBox}
             onClick={handleDisplayFullText}

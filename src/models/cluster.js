@@ -12,7 +12,8 @@ class Cluster {
   }
 
   addIdea(idea) {
-    this.ideas.push({ ...idea, position: this.position });
+    this.ideas = [...this.ideas, { ...idea, position: this.position }];
+    return this;
   }
 }
 

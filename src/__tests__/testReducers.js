@@ -1,7 +1,6 @@
 import deepFreeze from "deep-freeze";
 import simpleReducer from "../reducers/simpleReducer";
-import moveIdeaReducer from "../reducers/moveIdeaReducer";
-import loadIdeaReducer from "../reducers/loadIdeaReducer";
+import clusteringReducer from "../reducers/clusteringReducer";
 
 const testSimpleAction = () => {
   const counterBefor = 0;

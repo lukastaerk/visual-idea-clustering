@@ -1,15 +1,5 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { colors } from "./../constants/index.json";
-import { moveIdea } from "../actions/moveIdea";
-
-const mapDispatchToProps = dispatch => ({
-  moveIdea: (...props) => dispatch(moveIdea(...props))
-});
-
-const mapStateToProps = state => ({
-  ...state
-});
 
 class Draggable extends Component {
   constructor(props) {
@@ -29,38 +19,26 @@ class Draggable extends Component {
       type: type,
       container: container
     };
+    console.log(
+      "draggable dragstart ",
+      type,
+      "class: ",
+      ev.target.classList[1]
+    );
+    if (ev.target.classList[1] !== type) return null;
     ev.dataTransfer.setData("text", JSON.stringify(data));
-  };
-
-  handleDragEnd = event => {
-    let board = document.getElementById("board");
-    const { top, left } = board.getBoundingClientRect();
-    var data = JSON.parse(event.dataTransfer.getData("text"));
-    const { x, y } = data.offset;
-    let position = {
-      left: event.clientX - x - left,
-      top: event.clientY - y - top
-    };
-
-    const { type, container, id } = this.props;
-    if (type === "idea") {
-      let sink = event.target.class;
-
-      this.props.moveIdea(container, sink, id, position);
-    }
   };
 
   // methods
   render() {
-    const { style, id } = this.props;
+    const { style, id, dropZone, type } = this.props;
     return (
       <div
-        className={id}
+        className={dropZone + " " + type}
         style={style}
         ref={this.node}
         draggable
         onDragStart={this.handleDragStart}
-        onDragEnd={this.handleDragEnd}
       >
         {this.props.children}
       </div>
@@ -68,7 +46,4 @@ class Draggable extends Component {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Draggable);
+export default Draggable;
