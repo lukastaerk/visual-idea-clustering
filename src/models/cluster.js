@@ -1,4 +1,4 @@
-var counter = 0;
+var counter = 1;
 
 class Cluster {
   constructor(position, ideas = [], height = 150, width = 300, id = false) {

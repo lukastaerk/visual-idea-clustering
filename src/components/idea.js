@@ -3,6 +3,7 @@ import Draggable from "./draggable";
 import { colors } from "./../constants/index.json";
 
 export const renderIdeas = (ideas, container, dropZone) => {
+  if (!ideas) return null;
   const ideasRender = ideas.map((idea, i) => {
     return (
       <Idea

@@ -4,15 +4,9 @@ import { renderIdeas } from "./idea";
 import { colors } from "./../constants/index.json";
 
 export const renderClusters = clusters => {
+  if (!clusters) return null;
   const clustersRender = clusters.map((cluster, i) => {
-    return (
-      <Cluster
-        position={cluster.position}
-        key={cluster.id}
-        id={cluster.id}
-        ideas={cluster.ideas}
-      />
-    );
+    return <Cluster id={cluster.id} {...cluster} />;
   });
   return clustersRender;
 };
@@ -49,9 +43,11 @@ export class Cluster extends Component {
       ...{ width: 3 + 120 * sqrtUp, height: 120 * (sqrtUp - diff) + 50 }
     };
     const dropZone = "CLUSTER" + id;
-    var displayIdeas = ideas
-      ? renderIdeas(ideas, { type: "CLUSTER", id: id }, dropZone)
-      : null;
+    var displayIdeas = renderIdeas(
+      ideas,
+      { type: "CLUSTER", id: id },
+      dropZone
+    );
 
     return (
       <Draggable id={id} dropZone={dropZone} type={"cluster"} style={style}>

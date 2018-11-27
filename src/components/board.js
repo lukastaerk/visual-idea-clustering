@@ -47,23 +47,14 @@ class Board extends Component {
     this.boardRef = React.createRef();
   }
 
-  dataLoader = (fromIndex, toIndex, JSON_DATA) => {
-    const data = JSON_DATA.slice(fromIndex, toIndex);
-    var ideas = data.map(idea => {
-      idea.position = { x: 0, y: 0 };
-      return idea;
-    });
-    return ideas;
-  };
-
   allowDrop = ev => {
     ev.preventDefault();
   };
 
-  drop = event => {
+  handleDrop = event => {
     event.preventDefault();
     const { top, left } = this.boardRef.current.getBoundingClientRect();
-    var data = JSON.parse(event.dataTransfer.getData("text"));
+    const data = JSON.parse(event.dataTransfer.getData("text"));
     const {
       id,
       type,
@@ -80,7 +71,7 @@ class Board extends Component {
       console.log(sink, position);
       if (sink.type === "IDEA" && sink.id === id) sink = { type: "BOARD" };
       if (container.type === "CLUSTER" && container === sink) return null;
-      this.props.moveIdea(container, sink, id, position);
+      else this.props.moveIdea(container, sink, id, position);
     } else if (type === "cluster") {
       this.props.moveCluster(id, position);
     }
@@ -88,10 +79,8 @@ class Board extends Component {
 
   render() {
     const { boardIdeas, clusters } = this.props;
-    const clustersDisplay = clusters ? renderClusters(clusters) : null;
-    const ideasDisplay = boardIdeas
-      ? renderIdeas(boardIdeas, { type: "BOARD" })
-      : null;
+    const clustersDisplay = renderClusters(clusters);
+    const ideasDisplay = renderIdeas(boardIdeas, { type: "BOARD" });
     return (
       <div style={styles.container}>
         <div style={styles.board}>
@@ -100,7 +89,7 @@ class Board extends Component {
             className="BOARD"
             ref={this.boardRef}
             style={styles.board}
-            onDrop={this.drop}
+            onDrop={this.handleDrop}
             onDragOver={this.allowDrop}
           >
             {ideasDisplay}
