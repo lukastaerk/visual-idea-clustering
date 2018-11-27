@@ -6,8 +6,7 @@ import MenuBar from "./components/menuBar";
 import IdeaStack from "./components/ideaStack";
 import CHI19S1_ideas from "./data/CHI19S1-ideas.json";
 
-import { loadIdeas } from "./actions/loadIdeas";
-import { moveIdea } from "./actions/moveIdea";
+import { loadIdeas, moveIdea } from "./actions";
 
 const mapStateToProps = state => ({
   ...state

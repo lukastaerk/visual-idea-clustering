@@ -5,7 +5,7 @@ export default (
   action
 ) => {
   const { type } = action;
-  var idea, newState;
+  var idea, newState, clusters, c;
   switch (type) {
     case "MOVE_IDEA":
       const { source, sink, id, position } = action;
@@ -23,10 +23,13 @@ export default (
         nextIndex: ideas.length + state.nextIndex
       };
     case "MOVE_CLUSTER":
-      var clusters, c;
       const { id: c_id, position: p } = action;
       [c, clusters] = removeElement(c_id, state.clusters);
       return { ...state, clusters: [...clusters, { ...c, position: p }] };
+    case "RENAME_CLUSTER":
+      const { id: rnid, name: rnname } = action;
+      [c, clusters] = removeElement(rnid, state.clusters);
+      return { ...state, clusters: [...clusters, { ...c, name: rnname }] };
     default:
       return state;
   }

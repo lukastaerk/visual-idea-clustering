@@ -68,7 +68,10 @@ class Board extends Component {
     console.log("drop, type:", type);
     if (type === "idea") {
       let sink = getSinkFormTarget(event.target);
-      if (sink.type === "IDEA" && sink.id === id) sink = { type: "BOARD" };
+      if (sink.type === "IDEA" && sink.id === id) {
+        console.log(event);
+        sink = { type: "BOARD" };
+      }
       if (container.type === "CLUSTER" && container === sink) return null;
       else this.props.moveIdea(container, sink, id, position);
     } else if (type === "cluster") {
