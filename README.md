@@ -5,16 +5,20 @@
 - `npm install`
 - `npm start`
 
+### Tests:
+
+- `npm test`
+
 ### Related Work
 
 - [IdeaHound](http://www.eecs.harvard.edu/~kgajos/papers/2016/siangliulue16ideahound-uist.shtml)
 
-### Requierments
+### Requirements
 
 - [x] Anzeige von 5 ideen
 - [x] Drag and drop logik
 - [x] Dynamische Anzahl von Ideen
-- [ ] Clustering Logik
+- [x] Clustering Logik
 - [ ] Zoomable Map of idea space, how to navigate on the map?
 - [ ] Export Button off Idea Space.
 

@@ -28,18 +28,13 @@ var styles = {
 };
 
 export class Cluster extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const { id, position, ideas } = this.props;
     const sqrtUp = Math.round(Math.sqrt(ideas.length) + 0.49);
     const diff = parseInt((sqrtUp ** 2 - ideas.length) / sqrtUp);
-    var pos = position ? position : {};
     var style = {
       ...styles.clusterBox,
-      ...pos,
+      ...position,
       ...{ width: 4 + 120 * sqrtUp, height: 120 * (sqrtUp - diff) + 50 }
     };
     const dropZone = "CLUSTER" + id;

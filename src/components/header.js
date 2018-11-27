@@ -1,16 +1,28 @@
-import React, { Component } from 'react'; 
-import "./../App.css"
-import { App_Name } from'./../constants/index.json'
+import React, { Component } from "react";
+import { App_Name } from "./../constants/index.json";
+
+var styles = {
+  header: {
+    backgroundColor: "#282c34",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "calc(10px + 2vmin)",
+    color: "white"
+  }
+};
 
 class Header extends Component {
-
-	render(){
-		return(
-			<div className="header">
-				<h2 >{App_Name}</h2>
-			</div>
-			)
-	}
+  render() {
+    return (
+      <div className="row">
+        <div className="col" style={styles.header}>
+          <h2>{App_Name}</h2>
+        </div>
+      </div>
+    );
+  }
 }
 
-export default Header; 
+export default Header;

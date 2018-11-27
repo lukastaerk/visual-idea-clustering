@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { renderIdeas } from "./idea";
-import { renderClusters, Cluster } from "./cluster";
+import { renderClusters } from "./cluster";
 import { colors } from "./../constants/index.json";
 import { moveIdea } from "../actions/moveIdea";
 import { moveCluster } from "../actions/moveCluster";
@@ -59,16 +59,15 @@ class Board extends Component {
       id,
       type,
       container,
-      offset: { x: x, y: y }
+      offset: { x, y }
     } = data;
     let position = {
       left: event.clientX - x - left,
       top: event.clientY - y - top
     };
-    console.log("drop ", type);
+    console.log("drop, type:", type);
     if (type === "idea") {
       let sink = getSinkFormTarget(event.target);
-      console.log(sink, position);
       if (sink.type === "IDEA" && sink.id === id) sink = { type: "BOARD" };
       if (container.type === "CLUSTER" && container === sink) return null;
       else this.props.moveIdea(container, sink, id, position);

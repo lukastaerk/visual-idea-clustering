@@ -55,7 +55,7 @@ class ListItem extends Component {
     }
   };
   render() {
-    const { name, onClick, active } = this.props;
+    const { name, onClick } = this.props;
     return (
       <li style={style.list} onClick={onClick}>
         <div onMouseEnter={this.handleMouse} onMouseLeave={this.handleMouse}>

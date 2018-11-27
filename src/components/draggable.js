@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { colors } from "./../constants/index.json";
 
 class Draggable extends Component {
   constructor(props) {
@@ -20,9 +19,9 @@ class Draggable extends Component {
       container: container
     };
     console.log(
-      "draggable dragstart ",
+      "dragstart, type:",
       type,
-      "class: ",
+      ", class[1]:",
       ev.target.classList[1]
     );
     if (ev.target.classList[1] !== type) return null;
@@ -31,7 +30,7 @@ class Draggable extends Component {
 
   // methods
   render() {
-    const { style, id, dropZone, type } = this.props;
+    const { style, dropZone, type } = this.props;
     return (
       <div
         className={dropZone + " " + type}

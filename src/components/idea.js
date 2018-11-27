@@ -92,7 +92,7 @@ class Idea extends Component {
         : null;
     var style = {
       background:
-        container.type == "BOARD" ? colors.board.idea : colors.idea.background,
+        container.type === "BOARD" ? colors.board.idea : colors.idea.background,
       ...styles.ideaBox,
       ...position
     };
