@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Draggable from "./draggable";
 import RenameableH6 from "./renameableH6";
-import { renderIdeas } from "./idea";
+import { renderIdeas } from "./";
 import { colors } from "./../constants/index.json";
 
 export const renderClusters = clusters => {
@@ -29,7 +29,7 @@ var styles = {
   }
 };
 
-export class Cluster extends Component {
+class Cluster extends Component {
   render() {
     const { id, position, ideas, name } = this.props;
     const sqrtUp = Math.round(Math.sqrt(ideas.length) + 0.49);
@@ -57,3 +57,4 @@ export class Cluster extends Component {
     );
   }
 }
+export default Cluster;

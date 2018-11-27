@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { renderIdeas } from "./idea";
-import { renderClusters } from "./cluster";
+import { renderIdeas, renderClusters } from "./";
 import { colors } from "./../constants/index.json";
-import { moveIdea } from "../actions/moveIdea";
-import { moveCluster } from "../actions/moveCluster";
+import { moveIdea, moveCluster } from "../actions";
 
 var styles = {
   board: {
@@ -20,10 +18,6 @@ var styles = {
 const mapDispatchToProps = dispatch => ({
   moveIdea: (...props) => dispatch(moveIdea(...props)),
   moveCluster: (...props) => dispatch(moveCluster(...props))
-});
-
-const mapStateToProps = state => ({
-  ...state
 });
 
 const getSinkFormTarget = target => {
@@ -104,6 +98,6 @@ class Board extends Component {
 }
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(Board);

@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Board from "./components/board";
-import Header from "./components/header";
-import MenuBar from "./components/menuBar";
-import IdeaStack from "./components/ideaStack";
+import { Board, Header, MenuBar, IdeaStack } from "./components";
 import CHI19S1_ideas from "./data/CHI19S1-ideas.json";
-
 import { loadIdeas, moveIdea } from "./actions";
+var FileSaver = require("file-saver");
 
 const mapStateToProps = state => ({
   ...state
@@ -27,6 +24,7 @@ class App extends Component {
     const nextIdeas = this.dataLoader(nextIndex, nextIndex + 5, CHI19S1_ideas);
     this.props.loadIdeas(nextIdeas);
   }
+
   dataLoader = (fromIndex, toIndex, JSON_DATA) => {
     const data = JSON_DATA.slice(fromIndex, toIndex);
     var ideas = data.map(idea => {
@@ -55,6 +53,23 @@ class App extends Component {
     this.props.loadIdeas(nextStack);
   };
 
+  handleDownloadState = event => {
+    const state = this.props.clusteringReducer;
+    let date = new Date();
+    var blob = new Blob([JSON.stringify(state, null, 4)], {
+      type: "application/json;charset=utf-8"
+    });
+    FileSaver.saveAs(
+      blob,
+      "Clustering-State-" +
+        date
+          .toGMTString()
+          .split(" ")
+          .join("-") +
+        ".json"
+    );
+  };
+
   render() {
     const { stackIdeas, boardIdeas, clusters } = this.props.clusteringReducer;
     return (
@@ -62,7 +77,10 @@ class App extends Component {
         <Header />
         <div className="row">
           <div className="col-auto">
-            <MenuBar handleNextIdeas={this.handleNextIdeas} />
+            <MenuBar
+              handleNextIdeas={this.handleNextIdeas}
+              handleDownloadState={this.handleDownloadState}
+            />
             <IdeaStack isTrash={false} nextIdeas={stackIdeas} />
             <IdeaStack isTrash={true} handleDropTrash={this.handleDropTrash} />
           </div>
