@@ -1,6 +1,6 @@
-export const loadIdeas = newideas => dispatch => {
+export const loadIdeas = newIdeas => dispatch => {
   dispatch({
     type: "LOAD_IDEAS",
-    ideas: newideas
+    ideas: newIdeas
   });
 };

@@ -6,7 +6,7 @@ import { colors } from "./../constants/index.json";
 export const renderClusters = clusters => {
   if (!clusters) return null;
   const clustersRender = clusters.map((cluster, i) => {
-    return <Cluster id={cluster.id} {...cluster} />;
+    return <Cluster key={cluster.id} {...cluster} />;
   });
   return clustersRender;
 };
@@ -40,7 +40,7 @@ export class Cluster extends Component {
     var style = {
       ...styles.clusterBox,
       ...pos,
-      ...{ width: 3 + 120 * sqrtUp, height: 120 * (sqrtUp - diff) + 50 }
+      ...{ width: 4 + 120 * sqrtUp, height: 120 * (sqrtUp - diff) + 50 }
     };
     const dropZone = "CLUSTER" + id;
     var displayIdeas = renderIdeas(

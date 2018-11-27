@@ -1,11 +1,9 @@
 var counter = 1;
 
 class Cluster {
-  constructor(position, ideas = [], height = 150, width = 300, id = false) {
+  constructor(position, ideas = [], id = false) {
     this.id = id ? id : counter++;
     this.position = position;
-    this.height = height;
-    this.width = width;
     this.ideas = ideas.map(idea => {
       return { ...idea, position: position };
     });

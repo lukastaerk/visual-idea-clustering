@@ -1,28 +1,14 @@
 import deepFreeze from "deep-freeze";
-import simpleReducer from "../reducers/simpleReducer";
 import clusteringReducer from "../reducers/clusteringReducer";
+import { moveIdea, moveCluster, loadIdeas } from "../actions";
 
-const testSimpleAction = () => {
-  const counterBefor = 0;
-  const action = {
-    type: "INCREMENT"
-  };
-  const counterAfter = 1;
-
-  expect(simpleReducer(counterBefor, action)).toEqual(counterAfter);
-};
-
-it("simple Increment Test", () => {
-  testSimpleAction();
-});
-
-it("add ideas to nextIdeas", () => {
+it("add ideas to stackIdeas", () => {
   expect(
-    loadIdeaReducer(
-      { stackIdeas: [1, 2, 3] },
+    clusteringReducer(
+      { stackIdeas: [1, 2, 3], nextIndex: 3 },
       { type: "LOAD_IDEAS", ideas: [5, 6] }
     )
-  ).toEqual({ stackIdeas: [1, 2, 3, 5, 6] });
+  ).toEqual({ stackIdeas: [1, 2, 3, 5, 6], nextIndex: 5 });
 });
 
 it("move idea on board", () => {
@@ -30,15 +16,17 @@ it("move idea on board", () => {
   const stateAfter = { boardIdeas: [{ id: 1, position: 2 }] };
   deepFreeze(stateBefor);
   deepFreeze(stateAfter);
-
   expect(
-    moveIdeaReducer(stateBefor, {
-      type: "MOVE_IDEA_BOARD_BOARD",
+    clusteringReducer(stateBefor, {
+      type: "MOVE_IDEA",
+      source: { type: "BOARD" },
+      sink: { type: "BOARD" },
       id: 1,
       position: 2
     })
   ).toEqual(stateAfter);
 });
+
 it("move idea from stack to board", () => {
   const stateBefor = {
     stackIdeas: [{ id: 2, position: 0 }],
@@ -50,10 +38,11 @@ it("move idea from stack to board", () => {
   };
   deepFreeze(stateBefor);
   deepFreeze(stateAfter);
-
   expect(
-    moveIdeaReducer(stateBefor, {
-      type: "MOVE_IDEA_STACK_BOARD",
+    clusteringReducer(stateBefor, {
+      type: "MOVE_IDEA",
+      source: { type: "STACK" },
+      sink: { type: "BOARD" },
       id: 2,
       position: 2
     })
