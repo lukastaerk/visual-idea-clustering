@@ -56,7 +56,7 @@ class App extends Component {
   handleDownloadState = event => {
     const state = this.props.clusteringReducer;
     let date = new Date();
-    var blob = new Blob([JSON.stringify(state, null, 4)], {
+    var blob = new Blob([JSON.stringify(state, null, 2)], {
       type: "application/json;charset=utf-8"
     });
     FileSaver.saveAs(
