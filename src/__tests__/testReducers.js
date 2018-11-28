@@ -1,7 +1,6 @@
 import deepFreeze from "deep-freeze";
 import clusteringReducer from "../reducers/clusteringReducer";
-import { moveIdea, moveCluster, loadIdeas } from "../actions";
-import Idea from "../models/idea";
+//import Idea from "../models/idea";
 import Cluster from "../models/cluster";
 import CHI19S1_ideas from "../data/CHI19S1-ideas.json";
 
