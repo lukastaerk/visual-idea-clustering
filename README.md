@@ -26,12 +26,13 @@
 To the Task to generate quality ideas out of many Input ideas of mostly lower quality, we define the following needs and requirements:
 
 - an overview over the ideas
-- put ideas together, similarity, relation
+- put ideas together in clsuters, similarity, relation
+- set them in reation across clusters, set **lables** on ideas
 - place ideas on a Board, to have an overview and to organize and sort ideas
 - put non-useful ideas away, aside
 - to have Clusters as Containers of ideas, to move them around as well
 - name Clusters
-- write text, create new "quality" ideas
+- write text, _create new "quality" ideas_, relate them to others
 - Search for ideas, with specific keywords
 - quick and easy moves ideas and clusters
 - work together with others on the same idea space:
