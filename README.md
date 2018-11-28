@@ -35,8 +35,8 @@ To the Task to generate quality ideas out of many Input ideas of mostly lower qu
 - Search for ideas, with specific keywords
 - quick and easy moves ideas and clusters
 - work together with others on the same idea space:
-  _ discuss ideas on the board and new ideas (every one should see the borad and read the ideas)
-  _ each one can access the App on the same state form their laptop
+  - discuss ideas on the board and new ideas (every one should see the borad and read the ideas)
+  - each one can access the App on the same state form their laptop
 
 ## Application
 
