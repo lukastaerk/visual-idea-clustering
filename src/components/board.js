@@ -12,7 +12,7 @@ var styles = {
     position: "relative",
     zIndex: 0
   },
-  container: { overflow: "auto", height: "100vh" }
+  container: { overflow: "auto", height: "90vh" }
 };
 
 const mapDispatchToProps = dispatch => ({

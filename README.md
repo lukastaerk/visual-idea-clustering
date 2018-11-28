@@ -1,4 +1,4 @@
-## Visual Idea Clustering
+## Visual idea Clustering
 
 ### Run:
 
@@ -19,13 +19,27 @@
 - [x] Drag and drop logik
 - [x] Dynamische Anzahl von Ideen
 - [x] Clustering Logik
+- [x] Rename Clusters
 - [ ] Zoomable Map of idea space, how to navigate on the map?
-- [ ] Export Button off Idea Space.
+- [x] Export Button off idea Space.
+
+To the Task to generate quality ideas out of many Input ideas of mostly lower quality, we define the following needs and requirements:
+
+- an overview over the ideas
+- put ideas together, similarity, relation
+- place ideas on a Board, to have an overview and to organize and sort ideas
+- put non-useful ideas away, aside
+- to have Clusters as Containers of ideas, to move them around as well
+- name Clusters
+- write text, create new "quality" ideas
+- Search for ideas, with specific keywords
+- quick and easy moves ideas and clusters
+- work together with others on the same idea space: - discuss ideas on the board and new ideas (every one should see the borad and read the ideas) - each one can access the App on the same state form their laptop
 
 ## Application
 
-- bring ideas in relation, find Clusters, summerize and fliter them to generate quality ideas from that.
+- bring ideas in relation, build Clusters, summerize and fliter them to generate quality ideas from that.
 
 ## View
 
-![](/public/ScreenshotVisualIdeaClustering.png)
+![Example](/public/ScreenshotVisualIdeaClustering.png)
