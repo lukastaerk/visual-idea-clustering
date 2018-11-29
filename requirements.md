@@ -1,4 +1,4 @@
-##Requirements
+## Requirements
 
 To the Task to generate quality ideas out of many Input ideas of mostly lower quality, we define the following needs and requirements:
 
