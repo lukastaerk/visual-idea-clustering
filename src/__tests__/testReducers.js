@@ -1,14 +1,20 @@
 import deepFreeze from "deep-freeze";
 import clusteringReducer from "../reducers/clusteringReducer";
-//import Idea from "../models/idea";
+import { moveIdea, moveCluster, loadIdeas, renameCluster } from "../actions";
 import Cluster from "../models/cluster";
 import CHI19S1_ideas from "../data/CHI19S1-ideas.json";
+
+const typeBoard = { type: "BOARD" };
+const typeStack = { type: "STACK" };
+const typeCluster = id => {
+  return { type: "CLUSTER", id };
+};
 
 it("add ideas to stackIdeas", () => {
   expect(
     clusteringReducer(
       { stackIdeas: [1, 2, 3], nextIndex: 3 },
-      { type: "LOAD_IDEAS", ideas: [5, 6] }
+      loadIdeas([5, 6])
     )
   ).toEqual({ stackIdeas: [1, 2, 3, 5, 6], nextIndex: 5 });
 });
@@ -19,13 +25,7 @@ it("move idea on board", () => {
   deepFreeze(stateBefor);
   deepFreeze(stateAfter);
   expect(
-    clusteringReducer(stateBefor, {
-      type: "MOVE_IDEA",
-      source: { type: "BOARD" },
-      sink: { type: "BOARD" },
-      id: 1,
-      position: 2
-    })
+    clusteringReducer(stateBefor, moveIdea(typeBoard, typeBoard, 1, 2))
   ).toEqual(stateAfter);
 });
 
@@ -41,13 +41,7 @@ it("move Idea from Stack to Board", () => {
   deepFreeze(stateBefor);
   deepFreeze(stateAfter);
   expect(
-    clusteringReducer(stateBefor, {
-      type: "MOVE_IDEA",
-      source: { type: "STACK" },
-      sink: { type: "BOARD" },
-      id: 2,
-      position: 2
-    })
+    clusteringReducer(stateBefor, moveIdea(typeStack, typeBoard, 2, 2))
   ).toEqual(stateAfter);
 });
 
@@ -67,12 +61,25 @@ it("move Idea from Cluster1 to Cluster2", () => {
     ]
   };
   expect(
-    clusteringReducer(stateBefor, {
-      type: "MOVE_IDEA",
-      source: { type: "CLUSTER", id: 1 },
-      sink: { type: "CLUSTER", id: 2 },
-      id: ideas[4].id,
-      position: p1
-    })
+    clusteringReducer(
+      stateBefor,
+      moveIdea(typeCluster(1), typeCluster(2), ideas[4].id, p1)
+    )
   ).toEqual(stateAfter);
+});
+
+it("rename Cluster eins", () => {
+  let p1 = { left: 2, top: 1 };
+  let p2 = { left: 1, top: 2 };
+  let c1 = new Cluster(p1, undefined, 1, "eins");
+  let c2 = new Cluster(p2, undefined, 2, "zwei");
+  let stateBefor = {
+    clusters: [c1, c2]
+  };
+  let stateAfter = {
+    clusters: [c2, { ...c1, name: "drei" }]
+  };
+  expect(clusteringReducer(stateBefor, renameCluster(1, "drei"))).toEqual(
+    stateAfter
+  );
 });
