@@ -20,12 +20,17 @@ var style = {
 
 class MenuBar extends Component {
   render() {
-    const { handleNextIdeas, handleDownloadState } = this.props;
+    const {
+      handleNextIdeas,
+      handleDownloadState,
+      handleResetState
+    } = this.props;
     return (
       <div style={style.box}>
         <div style={style.menu}>
           <ListItem name={"Next Ideas"} onClick={handleNextIdeas} />
           <ListItem name={"Download State"} onClick={handleDownloadState} />
+          <ListItem name={"Reset State"} onClick={handleResetState} />
         </div>
       </div>
     );

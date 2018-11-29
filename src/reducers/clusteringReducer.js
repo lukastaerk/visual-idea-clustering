@@ -1,9 +1,11 @@
 import Cluster from "../models/cluster";
-
-export default (
-  state = { stackIdeas: [], boardIdeas: [], clusters: [], nextIndex: 0 },
-  action
-) => {
+const initialState = {
+  stackIdeas: [],
+  boardIdeas: [],
+  clusters: [],
+  nextIndex: 0
+};
+export default (state = initialState, action) => {
   const { type } = action;
   var idea, newState, clusters, c;
   switch (type) {
@@ -30,6 +32,8 @@ export default (
       const { id: rnid, name: rnname } = action;
       [c, clusters] = removeElement(rnid, state.clusters);
       return { ...state, clusters: [...clusters, { ...c, name: rnname }] };
+    case "RESET_STATE":
+      return initialState;
     default:
       return state;
   }

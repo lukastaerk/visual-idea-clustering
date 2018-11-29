@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Board, Header, MenuBar, IdeaStack } from "./components";
 import CHI19S1_ideas from "./data/CHI19S1-ideas.json";
-import { loadIdeas, moveIdea } from "./actions";
+import { loadIdeas, moveIdea, resetState } from "./actions";
 var FileSaver = require("file-saver");
 
 const mapStateToProps = state => ({
@@ -11,7 +11,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   loadIdeas: (...props) => dispatch(loadIdeas(...props)),
-  moveIdea: (...props) => dispatch(moveIdea(...props))
+  moveIdea: (...props) => dispatch(moveIdea(...props)),
+  resetState: () => dispatch(resetState())
 });
 
 class App extends Component {
@@ -20,7 +21,8 @@ class App extends Component {
     this.boardRef = React.createRef();
   }
   componentDidMount() {
-    const { nextIndex } = this.props.clusteringReducer;
+    const { nextIndex, stackIdeas } = this.props.clusteringReducer;
+    if (stackIdeas.length !== 0) return null;
     const nextIdeas = this.dataLoader(nextIndex, nextIndex + 5, CHI19S1_ideas);
     this.props.loadIdeas(nextIdeas);
   }
@@ -45,11 +47,7 @@ class App extends Component {
     const { stackIdeas, nextIndex } = this.props.clusteringReducer;
     if (stackIdeas.length !== 0) return null; //when stack still holdes ideas don't give more ideas
 
-    const nextStack = this.dataLoader(
-      nextIndex + 5,
-      nextIndex + 10,
-      CHI19S1_ideas
-    );
+    const nextStack = this.dataLoader(nextIndex, nextIndex + 5, CHI19S1_ideas);
     this.props.loadIdeas(nextStack);
   };
 
@@ -80,6 +78,7 @@ class App extends Component {
             <MenuBar
               handleNextIdeas={this.handleNextIdeas}
               handleDownloadState={this.handleDownloadState}
+              handleResetState={this.props.resetState}
             />
             <IdeaStack isTrash={false} nextIdeas={stackIdeas} />
             <IdeaStack isTrash={true} handleDropTrash={this.handleDropTrash} />

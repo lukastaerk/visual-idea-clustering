@@ -24,7 +24,7 @@ const getSinkFormTarget = target => {
   if (target.classList[0].slice(0, 7) === "CLUSTER") {
     return {
       type: target.classList[0].slice(0, 7),
-      id: parseInt(target.classList[0].slice(7))
+      id: target.classList[0].slice(7)
     };
   } else if (target.classList[0].slice(0, 4) === "IDEA") {
     return {
@@ -59,7 +59,6 @@ class Board extends Component {
       left: event.clientX - x - left,
       top: event.clientY - y - top
     };
-    console.log("drop, type:", type);
     if (type === "idea") {
       let sink = getSinkFormTarget(event.target);
       if (sink.type === "IDEA" && sink.id === id) {

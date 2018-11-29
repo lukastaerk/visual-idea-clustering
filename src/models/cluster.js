@@ -1,8 +1,8 @@
-var counter = 1;
+import { v4 } from "uuid";
 
 class Cluster {
   constructor(position, ideas = [], id = false, name) {
-    this.id = id ? id : counter++;
+    this.id = id ? id : v4();
     this.name = name;
     this.position = position;
     this.ideas = ideas.map(idea => {

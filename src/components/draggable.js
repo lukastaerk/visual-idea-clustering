@@ -18,12 +18,6 @@ class Draggable extends Component {
       type: type,
       container: container
     };
-    console.log(
-      "dragstart, type:",
-      type,
-      ", class[1]:",
-      ev.target.classList[1]
-    );
     if (ev.target.classList[1] !== type) return null;
     ev.dataTransfer.setData("text", JSON.stringify(data));
   };
