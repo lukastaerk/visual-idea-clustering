@@ -18,19 +18,15 @@ var style = {
   }
 };
 
-class MenuBar extends Component {
-  render() {
-    const { handleNextIdeas, handleDownloadState } = this.props;
-    return (
-      <div style={style.box}>
-        <div style={style.menu}>
-          <ListItem name={"Next Ideas"} onClick={handleNextIdeas} />
-          <ListItem name={"Download State"} onClick={handleDownloadState} />
-        </div>
-      </div>
-    );
-  }
-}
+const MenuBar = ({ handleNextIdeas, handleDownloadState }) => (
+  <div style={style.box}>
+    <div style={style.menu}>
+      <ListItem name={"Next Ideas"} onClick={handleNextIdeas} />
+      <ListItem name={"Download State"} onClick={handleDownloadState} />
+    </div>
+  </div>
+);
+
 class ListItem extends Component {
   constructor(props) {
     super(props);

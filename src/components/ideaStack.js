@@ -29,7 +29,6 @@ var styles = {
 class IdeaStack extends Component {
   allowDrop = ev => {
     ev.preventDefault();
-    console.log(ev.type);
     if (ev.type === "drop") this.props.handleDropTrash(ev);
     ev.target.style.backgroundColor =
       ev.type === "dragover"

@@ -11,6 +11,11 @@ export const renderClusters = clusters => {
   });
   return clustersRender;
 };
+const getShape = length => {
+  let sqrtUp = Math.round(Math.sqrt(length) + 0.49);
+  let diff = parseInt((sqrtUp ** 2 - length) / sqrtUp);
+  return [sqrtUp, sqrtUp - diff];
+};
 
 var styles = {
   clusterBox: {
@@ -29,32 +34,28 @@ var styles = {
   }
 };
 
-class Cluster extends Component {
-  render() {
-    const { id, position, ideas, name } = this.props;
-    const sqrtUp = Math.round(Math.sqrt(ideas.length) + 0.49);
-    const diff = parseInt((sqrtUp ** 2 - ideas.length) / sqrtUp);
-    var style = {
-      ...styles.clusterBox,
-      ...position,
-      ...{ width: 4 + 120 * sqrtUp, height: 120 * (sqrtUp - diff) + 50 }
-    };
-    const dropZone = "CLUSTER" + id;
-    const container = { type: "CLUSTER", id: id };
-    var displayIdeas = renderIdeas(ideas, container, dropZone);
-    return (
-      <Draggable id={id} dropZone={dropZone} type={"cluster"} style={style}>
-        <div id={id} className={dropZone}>
-          <RenameableH6
-            container={container}
-            className={dropZone}
-            style={styles.h6}
-            name={name || "Cluster " + id}
-          />
-          {displayIdeas}
-        </div>
-      </Draggable>
-    );
-  }
-}
+const Cluster = ({ id, position, ideas, name }) => {
+  const [width, height] = getShape(ideas.length);
+  var style = {
+    ...styles.clusterBox,
+    ...position,
+    ...{ width: 4 + 120 * width, height: 120 * height + 50 }
+  };
+  const dropZone = "CLUSTER" + id;
+  const container = { type: "CLUSTER", id: id };
+  var displayIdeas = renderIdeas(ideas, container, dropZone);
+  return (
+    <Draggable id={id} dropZone={dropZone} type={"cluster"} style={style}>
+      <div id={id} className={dropZone}>
+        <RenameableH6
+          container={container}
+          className={dropZone}
+          style={styles.h6}
+          name={name || "Cluster " + id}
+        />
+        {displayIdeas}
+      </div>
+    </Draggable>
+  );
+};
 export default Cluster;

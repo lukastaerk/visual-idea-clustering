@@ -13,16 +13,12 @@ var styles = {
   }
 };
 
-class Header extends Component {
-  render() {
-    return (
-      <div className="row">
-        <div className="col" style={styles.header}>
-          <h2>{App_Name}</h2>
-        </div>
-      </div>
-    );
-  }
-}
+const Header = () => (
+  <div className="row">
+    <div className="col" style={styles.header}>
+      <h2>{App_Name}</h2>
+    </div>
+  </div>
+);
 
 export default Header;
