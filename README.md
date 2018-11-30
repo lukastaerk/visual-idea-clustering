@@ -23,22 +23,6 @@
 - [ ] Zoomable Map of idea space, how to navigate on the map?
 - [x] Export Button off idea Space.
 
-To the Task to generate quality ideas out of many Input ideas of mostly lower quality, we define the following needs and requirements:
-
-- an overview over the ideas
-- put ideas together in clsuters, similarity, relation
-- set them in reation across clusters, set **lables** on ideas
-- place ideas on a Board, to have an overview and to organize and sort ideas
-- put non-useful ideas away, aside
-- to have Clusters as Containers of ideas, to move them around as well
-- name Clusters
-- write text, _create new "quality" ideas_, relate them to others
-- Search for ideas, with specific keywords
-- quick and easy moves ideas and clusters
-- work together with others on the same idea space:
-  - discuss ideas on the board and new ideas (every one should see the borad and read the ideas)
-  - each one can access the App on the same state form their laptop
-
 ## Application
 
 - bring ideas in relation, build Clusters, summerize and fliter them to generate quality ideas from that.

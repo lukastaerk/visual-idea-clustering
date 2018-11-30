@@ -19,10 +19,13 @@ class RenameableH6 extends Component {
   };
 
   handleSaveName = event => {
-    const newName = event.target.value;
     if (event.key === "Enter") {
-      const { id } = this.props.container;
-      this.props.dispatch(renameCluster(id, newName));
+      const { value } = event.target;
+      const {
+        container: { id },
+        dispatch
+      } = this.props;
+      dispatch(renameCluster(id, value));
       return this.setState(prevState => {
         return {
           onRename: !prevState.onRename
@@ -32,14 +35,14 @@ class RenameableH6 extends Component {
   };
 
   render() {
-    const { style, className, name } = this.props;
+    let { style, className, name } = this.props;
     const { onRename } = this.state;
     var inputFeld = (
       <input
         type="text"
-        name="clusterName"
         placeholder={name}
         autoFocus
+        maxLength={24}
         onKeyPress={this.handleSaveName}
       />
     );

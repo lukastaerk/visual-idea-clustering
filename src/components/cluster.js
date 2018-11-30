@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Draggable from "./draggable";
 import RenameableH6 from "./renameableH6";
 import { renderIdeas } from "./";
@@ -51,11 +51,12 @@ const Cluster = ({ id, position, ideas, name }) => {
           container={container}
           className={dropZone}
           style={styles.h6}
-          name={name || "Cluster " + id}
+          name={name || "Cluster"}
         />
         {displayIdeas}
       </div>
     </Draggable>
   );
 };
+
 export default Cluster;

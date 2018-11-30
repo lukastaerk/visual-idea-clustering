@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { App_Name } from "./../constants/index.json";
 
 var styles = {
