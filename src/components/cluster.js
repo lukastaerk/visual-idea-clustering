@@ -49,7 +49,7 @@ class Cluster extends Component {
             container={container}
             className={dropZone}
             style={styles.h6}
-            name={name || "Cluster "}
+            name={name || "Cluster"}
           />
           {displayIdeas}
         </div>
