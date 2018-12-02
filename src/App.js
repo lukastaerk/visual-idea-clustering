@@ -21,10 +21,7 @@ class App extends Component {
     this.boardRef = React.createRef();
   }
   componentDidMount() {
-    const { nextIndex, stackIdeas } = this.props.clusteringReducer;
-    if (stackIdeas.length !== 0) return null;
-    const nextIdeas = this.dataLoader(nextIndex, nextIndex + 5, CHI19S1_ideas);
-    this.props.loadIdeas(nextIdeas);
+    this.handleNextIdeas();
   }
 
   dataLoader = (fromIndex, toIndex, JSON_DATA) => {
@@ -37,7 +34,7 @@ class App extends Component {
 
   handleDropTrash = ev => {
     ev.preventDefault();
-    var data = JSON.parse(ev.dataTransfer.getData("text"));
+    const data = JSON.parse(ev.dataTransfer.getData("text"));
     const { id, type, container } = data;
     if (type !== "idea") return null;
     this.props.moveIdea(container, { type: "TRASH" }, id);
