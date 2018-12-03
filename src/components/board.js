@@ -12,7 +12,10 @@ var styles = {
     position: "relative",
     zIndex: 0
   },
-  container: { overflow: "auto", height: "90vh" }
+  container: {
+    overflow: "auto",
+    height: "90vh"
+  }
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -73,6 +76,13 @@ class Board extends Component {
   };
 
   render() {
+    /*var headerHeight, header;
+    header = document.getElementById("header"); 
+    if(header){
+      headerHeight = header.clientHeight;
+    }
+    console.log("header height",headerHeight)
+    var container = {...styles.container, height: "calc(100vh-100px)"}*/
     const { boardIdeas, clusters } = this.props;
     const clustersDisplay = renderClusters(clusters);
     const ideasDisplay = renderIdeas(boardIdeas, { type: "BOARD" });
