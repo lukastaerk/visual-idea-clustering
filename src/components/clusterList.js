@@ -24,9 +24,7 @@ const Item = ({ id, name }) => {
   return (
     <DropZone sink={{ type: "CLUSTER", id: id }}>
       <div style={styles.item}>
-        <a href={`/linking-to-a-specific-scroll-position-on-a-web-page#${id}`}>
-          {name}
-        </a>
+        <a href={`#${id}`}>{name}</a>
       </div>
     </DropZone>
   );
