@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { renderIdeas, renderClusters } from "./";
 import { colors } from "./../constants/index.json";
 import { moveIdea, moveCluster } from "../actions";
+import { isEqual } from "lodash";
 
 var styles = {
   board: {
@@ -64,11 +65,12 @@ class Board extends Component {
     };
     if (type === "idea") {
       let sink = getSinkFormTarget(event.target);
+
       if (sink.type === "IDEA" && sink.id === id) {
         console.log(event);
         sink = { type: "BOARD" };
       }
-      if (container.type === "CLUSTER" && container === sink) return null;
+      if (container.type === "CLUSTER" && isEqual(container, sink)) return null;
       else this.props.moveIdea(container, sink, id, position);
     } else if (type === "cluster") {
       this.props.moveCluster(id, position);

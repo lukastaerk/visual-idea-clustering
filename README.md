@@ -22,6 +22,8 @@
 - [x] Rename Clusters, onDoubleClick on header. save onEnter.
 - [ ] Zoomable Map of idea space, how to navigate on the map?
 - [x] Export Button off idea Space.
+- [x] List of Clusters as DropZone to easily move ideas
+- [x] click on cluster list item to focus on that cluster on the map
 
 ## Application
 

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { renderIdeas } from "./idea";
 import { colors } from "./../constants/index.json";
 
@@ -26,42 +26,14 @@ var styles = {
   }
 };
 
-class IdeaStack extends Component {
-  allowDrop = ev => {
-    ev.preventDefault();
-    if (ev.type === "drop") this.props.handleDropTrash(ev);
-    ev.target.style.backgroundColor =
-      ev.type === "dragover"
-        ? colors.stack.warning
-        : styles.ideaStack.backgroundColor;
-  };
-
-  renderContainer = (isTrash, ideasDisplay = null) => {
-    if (isTrash) {
-      return (
-        <div
-          style={styles.ideaContainer}
-          onDrop={this.allowDrop}
-          onDragOver={this.allowDrop}
-          onDragLeave={this.allowDrop}
-        />
-      );
-    } else {
-      return <div style={styles.ideaContainer}>{ideasDisplay}</div>;
-    }
-  };
-
-  render() {
-    const { nextIdeas, isTrash } = this.props;
-    const ideasDisplay = renderIdeas(nextIdeas, { type: "STACK" }, "STACK");
-    const ideaContainer = this.renderContainer(isTrash, ideasDisplay);
-    return (
-      <div style={styles.ideaStack}>
-        <h6 style={styles.h6}>{isTrash ? "Idea Trash" : "Idea Stack"}</h6>
-        {ideaContainer}
-      </div>
-    );
-  }
-}
+const IdeaStack = ({ nextIdeas, name, type }) => {
+  const ideasDisplay = renderIdeas(nextIdeas, { type: type }, type);
+  return (
+    <div style={styles.ideaStack}>
+      <h6 style={styles.h6}>{name}</h6>
+      <div style={styles.ideaContainer}>{ideasDisplay}</div>
+    </div>
+  );
+};
 
 export default IdeaStack;

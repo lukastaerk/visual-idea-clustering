@@ -26,7 +26,8 @@ var styles = {
     touchAction: "none",
     cursor: "move",
     zIndex: 1,
-    margin: "0 auto"
+    margin: "0 auto",
+    overflow: "hidden"
   },
   h6: {
     textAlign: "center",

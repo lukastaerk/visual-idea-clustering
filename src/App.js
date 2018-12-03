@@ -1,8 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Board, Header, MenuBar, IdeaStack } from "./components";
+import {
+  Board,
+  Header,
+  MenuBar,
+  IdeaStack,
+  ClusterList,
+  DropZone
+} from "./components";
 import CHI19S1_ideas from "./data/CHI19S1-ideas.json";
-import { loadIdeas, moveIdea, resetState } from "./actions";
+import { loadIdeas, resetState } from "./actions";
 var FileSaver = require("file-saver");
 
 const mapStateToProps = state => ({
@@ -11,7 +18,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   loadIdeas: (...props) => dispatch(loadIdeas(...props)),
-  moveIdea: (...props) => dispatch(moveIdea(...props)),
   resetState: () => dispatch(resetState())
 });
 
@@ -30,14 +36,6 @@ class App extends Component {
       return { ...idea, position: { left: 0, top: 0 } };
     });
     return ideas.reverse();
-  };
-
-  handleDropTrash = ev => {
-    ev.preventDefault();
-    const data = JSON.parse(ev.dataTransfer.getData("text"));
-    const { id, type, container } = data;
-    if (type !== "idea") return null;
-    this.props.moveIdea(container, { type: "TRASH" }, id);
   };
 
   handleNextIdeas = () => {
@@ -77,8 +75,14 @@ class App extends Component {
               handleDownloadState={this.handleDownloadState}
               handleResetState={this.props.resetState}
             />
-            <IdeaStack isTrash={false} nextIdeas={stackIdeas} />
-            <IdeaStack isTrash={true} handleDropTrash={this.handleDropTrash} />
+            <IdeaStack
+              name={"Idea Stack"}
+              nextIdeas={stackIdeas}
+              type="STACK"
+            />
+            <DropZone sink={{ type: "TRASH" }}>
+              <IdeaStack name={"Idea Trash"} type="TRASH" />
+            </DropZone>
           </div>
           <div className="col container-fluid">
             <div className="row">
@@ -86,6 +90,9 @@ class App extends Component {
                 <Board boardIdeas={boardIdeas} clusters={clusters} />
               </div>
             </div>
+          </div>
+          <div className="col-auto">
+            <ClusterList clusters={clusters} />
           </div>
         </div>
       </div>
