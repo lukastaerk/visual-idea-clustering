@@ -1,31 +1,33 @@
 import React from "react";
 import { colors } from "../constants/index.json";
 import { DropZone } from "./";
+import Button from "@material-ui/core/Button";
 
 var styles = {
   item: {
-    border: "1px solid " + colors.idea.border,
-    background: colors.cluster.background,
-    margin: "0 auto"
+    background: colors.cluster.background
   },
   box: {
     margin: "0 auto",
     marginTop: 20,
-    borderRadius: 10,
+    borderRadius: 5,
     borderStyle: "solid",
     borderColor: colors.header.background,
     backgroundColor: colors.board.background,
-    maxWidth: 150,
-    overflow: "hidden"
+    maxWidth: 180,
+    overflow: "hidden",
+    textAlign: "center"
   }
 };
 
 const Item = ({ id, name }) => {
   return (
     <DropZone sink={{ type: "CLUSTER", id: id }}>
-      <div style={styles.item}>
-        <a href={`#${id}`}>{name}</a>
-      </div>
+      <a href={`#${id}`}>
+        <Button style={styles.item} variant="outlined" fullWidth={true}>
+          {name}
+        </Button>
+      </a>
     </DropZone>
   );
 };
