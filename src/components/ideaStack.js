@@ -5,8 +5,9 @@ import { colors } from "./../constants/index.json";
 var styles = {
   ideaStack: {
     position: "relative",
-    margin: "0 auto",
+    margin: "auto",
     marginTop: 20,
+    marginRight: 10,
     borderRadius: 10,
     borderStyle: "solid",
     borderColor: colors.header.background,

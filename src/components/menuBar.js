@@ -8,8 +8,7 @@ const styles = theme => ({
     margin: theme.spacing.unit / 2
   },
   box: {
-    margin: "0 auto",
-    width: 170
+    margin: "0px 10px 0px 0px"
   }
 });
 

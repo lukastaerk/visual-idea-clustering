@@ -7,15 +7,15 @@ import { isEqual } from "lodash";
 
 var styles = {
   board: {
-    width: "150%",
-    height: "150vh",
+    width: 2000,
+    height: 2000,
     background: colors.board.background,
     position: "relative",
     zIndex: 0
   },
   container: {
     overflow: "auto",
-    height: "90vh"
+    height: "calc(100vh - 80px)"
   }
 };
 
@@ -78,13 +78,6 @@ class Board extends Component {
   };
 
   render() {
-    /*var headerHeight, header;
-    header = document.getElementById("header"); 
-    if(header){
-      headerHeight = header.clientHeight;
-    }
-    console.log("header height",headerHeight)
-    var container = {...styles.container, height: "calc(100vh-100px)"}*/
     const { boardIdeas, clusters } = this.props;
     const clustersDisplay = renderClusters(clusters);
     const ideasDisplay = renderIdeas(boardIdeas, { type: "BOARD" });

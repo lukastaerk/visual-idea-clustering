@@ -10,6 +10,7 @@ var styles = {
   box: {
     margin: "0 auto",
     marginTop: 20,
+    marginLeft: 10,
     borderRadius: 5,
     borderStyle: "solid",
     borderColor: colors.header.background,
@@ -33,9 +34,15 @@ const Item = ({ id, name }) => {
 };
 
 const ClusterList = ({ clusters }) => {
-  var clusterList = clusters.map(c => (
-    <Item key={"list" + c.id} name={c.name || "unnamed"} id={c.id} />
-  ));
+  var clusterList = clusters
+    .sort((a, b) => {
+      if (!a.name) return true; //undefined at the end of the list
+      if (!b.name) return false;
+      else return a.name.toLowerCase() > b.name.toLowerCase();
+    })
+    .map(c => (
+      <Item key={"list" + c.id} name={c.name || "unnamed"} id={c.id} />
+    ));
   return (
     <div style={styles.box}>
       <h6>Clusters on Board</h6>

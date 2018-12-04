@@ -11,9 +11,9 @@ export default (state = initialState, action) => {
   switch (type) {
     case "MOVE_IDEA":
       const { source, sink, id, position } = action;
-      [idea, newState] = removeIdea(state, source, id);
+      [idea, newState] = removeIdeaFromSource(state, source, id);
       if (!newState) return state;
-      newState = dropIdea(newState, sink, idea, position);
+      newState = addIdeaToSink(newState, sink, idea, position);
       if (!newState) return state;
       return newState;
     case "LOAD_IDEAS":
@@ -48,7 +48,7 @@ function removeElement(id, array) {
   let resultArray = [...array.slice(0, index), ...array.slice(index + 1)];
   return [array[index], resultArray];
 }
-function removeIdea(state, source, id) {
+function removeIdeaFromSource(state, source, id) {
   let boardIdeas, stackIdeas, clusters, idea, cluster, ideaList;
   switch (source.type) {
     case "BOARD":
@@ -72,7 +72,7 @@ function removeIdea(state, source, id) {
   }
 }
 
-function dropIdea(state, sink, idea, p) {
+function addIdeaToSink(state, sink, idea, p) {
   let boardIdeas, clusters, cluster, idea2;
   switch (sink.type) {
     case "BOARD":
@@ -88,7 +88,6 @@ function dropIdea(state, sink, idea, p) {
         ...cluster,
         ideas: [...cluster.ideas, { ...idea, position: cluster.position }]
       };
-      //cluster.addIdea(idea);
       return { ...state, clusters: [...clusters, cluster] };
     case "IDEA":
       [idea2, boardIdeas] = removeElement(sink.id, state.boardIdeas);

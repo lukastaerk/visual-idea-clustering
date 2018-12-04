@@ -22,10 +22,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.boardRef = React.createRef();
-  }
   componentDidMount() {
     this.handleNextIdeas();
   }
@@ -68,8 +64,8 @@ class App extends Component {
     return (
       <div className="container-fluid">
         <Header />
-        <div className="row">
-          <div className="col-auto">
+        <div className="d-flex flex-row">
+          <div className="float-left" style={{ width: 180 }}>
             <MenuBar
               handleNextIdeas={this.handleNextIdeas}
               handleDownloadState={this.handleDownloadState}
@@ -84,14 +80,8 @@ class App extends Component {
               <IdeaStack name={"Idea Trash"} type="TRASH" />
             </DropZone>
           </div>
-          <div className="col container-fluid">
-            <div className="row">
-              <div className="col-12 board" ref={this.boardRef}>
-                <Board boardIdeas={boardIdeas} clusters={clusters} />
-              </div>
-            </div>
-          </div>
-          <div className="col-auto">
+          <Board boardIdeas={boardIdeas} clusters={clusters} />
+          <div className="float-right">
             <ClusterList clusters={clusters} />
           </div>
         </div>
