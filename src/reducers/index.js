@@ -1,6 +1,13 @@
-import { combineReducers } from "redux";
+//import { combineReducers } from "redux";
 import clusteringReducer from "./clusteringReducer";
+import undoable, { distinctState } from "redux-undo";
 
-export default combineReducers({
+/*const reducer = combineReducers({
   clusteringReducer
+});*/
+
+const undoableReducer = undoable(clusteringReducer, {
+  filter: distinctState()
 });
+
+export default undoableReducer;

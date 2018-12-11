@@ -7,7 +7,6 @@ export const renderIdeas = (ideas, container, dropZone) => {
   const ideasRender = ideas.map((idea, i) => {
     return (
       <Idea
-        position={idea.position}
         container={container}
         dropZone={dropZone ? dropZone : "IDEA" + idea.id}
         key={idea.id}
@@ -21,7 +20,7 @@ export const renderIdeas = (ideas, container, dropZone) => {
 function ellipsizeTextBox(id) {
   var textHeight = 0;
   var el = document.getElementById(id);
-  if (!el) return { textHeight: null, text: null };
+  if (!el) return { textHeight: undefined, text: undefined };
   var text = el.innerHTML;
   var wordArray = el.innerHTML.split(" ");
   textHeight = el.scrollHeight;
@@ -30,7 +29,7 @@ function ellipsizeTextBox(id) {
     text = wordArray.join(" ") + "...";
     el.innerHTML = text;
   }
-  return { textHeight: textHeight, text: text };
+  return { textHeight, text };
 }
 
 var styles = {
@@ -69,10 +68,13 @@ class Idea extends Component {
   }
 
   componentDidMount() {
-    const { textHeight, text } = ellipsizeTextBox("des" + this.props.data.id);
+    const { textHeight, text } = ellipsizeTextBox(
+      "description" + this.props.data.id
+    );
     this.setState({
       textHeight: textHeight,
-      ellipText: text
+      ellipText: text,
+      hasOnClick: textHeight > styles.description.maxHeight
     });
   }
 
@@ -83,49 +85,48 @@ class Idea extends Component {
   };
 
   render() {
-    const { data, position, container, dropZone } = this.props;
-    const { displayFull, textHeight, ellipText } = this.state;
+    const {
+      data: { position, id, description },
+      container,
+      dropZone
+    } = this.props;
+    const { displayFull, textHeight, ellipText, hasOnClick } = this.state;
 
-    const handleDisplayFullText =
-      this.state.textHeight > styles.description.maxHeight
-        ? this.handleDisplayFullText
-        : null;
     var style = {
-      background:
-        container.type === "BOARD" ? colors.board.idea : colors.idea.background,
       ...styles.ideaBox,
-      ...position
+      ...position,
+      background: colors.idea.default
     };
+
+    if (container.type === "BOARD") {
+      style = { ...style, background: colors.idea.onBoard };
+    }
     if (container.type === "CLUSTER") {
       style = { ...style, ...styles.inCluster };
     }
 
+    var text = ellipText && !displayFull ? ellipText : description;
     var styleTextBox = styles.description;
-    var description = ellipText ? ellipText : data.description;
     if (displayFull) {
-      style.height = style.height + textHeight - 80;
-      styleTextBox = { maxHeight: textHeight, fontSize: 10 };
-      description = data.description;
+      style.height = style.height + textHeight - styles.description.maxHeight;
+      styleTextBox = { ...styleTextBox, maxHeight: textHeight };
     }
     return (
       <Draggable
-        id={data.id}
+        id={id}
         dropZone={dropZone}
         type={"idea"}
         container={container}
         style={style}
       >
-        <div className={dropZone}>
-          <h6 className={dropZone} style={styles.h6}>
-            {"Idea " + data.id}
-          </h6>
+        <div>
+          <h6 style={styles.h6}>{"Idea " + id}</h6>
           <div
-            className={dropZone}
-            id={"des" + data.id}
+            id={"description" + id}
             style={styleTextBox}
-            onClick={handleDisplayFullText}
+            onClick={hasOnClick ? this.handleDisplayFullText : null}
           >
-            {description}
+            {text}
           </div>
         </div>
       </Draggable>

@@ -47,10 +47,9 @@ const Cluster = ({ id, position, ideas, name }) => {
   var displayIdeas = renderIdeas(ideas, container, dropZone);
   return (
     <Draggable id={id} dropZone={dropZone} type={"cluster"} style={style}>
-      <div id={id} className={dropZone}>
+      <div id={id}>
         <RenameableH6
           container={container}
-          className={dropZone}
           style={styles.h6}
           name={name || "Cluster"}
         />

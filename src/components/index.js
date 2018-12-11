@@ -6,6 +6,7 @@ import MenuBar from "./menuBar";
 import IdeaStack from "./ideaStack";
 import ClusterList from "./clusterList";
 import DropZone from "./dropZone";
+import UndoRedo from "./undoRedo";
 
 export {
   Idea,
@@ -17,5 +18,6 @@ export {
   MenuBar,
   IdeaStack,
   ClusterList,
-  DropZone
+  DropZone,
+  UndoRedo
 };

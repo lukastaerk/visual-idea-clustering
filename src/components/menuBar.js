@@ -2,6 +2,7 @@ import React from "react";
 //import { colors } from "./../constants/index.json";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import { UndoRedo } from "./";
 
 const styles = theme => ({
   button: {
@@ -19,6 +20,7 @@ const MenuBar = ({
   classes
 }) => (
   <div className={classes.box}>
+    <UndoRedo />
     <Button
       className={classes.button}
       fullWidth={true}

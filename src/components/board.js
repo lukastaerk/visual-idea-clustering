@@ -25,18 +25,24 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const getSinkFormTarget = target => {
-  if (target.classList[0].slice(0, 7) === "CLUSTER") {
-    return {
-      type: target.classList[0].slice(0, 7),
-      id: target.classList[0].slice(7)
-    };
-  } else if (target.classList[0].slice(0, 4) === "IDEA") {
-    return {
-      type: target.classList[0].slice(0, 4),
-      id: parseInt(target.classList[0].slice(4))
-    };
+  let className = target.classList[0];
+  if (!className) {
+    return getSinkFormTarget(target.parentElement);
   }
-  return { type: target.classList[0] };
+  if (className.slice(0, 7) === "CLUSTER") {
+    return {
+      type: className.slice(0, 7),
+      id: className.slice(7)
+    };
+  } else if (className.slice(0, 4) === "IDEA") {
+    return {
+      type: className.slice(0, 4),
+      id: parseInt(className.slice(4))
+    };
+  } else if (className === "BOARD") {
+    return { type: className };
+  }
+  return getSinkFormTarget(target.parentElement);
 };
 
 class Board extends Component {

@@ -13,7 +13,7 @@ import { loadIdeas, resetState } from "./actions";
 var FileSaver = require("file-saver");
 
 const mapStateToProps = state => ({
-  ...state
+  ...state.present
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -35,15 +35,14 @@ class App extends Component {
   };
 
   handleNextIdeas = () => {
-    const { stackIdeas, nextIndex } = this.props.clusteringReducer;
+    const { stackIdeas, nextIndex } = this.props;
     if (stackIdeas.length !== 0) return null; //when stack still holdes ideas don't give more ideas
-
     const nextStack = this.dataLoader(nextIndex, nextIndex + 5, CHI19S1_ideas);
     this.props.loadIdeas(nextStack);
   };
 
   handleDownloadState = event => {
-    const state = this.props.clusteringReducer;
+    const state = this.props;
     let date = new Date();
     var blob = new Blob([JSON.stringify(state, null, 2)], {
       type: "application/json;charset=utf-8"
@@ -60,7 +59,7 @@ class App extends Component {
   };
 
   render() {
-    const { stackIdeas, boardIdeas, clusters } = this.props.clusteringReducer;
+    const { stackIdeas, boardIdeas, clusters } = this.props;
     return (
       <div className="container-fluid">
         <Header />
