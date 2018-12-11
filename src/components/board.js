@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { renderIdeas, renderClusters } from "./";
-import { colors } from "./../constants/index.json";
 import { moveIdea, moveCluster } from "../actions";
 import { isEqual } from "lodash";
+import { boardColor } from "./../constants/color";
 
 var styles = {
   board: {
     width: 2000,
     height: 2000,
-    background: colors.board.background,
+    background: boardColor,
     position: "relative",
     zIndex: 0
   },

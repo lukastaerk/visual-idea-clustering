@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Draggable from "./draggable";
-import { colors } from "./../constants/index.json";
+//import { colors } from "./../constants/index.json";
+import { ideaColor, borderColor } from "./../constants/color";
 
 export const renderIdeas = (ideas, container, dropZone) => {
   if (!ideas) return null;
@@ -36,7 +37,7 @@ var styles = {
   ideaBox: {
     position: "absolute",
     borderRadius: 10,
-    border: "2px solid " + colors.idea.border,
+    border: "2px solid " + borderColor,
     width: 120,
     height: 120,
     cursor: "move",
@@ -95,11 +96,11 @@ class Idea extends Component {
     var style = {
       ...styles.ideaBox,
       ...position,
-      background: colors.idea.default
+      background: ideaColor
     };
 
     if (container.type === "BOARD") {
-      style = { ...style, background: colors.idea.onBoard };
+      style = { ...style, background: ideaColor };
     }
     if (container.type === "CLUSTER") {
       style = { ...style, ...styles.inCluster };

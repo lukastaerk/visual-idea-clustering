@@ -2,7 +2,7 @@ import React from "react";
 import Draggable from "./draggable";
 import RenameableH6 from "./renameableH6";
 import { renderIdeas } from "./";
-import { colors } from "./../constants/index.json";
+import { clusterColor, borderColor } from "./../constants/color";
 
 export const renderClusters = clusters => {
   if (!clusters) return null;
@@ -21,8 +21,8 @@ var styles = {
   clusterBox: {
     position: "absolute",
     borderRadius: 10,
-    border: "2px solid " + colors.idea.border,
-    background: colors.cluster.background,
+    border: "2px solid " + borderColor,
+    background: clusterColor,
     touchAction: "none",
     cursor: "move",
     zIndex: 1,

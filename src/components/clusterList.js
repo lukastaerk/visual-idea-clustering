@@ -2,10 +2,11 @@ import React from "react";
 import { colors } from "../constants/index.json";
 import { DropZone } from "./";
 import Button from "@material-ui/core/Button";
+import { clusterColor, button } from "./../constants/color";
 
 var styles = {
   item: {
-    background: colors.cluster.background
+    background: clusterColor
   },
   box: {
     margin: "0 auto",
@@ -14,7 +15,8 @@ var styles = {
     borderRadius: 5,
     borderStyle: "solid",
     borderColor: colors.header.background,
-    backgroundColor: colors.board.background,
+    backgroundColor: button.main,
+    color: button.text,
     maxWidth: 180,
     overflow: "hidden",
     textAlign: "center"

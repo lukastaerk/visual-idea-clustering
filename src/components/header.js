@@ -19,7 +19,7 @@ const Header = () => (
     <div className="col" style={styles.header}>
       <h2>{App_Name}</h2>
     </div>
-    <div className="col-auto">
+    <div className="col-auto" style={{ background: "white" }}>
       <img alt="logo" height="80" src={logoI2M} />
     </div>
   </div>

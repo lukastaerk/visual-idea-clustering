@@ -1,8 +1,12 @@
 {
   "App_Name": "Visual Idea Clustering",
   "colors": {
+    "green": "rgb(48, 255, 30)",
+    "greenOpacity": "rgba(48, 255, 30, 0.5)",
+    "yellow": "rgb(255, 214, 0)",
+    "yellowOpacity": "rgba(255, 214, 0, 0.5)",
     "board": {
-      "background": "#ddd"
+      "background": "#f9f9f9"
     },
     "idea": {
       "default": "rgb(95, 204, 122)",

@@ -10,6 +10,7 @@ import {
 } from "./components";
 import CHI19S1_ideas from "./data/CHI19S1-ideas.json";
 import { loadIdeas, resetState } from "./actions";
+import { backgroundColor } from "./constants/color";
 var FileSaver = require("file-saver");
 
 const mapStateToProps = state => ({
@@ -61,7 +62,7 @@ class App extends Component {
   render() {
     const { stackIdeas, boardIdeas, clusters } = this.props;
     return (
-      <div className="container-fluid">
+      <div className="container-fluid" style={{ background: backgroundColor }}>
         <Header />
         <div className="d-flex flex-row">
           <div className="float-left" style={{ width: 180 }}>

@@ -1,6 +1,7 @@
 import React from "react";
 import { renderIdeas } from "./idea";
 import { colors } from "./../constants/index.json";
+import { button } from "../constants/color";
 
 var styles = {
   ideaStack: {
@@ -13,7 +14,7 @@ var styles = {
     borderColor: colors.header.background,
     width: 150,
     height: 170,
-    backgroundColor: colors.board.background
+    backgroundColor: button.main
   },
   ideaContainer: {
     position: "relative",
@@ -22,7 +23,7 @@ var styles = {
     height: 120
   },
   h6: {
-    color: colors.header.background,
+    color: button.text,
     textAlign: "center"
   }
 };
