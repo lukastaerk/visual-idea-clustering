@@ -13,7 +13,7 @@ var styles = {
     marginTop: 20,
     marginLeft: 10,
     borderRadius: 5,
-    borderStyle: "solid",
+    border: "1px solid",
     borderColor: colors.header.background,
     backgroundColor: button.main,
     color: button.text,

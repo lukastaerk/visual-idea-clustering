@@ -1,12 +1,17 @@
-import amber from "@material-ui/core/colors/amber";
-import indigo from "@material-ui/core/colors/indigo";
+import primary from "@material-ui/core/colors/amber";
+import secondary from "@material-ui/core/colors/grey";
 
-const ideaColor = amber[300];
-const clusterColor = amber[600];
-const boardColor = amber[50];
-const borderColor = amber[800];
-const backgroundColor = indigo[100];
-const button = { main: indigo[600], dark: indigo[900], text: "#fff" };
+const ideaColor = primary[100];
+const clusterColor = primary[300];
+const boardColor = secondary[50];
+const borderColor = primary[500];
+const backgroundColor = "#fff";
+const button = { main: secondary[100], dark: secondary[100], text: "#000" };
+const header = {
+  color: "#fff",
+  textColor: secondary[900],
+  border: clusterColor
+};
 
 export {
   ideaColor,
@@ -14,5 +19,6 @@ export {
   boardColor,
   borderColor,
   backgroundColor,
-  button
+  button,
+  header
 };

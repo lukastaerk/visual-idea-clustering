@@ -13,7 +13,7 @@ const styles = theme => ({
 });
 
 let UndoRedo = ({ canUndo, canRedo, onUndo, onRedo, classes }) => (
-  <p>
+  <div>
     <Button
       className={classes.button}
       variant="outlined"
@@ -30,7 +30,7 @@ let UndoRedo = ({ canUndo, canRedo, onUndo, onRedo, classes }) => (
     >
       Redo
     </Button>
-  </p>
+  </div>
 );
 
 const mapStateToProps = state => {
