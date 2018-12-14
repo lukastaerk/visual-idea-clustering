@@ -27,4 +27,16 @@ const resetState = () => ({
   type: "RESET_STATE"
 });
 
-export { moveIdea, moveCluster, loadIdeas, renameCluster, resetState };
+const setActiveIdea = id => ({
+  type: "SET_ACTIVE_IDEA",
+  id
+});
+
+export {
+  moveIdea,
+  moveCluster,
+  loadIdeas,
+  renameCluster,
+  resetState,
+  setActiveIdea
+};

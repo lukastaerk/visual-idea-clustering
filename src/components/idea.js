@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { setActiveIdea } from "../actions";
 import Draggable from "./draggable";
-//import { colors } from "./../constants/index.json";
 import { ideaColor, borderColor } from "./../constants/color";
 
 export const renderIdeas = (ideas, container, dropZone) => {
@@ -75,33 +76,38 @@ class Idea extends Component {
     this.setState({
       textHeight: textHeight,
       ellipText: text,
-      hasOnClick: textHeight > styles.description.maxHeight
+      hasEllipText: textHeight > styles.description.maxHeight
     });
   }
-
-  handleDisplayFullText = ev => {
-    this.setState(prevState => {
-      return { displayFull: !prevState.displayFull };
-    });
+  handleOnClick = ev => {
+    const {
+      boundSetActiveIdea,
+      data: { id }
+    } = this.props;
+    if (this.state.hasEllipText) {
+      this.setState(prevState => {
+        return { displayFull: !prevState.displayFull };
+      });
+    }
+    boundSetActiveIdea(id);
   };
 
   render() {
     const {
       data: { position, id, description },
       container,
-      dropZone
+      dropZone,
+      activeIdea
     } = this.props;
-    const { displayFull, textHeight, ellipText, hasOnClick } = this.state;
-
+    const { displayFull, textHeight, ellipText } = this.state;
     var style = {
       ...styles.ideaBox,
       ...position,
-      background: ideaColor
+      background: activeIdea === id ? "white" : ideaColor
     };
-
-    if (container.type === "BOARD") {
+    /*if (container.type === "BOARD") {
       style = { ...style, background: ideaColor };
-    }
+    }*/
     if (container.type === "CLUSTER") {
       style = { ...style, ...styles.inCluster };
     }
@@ -119,14 +125,11 @@ class Idea extends Component {
         type={"idea"}
         container={container}
         style={style}
+        onClick={this.handleOnClick}
       >
         <div>
           <h6 style={styles.h6}>{"Idea " + id}</h6>
-          <div
-            id={"description" + id}
-            style={styleTextBox}
-            onClick={hasOnClick ? this.handleDisplayFullText : null}
-          >
+          <div id={"description" + id} style={styleTextBox}>
             {text}
           </div>
         </div>
@@ -134,5 +137,17 @@ class Idea extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  activeIdea: state.activeIdea
+});
+const mapDispatchToProps = dispatch => ({
+  boundSetActiveIdea: id => dispatch(setActiveIdea(id))
+});
+
+Idea = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Idea);
 
 export default Idea;

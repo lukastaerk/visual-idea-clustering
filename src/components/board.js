@@ -85,8 +85,6 @@ class Board extends Component {
 
   render() {
     const { boardIdeas, clusters } = this.props;
-    const clustersDisplay = renderClusters(clusters);
-    const ideasDisplay = renderIdeas(boardIdeas, { type: "BOARD" });
     return (
       <div style={styles.container}>
         <div style={styles.board}>
@@ -98,8 +96,8 @@ class Board extends Component {
             onDrop={this.handleDrop}
             onDragOver={this.allowDrop}
           >
-            {ideasDisplay}
-            {clustersDisplay}
+            {renderIdeas(boardIdeas, { type: "BOARD" })}
+            {renderClusters(clusters)}
           </div>
         </div>
       </div>

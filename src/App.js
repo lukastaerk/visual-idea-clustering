@@ -13,15 +13,6 @@ import { loadIdeas, resetState } from "./actions";
 import { backgroundColor } from "./constants/color";
 var FileSaver = require("file-saver");
 
-const mapStateToProps = state => ({
-  ...state.present
-});
-
-const mapDispatchToProps = dispatch => ({
-  loadIdeas: (...props) => dispatch(loadIdeas(...props)),
-  resetState: () => dispatch(resetState())
-});
-
 class App extends Component {
   componentDidMount() {
     this.handleNextIdeas();
@@ -60,7 +51,7 @@ class App extends Component {
   };
 
   render() {
-    const { stackIdeas, boardIdeas, clusters } = this.props;
+    const { stackIdeas, boardIdeas, clusters, activeIdea } = this.props;
     return (
       <div className="container-fluid" style={{ background: backgroundColor }}>
         <Header />
@@ -80,7 +71,11 @@ class App extends Component {
               <IdeaStack name={"Idea Trash"} type="TRASH" />
             </DropZone>
           </div>
-          <Board boardIdeas={boardIdeas} clusters={clusters} />
+          <Board
+            boardIdeas={boardIdeas}
+            clusters={clusters}
+            activeIdea={activeIdea}
+          />
           <div className="float-right">
             <ClusterList clusters={clusters} />
           </div>
@@ -89,6 +84,15 @@ class App extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  ...state.clustering.present
+});
+
+const mapDispatchToProps = dispatch => ({
+  loadIdeas: (...props) => dispatch(loadIdeas(...props)),
+  resetState: () => dispatch(resetState())
+});
 
 export default connect(
   mapStateToProps,
