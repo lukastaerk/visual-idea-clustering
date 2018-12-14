@@ -1,36 +1,17 @@
 import React from "react";
 import { ActionCreators as UndoActionCreators } from "redux-undo";
 import { connect } from "react-redux";
-import { withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import { button } from "../constants/color";
-
-const styles = theme => ({
-  button: {
-    background: button.dark,
-    color: button.text
-  }
-});
+import { Button } from "../styledComponents";
 
 let UndoRedo = ({ canUndo, canRedo, onUndo, onRedo, classes }) => (
-  <div>
-    <Button
-      className={classes.button}
-      variant="outlined"
-      onClick={onUndo}
-      disabled={!canUndo}
-    >
+  <p>
+    <Button onClick={onUndo} disabled={!canUndo} fullWidth={false}>
       Undo
     </Button>
-    <Button
-      className={classes.button}
-      variant="outlined"
-      onClick={onRedo}
-      disabled={!canRedo}
-    >
+    <Button onClick={onRedo} disabled={!canRedo} fullWidth={false}>
       Redo
     </Button>
-  </div>
+  </p>
 );
 
 const mapStateToProps = state => {
@@ -52,4 +33,4 @@ UndoRedo = connect(
   mapDispatchToProps
 )(UndoRedo);
 
-export default withStyles(styles)(UndoRedo);
+export default UndoRedo;

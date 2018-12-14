@@ -1,18 +1,5 @@
 import React from "react";
-//import { colors } from "./../constants/index.json";
-import { withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import { button } from "../constants/color";
-
-const styles = theme => ({
-  button: {
-    background: button.main,
-    color: button.text
-  },
-  box: {
-    margin: "0px 10px 0px 0px"
-  }
-});
+import { Button } from "../styledComponents";
 
 const MenuBar = ({
   handleNextIdeas,
@@ -20,32 +7,11 @@ const MenuBar = ({
   handleResetState,
   classes
 }) => (
-  <div className={classes.box}>
-    <Button
-      className={classes.button}
-      fullWidth={true}
-      variant="outlined"
-      onClick={handleNextIdeas}
-    >
-      {"Next Ideas"}
-    </Button>
-    <Button
-      className={classes.button}
-      fullWidth={true}
-      variant="outlined"
-      onClick={handleDownloadState}
-    >
-      {"Download State"}
-    </Button>
-    <Button
-      className={classes.button}
-      fullWidth={true}
-      variant="outlined"
-      onClick={handleResetState}
-    >
-      {"Reset State"}
-    </Button>
+  <div style={{ marginRight: 10 }}>
+    <Button onClick={handleNextIdeas}>{"Next Ideas"}</Button>
+    <Button onClick={handleDownloadState}>{"Download State"}</Button>
+    <Button onClick={handleResetState}>{"Reset State"}</Button>
   </div>
 );
 
-export default withStyles(styles)(MenuBar);
+export default MenuBar;

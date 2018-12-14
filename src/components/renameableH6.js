@@ -37,21 +37,25 @@ class RenameableH6 extends Component {
   render() {
     let { style, className, name } = this.props;
     const { onRename } = this.state;
-    var inputFeld = (
-      <input
-        type="text"
-        placeholder={name}
-        autoFocus
-        maxLength={24}
-        onKeyPress={this.handleSaveName}
-      />
-    );
-
     return (
       <h6 style={style} className={className} onDoubleClick={this.handleRename}>
-        {onRename ? inputFeld : name}
+        {onRename ? (
+          <Input name={name} handleSaveName={this.handleSaveName} />
+        ) : (
+          name
+        )}
       </h6>
     );
   }
 }
+
+const Input = ({ name, handleSaveName }) => (
+  <input
+    type="text"
+    defaultValue={name}
+    autoFocus
+    maxLength={24}
+    onKeyPress={handleSaveName}
+  />
+);
 export default connect()(RenameableH6);
