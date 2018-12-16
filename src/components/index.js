@@ -7,6 +7,7 @@ import IdeaStack from "./ideaStack";
 import ClusterList from "./clusterList";
 import DropZone from "./dropZone";
 import UndoRedo from "./undoRedo";
+import ActiveIdea from "./activeIdea";
 
 export {
   Idea,
@@ -19,5 +20,6 @@ export {
   IdeaStack,
   ClusterList,
   DropZone,
-  UndoRedo
+  UndoRedo,
+  ActiveIdea
 };

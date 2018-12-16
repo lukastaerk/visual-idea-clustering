@@ -6,7 +6,8 @@ import {
   MenuBar,
   IdeaStack,
   ClusterList,
-  DropZone
+  DropZone,
+  ActiveIdea
 } from "./components";
 import CHI19S1_ideas from "./data/CHI19S1-ideas.json";
 import { loadIdeas, resetState } from "./actions";
@@ -71,13 +72,10 @@ class App extends Component {
               <IdeaStack name={"Idea Trash"} type="TRASH" />
             </DropZone>
           </div>
-          <Board
-            boardIdeas={boardIdeas}
-            clusters={clusters}
-            activeIdea={activeIdea}
-          />
-          <div className="float-right">
+          <Board boardIdeas={boardIdeas} clusters={clusters} />
+          <div className="float-right" style={{ width: 400 }}>
             <ClusterList clusters={clusters} />
+            {activeIdea ? <ActiveIdea {...activeIdea} /> : null}
           </div>
         </div>
       </div>
@@ -86,7 +84,8 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  ...state.clustering.present
+  ...state.clustering.present,
+  activeIdea: state.activeIdea
 });
 
 const mapDispatchToProps = dispatch => ({

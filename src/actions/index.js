@@ -27,9 +27,10 @@ const resetState = () => ({
   type: "RESET_STATE"
 });
 
-const setActiveIdea = id => ({
+const setActiveIdea = (id, description) => ({
   type: "SET_ACTIVE_IDEA",
-  id
+  id,
+  description
 });
 
 export {

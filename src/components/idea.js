@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { setActiveIdea } from "../actions";
 import Draggable from "./draggable";
-import { ideaColor, borderColor } from "./../constants/color";
+import { ideaColor, borderColor } from "../constants/color";
+import { labelIcon, textnoteIcon } from "../icons";
 
 export const renderIdeas = (ideas, container, dropZone) => {
   if (!ideas) return null;
@@ -56,6 +57,10 @@ var styles = {
   },
   h6: {
     textAlign: "center"
+  },
+  icon: {
+    float: "right",
+    fontSize: 10
   }
 };
 
@@ -82,19 +87,19 @@ class Idea extends Component {
   handleOnClick = ev => {
     const {
       boundSetActiveIdea,
-      data: { id }
+      data: { id, description }
     } = this.props;
     if (this.state.hasEllipText) {
       this.setState(prevState => {
         return { displayFull: !prevState.displayFull };
       });
     }
-    boundSetActiveIdea(id);
+    boundSetActiveIdea(id, description);
   };
 
   render() {
     const {
-      data: { position, id, description },
+      data: { position, id, description, labels, textnote },
       container,
       dropZone,
       activeIdea
@@ -103,13 +108,16 @@ class Idea extends Component {
     var style = {
       ...styles.ideaBox,
       ...position,
-      background: activeIdea === id ? "white" : ideaColor
+      background: ideaColor
     };
-    /*if (container.type === "BOARD") {
+    if (container.type === "BOARD") {
       style = { ...style, background: ideaColor };
-    }*/
+    }
     if (container.type === "CLUSTER") {
       style = { ...style, ...styles.inCluster };
+    }
+    if (activeIdea === id) {
+      style = { ...style, background: "white", border: "3px solid black" };
     }
 
     var text = ellipText && !displayFull ? ellipText : description;
@@ -128,7 +136,26 @@ class Idea extends Component {
         onClick={this.handleOnClick}
       >
         <div>
-          <h6 style={styles.h6}>{"Idea " + id}</h6>
+          <h6 style={styles.h6}>
+            {" "}
+            {"Idea " + id}
+            {labels && labels.lenght ? (
+              <img
+                style={styles.icon}
+                alt="label"
+                height="20"
+                src={labelIcon}
+              />
+            ) : null}
+            {textnote ? (
+              <img
+                style={styles.icon}
+                alt="textnote"
+                height="20"
+                src={textnoteIcon}
+              />
+            ) : null}
+          </h6>
           <div id={"description" + id} style={styleTextBox}>
             {text}
           </div>
@@ -139,10 +166,10 @@ class Idea extends Component {
 }
 
 const mapStateToProps = state => ({
-  activeIdea: state.activeIdea
+  activeIdea: state.activeIdea && state.activeIdea.id
 });
 const mapDispatchToProps = dispatch => ({
-  boundSetActiveIdea: id => dispatch(setActiveIdea(id))
+  boundSetActiveIdea: (...props) => dispatch(setActiveIdea(...props))
 });
 
 Idea = connect(

@@ -8,7 +8,10 @@ const configureStore = () => {
   var persistedState = loadState();
   const store = createStore(
     rootReducer,
-    persistedState,
+    {
+      clustering: { present: persistedState, past: [], future: [] },
+      activeIdea: null
+    },
     applyMiddleware(thunk)
   );
   if (process.env.NODE_ENV !== "production") {
@@ -16,9 +19,7 @@ const configureStore = () => {
   }
   store.subscribe(
     throttle(() => {
-      saveState({
-        ...store.getState()
-      });
+      saveState(store.getState().clustering.present);
     }, 1000)
   );
 
