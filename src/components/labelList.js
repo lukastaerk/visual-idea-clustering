@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { labelIcon } from "../icons";
 import { EditButton } from "./textNote";
+import { Section } from "../styledComponents";
 
 const styles = {
   label: {
@@ -9,7 +10,7 @@ const styles = {
     borderRadius: 3,
     display: "inline-flex",
     margin: ".4em .4em 0 0",
-    paddingLeft: ".8em"
+    padding: ".1em .6em"
   },
   btn: {
     backgroundColor: "#f1f8ff",
@@ -20,7 +21,8 @@ const styles = {
     color: "#6a737d",
     display: "inline-block",
     width: 26,
-    fontSize: 14
+    fontSize: 14,
+    marginRight: "-.6em"
   },
   input: {
     backgroundColor: "#f1f8ff",
@@ -31,7 +33,11 @@ const styles = {
     color: "#6a737d",
     display: "inline-flex",
     fontSize: 14,
-    width: 100
+    padding: ".1em .6em"
+  },
+  block: {
+    display: "inline",
+    paddingLeft: 0
   }
 };
 class LabelList extends Component {
@@ -78,9 +84,14 @@ class LabelList extends Component {
     const labels = this.props.labels ? this.props.labels : [];
     const { onEdit } = this.state;
     return (
-      <div className="d-inline-block">
-        <img alt="label" height="40" src={labelIcon} />
-        <EditButton handleEdit={this.handleEdit} onEdit={onEdit} />
+      <div className="clearfix">
+        <Section>
+          <div style={{ float: "left", paddingTop: ".5rem" }}>Labels:</div>
+          <div style={{ float: "right" }}>
+            <img alt="label" height="40" src={labelIcon} />
+            <EditButton handleEdit={this.handleEdit} onEdit={onEdit} />
+          </div>
+        </Section>
         {onEdit ? (
           <input
             ref={node => (this.input = node)}
@@ -90,8 +101,7 @@ class LabelList extends Component {
             type="text"
           />
         ) : null}
-
-        <ul className="d-inline">
+        <ul style={styles.block}>
           {labels.map((l, i) => (
             <li key={i} style={styles.label}>
               {l}

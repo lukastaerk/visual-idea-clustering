@@ -2,7 +2,17 @@ import React from "react";
 import { connect } from "react-redux";
 import { updateIdea } from "../actions";
 import { TextNote, LabelList } from "./";
+import { H6, Section } from "../styledComponents";
 
+const styles = {
+  box: {
+    margin: "10px 5px"
+  },
+  description: {
+    marginLeft: "5px",
+    fontSize: 14
+  }
+};
 const ActiveIdea = ({
   id,
   container,
@@ -12,8 +22,8 @@ const ActiveIdea = ({
   dispatch
 }) => {
   return (
-    <div>
-      <h6>{"Idea " + id}</h6>
+    <div style={styles.box}>
+      <H6>{"Idea " + id}</H6>
       <LabelList
         id={id}
         labels={labels}
@@ -24,7 +34,8 @@ const ActiveIdea = ({
         textnote={textnote}
         handleSave={obj => dispatch(updateIdea(id, container, obj))}
       />
-      <p>{description}</p>
+      <Section>Description:</Section>
+      <div style={styles.description}>{description}</div>
     </div>
   );
 };
