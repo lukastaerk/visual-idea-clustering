@@ -87,14 +87,15 @@ class Idea extends Component {
   handleOnClick = ev => {
     const {
       boundSetActiveIdea,
-      data: { id, description }
+      container,
+      data: { id }
     } = this.props;
     if (this.state.hasEllipText) {
       this.setState(prevState => {
         return { displayFull: !prevState.displayFull };
       });
     }
-    boundSetActiveIdea(id, description);
+    boundSetActiveIdea(id, container);
   };
 
   render() {
@@ -139,7 +140,7 @@ class Idea extends Component {
           <h6 style={styles.h6}>
             {" "}
             {"Idea " + id}
-            {labels && labels.lenght ? (
+            {labels && labels.length ? (
               <img
                 style={styles.icon}
                 alt="label"

@@ -8,7 +8,8 @@ import ClusterList from "./clusterList";
 import DropZone from "./dropZone";
 import UndoRedo from "./undoRedo";
 import ActiveIdea from "./activeIdea";
-
+import TextNote from "./textNote";
+import LabelList from "./labelList";
 export {
   Idea,
   renderIdeas,
@@ -21,5 +22,7 @@ export {
   ClusterList,
   DropZone,
   UndoRedo,
-  ActiveIdea
+  ActiveIdea,
+  TextNote,
+  LabelList
 };

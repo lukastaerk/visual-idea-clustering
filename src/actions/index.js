@@ -27,10 +27,17 @@ const resetState = () => ({
   type: "RESET_STATE"
 });
 
-const setActiveIdea = (id, description) => ({
+const setActiveIdea = (id, container) => ({
   type: "SET_ACTIVE_IDEA",
   id,
-  description
+  container
+});
+
+const updateIdea = (id, container, updateObj) => ({
+  type: "UPDATE_IDEA",
+  id,
+  container,
+  updateObj
 });
 
 export {
@@ -39,5 +46,6 @@ export {
   loadIdeas,
   renameCluster,
   resetState,
-  setActiveIdea
+  setActiveIdea,
+  updateIdea
 };

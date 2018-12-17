@@ -40,7 +40,7 @@ class RenameableH6 extends Component {
     return (
       <h6 style={style} className={className} onDoubleClick={this.handleRename}>
         {onRename ? (
-          <Input name={name} handleSaveName={this.handleSaveName} />
+          <Input name={name} handleSave={this.handleSaveName} />
         ) : (
           name
         )}
@@ -49,13 +49,13 @@ class RenameableH6 extends Component {
   }
 }
 
-const Input = ({ name, handleSaveName }) => (
+const Input = ({ value, handleSave }) => (
   <input
     type="text"
-    defaultValue={name}
+    defaultValue={value}
     autoFocus
     maxLength={24}
-    onKeyPress={handleSaveName}
+    onKeyPress={handleSave}
   />
 );
 export default connect()(RenameableH6);

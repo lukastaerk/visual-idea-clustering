@@ -1,9 +1,9 @@
-const activeIdea = (state = null, { type, id, description }) => {
+const activeIdea = (state = null, { type, id, container }) => {
   switch (type) {
     case "SET_ACTIVE_IDEA":
-      return { id, description };
+      return { id, container };
     case "MOVE_IDEA":
-      return state;
+      return null;
     default:
       return state;
   }

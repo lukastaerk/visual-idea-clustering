@@ -1,23 +1,32 @@
 import React from "react";
-import { labelIcon, textnoteIcon } from "../icons";
+import { connect } from "react-redux";
+import { updateIdea } from "../actions";
+import { TextNote, LabelList } from "./";
 
-const ActiveIdea = ({ id, description, labels, textnote }) => {
+const ActiveIdea = ({
+  id,
+  container,
+  description,
+  labels,
+  textnote,
+  dispatch
+}) => {
   return (
     <div>
       <h6>{"Idea " + id}</h6>
-      <div>
-        <img alt="label" height="40" src={labelIcon} />
-        {labels && labels.map(l => <span>{l + ", "}</span>)}
-        <span>Edit</span>
-      </div>
-      <div>
-        <img alt="textnote" height="40" src={textnoteIcon} />
-        {textnote}
-        <span>Edit</span>
-      </div>
+      <LabelList
+        id={id}
+        labels={labels}
+        handleSave={obj => dispatch(updateIdea(id, container, obj))}
+      />
+      <TextNote
+        id={id}
+        textnote={textnote}
+        handleSave={obj => dispatch(updateIdea(id, container, obj))}
+      />
       <p>{description}</p>
     </div>
   );
 };
 
-export default ActiveIdea;
+export default connect()(ActiveIdea);

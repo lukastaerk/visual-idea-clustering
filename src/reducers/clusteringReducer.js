@@ -13,7 +13,7 @@ export default (state = initialState, action) => {
       const { source, sink, id, position } = action;
       [idea, newState] = removeIdeaFromSource(state, source, id);
       if (!newState) return state;
-      newState = addIdeaToSink(newState, sink, idea, position);
+      newState = addIdeaToSink(newState, sink, { ...idea, position });
       if (!newState) return state;
       return newState;
     case "LOAD_IDEAS":
@@ -34,6 +34,20 @@ export default (state = initialState, action) => {
       return { ...state, clusters: [...clusters, { ...c, name: rnname }] };
     case "RESET_STATE":
       return initialState;
+    case "UPDATE_IDEA":
+      const { updateObj } = action;
+      [idea, newState] = removeIdeaFromSource(
+        state,
+        action.container,
+        action.id
+      );
+      if (!newState) return state;
+      newState = addIdeaToSink(newState, action.container, {
+        ...idea,
+        ...updateObj
+      });
+      if (!newState) return state;
+      return newState;
     default:
       return state;
   }
@@ -72,13 +86,13 @@ function removeIdeaFromSource(state, source, id) {
   }
 }
 
-function addIdeaToSink(state, sink, idea, p) {
+function addIdeaToSink(state, sink, idea) {
   let boardIdeas, clusters, cluster, idea2;
   switch (sink.type) {
     case "BOARD":
       return {
         ...state,
-        boardIdeas: [...state.boardIdeas, { ...idea, position: p }]
+        boardIdeas: [...state.boardIdeas, idea]
       };
     case "STACK":
       return { ...state, stackIdeas: [...state.stackIdeas, idea] };
@@ -91,7 +105,7 @@ function addIdeaToSink(state, sink, idea, p) {
       return { ...state, clusters: [...clusters, cluster] };
     case "IDEA":
       [idea2, boardIdeas] = removeElement(sink.id, state.boardIdeas);
-      clusters = [...state.clusters, new Cluster(p, [idea, idea2])];
+      clusters = [...state.clusters, new Cluster(idea.position, [idea, idea2])];
       return { ...state, clusters: clusters, boardIdeas: boardIdeas };
     case "TRASH":
       return state;

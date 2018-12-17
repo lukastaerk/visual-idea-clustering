@@ -53,6 +53,7 @@ class App extends Component {
 
   render() {
     const { stackIdeas, boardIdeas, clusters, activeIdea } = this.props;
+
     return (
       <div className="container-fluid" style={{ background: backgroundColor }}>
         <Header />
@@ -75,13 +76,32 @@ class App extends Component {
           <Board boardIdeas={boardIdeas} clusters={clusters} />
           <div className="float-right" style={{ width: 400 }}>
             <ClusterList clusters={clusters} />
-            {activeIdea ? <ActiveIdea {...activeIdea} /> : null}
+            {activeIdea ? (
+              <ActiveIdea
+                {...activeIdea}
+                {...findIdea(activeIdea, this.props)}
+              />
+            ) : null}
           </div>
         </div>
       </div>
     );
   }
 }
+const findIdea = ({ id, container }, props) => {
+  switch (container.type) {
+    case "BOARD":
+      return props.boardIdeas.find(i => i.id === id);
+    case "Stack":
+      return props.stackIdeas.find(i => i.id === id);
+    case "CLUSTER":
+      return props.clusters
+        .find(ci => ci.id === container.id)
+        .ideas.find(i => i.id === id);
+    default:
+      return {};
+  }
+};
 
 const mapStateToProps = state => ({
   ...state.clustering.present,
