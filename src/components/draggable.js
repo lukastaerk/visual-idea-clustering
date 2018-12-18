@@ -27,7 +27,7 @@ class Draggable extends Component {
 
   // methods
   render() {
-    const { style, dropZone, type, ...props } = this.props;
+    const { style, dropZone, type, children, dispatch, ...props } = this.props;
     return (
       <div
         className={dropZone + " " + type}
@@ -37,7 +37,7 @@ class Draggable extends Component {
         onDragStart={this.handleDragStart}
         {...props}
       >
-        {this.props.children}
+        {children}
       </div>
     );
   }
