@@ -58,7 +58,9 @@ class Board extends Component {
   handleDrop = event => {
     event.preventDefault();
     const { top, left } = this.boardRef.current.getBoundingClientRect();
-    const data = JSON.parse(event.dataTransfer.getData("text"));
+    const unparsed = event.dataTransfer.getData("json");
+    if (typeof unparsed !== "string" || unparsed.length === 0) return null;
+    const data = JSON.parse(unparsed);
     const {
       id,
       type,

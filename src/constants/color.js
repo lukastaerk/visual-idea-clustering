@@ -6,7 +6,12 @@ const clusterColor = primary[300];
 const boardColor = secondary[50];
 const borderColor = primary[500];
 const backgroundColor = "#fff";
-const button = { main: "#fff", dark: secondary[300], text: "#000" };
+const button = {
+  main: "#fff",
+  dark: secondary[300],
+  light: secondary[100],
+  text: "#000"
+};
 const header = {
   color: "#fff",
   textColor: secondary[900],

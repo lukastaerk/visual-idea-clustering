@@ -33,6 +33,10 @@ const setActiveIdea = (id, container) => ({
   container
 });
 
+const removeAvtiveIdea = () => ({
+  type: "REMOVE_ACTIVE_IDEA"
+});
+
 const updateIdea = (id, container, updateObj) => ({
   type: "UPDATE_IDEA",
   id,
@@ -47,5 +51,6 @@ export {
   renameCluster,
   resetState,
   setActiveIdea,
-  updateIdea
+  updateIdea,
+  removeAvtiveIdea
 };

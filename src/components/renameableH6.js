@@ -40,7 +40,7 @@ class RenameableH6 extends Component {
     return (
       <h6 style={style} className={className} onDoubleClick={this.handleRename}>
         {onRename ? (
-          <Input name={name} handleSave={this.handleSaveName} />
+          <Input value={name} handleSave={this.handleSaveName} />
         ) : (
           name
         )}

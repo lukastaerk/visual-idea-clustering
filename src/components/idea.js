@@ -142,6 +142,7 @@ class Idea extends Component {
             {"Idea " + id}
             {labels && labels.length ? (
               <img
+                draggable="false"
                 style={styles.icon}
                 alt="label"
                 height="20"
@@ -150,6 +151,7 @@ class Idea extends Component {
             ) : null}
             {textnote ? (
               <img
+                draggable="false"
                 style={styles.icon}
                 alt="textnote"
                 height="20"

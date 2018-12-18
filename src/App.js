@@ -75,13 +75,14 @@ class App extends Component {
           </div>
           <Board boardIdeas={boardIdeas} clusters={clusters} />
           <div className="float-right" style={{ width: 400 }}>
-            <ClusterList clusters={clusters} />
             {activeIdea ? (
               <ActiveIdea
                 {...activeIdea}
                 {...findIdea(activeIdea, this.props)}
               />
-            ) : null}
+            ) : (
+              <ClusterList clusters={clusters} />
+            )}
           </div>
         </div>
       </div>

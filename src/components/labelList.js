@@ -1,29 +1,8 @@
 import React, { Component } from "react";
 import { labelIcon } from "../icons";
-import { EditButton } from "./textNote";
-import { Section } from "../styledComponents";
+import { Section, EditButton, Li, XButton } from "../styledComponents";
 
 const styles = {
-  label: {
-    alignItems: "center",
-    backgroundColor: "#f1f8ff",
-    borderRadius: 3,
-    display: "inline-flex",
-    margin: ".4em .4em 0 0",
-    padding: ".1em .6em"
-  },
-  btn: {
-    backgroundColor: "#f1f8ff",
-    border: 0,
-    borderBottomRightRadius: 3,
-    borderLeft: "1px solid #b4d9ff",
-    borderTopRightRadius: 3,
-    color: "#6a737d",
-    display: "inline-block",
-    width: 26,
-    fontSize: 14,
-    marginRight: "-.6em"
-  },
   input: {
     backgroundColor: "#f1f8ff",
     border: 0,
@@ -89,7 +68,9 @@ class LabelList extends Component {
           <div style={{ float: "left", paddingTop: ".5rem" }}>Labels:</div>
           <div style={{ float: "right" }}>
             <img alt="label" height="40" src={labelIcon} />
-            <EditButton handleEdit={this.handleEdit} onEdit={onEdit} />
+            <EditButton onClick={this.handleEdit}>
+              {onEdit ? "Save" : "Edit"}
+            </EditButton>
           </div>
         </Section>
         {onEdit ? (
@@ -102,20 +83,15 @@ class LabelList extends Component {
           />
         ) : null}
         <ul style={styles.block}>
-          {labels.map((l, i) => (
-            <li key={i} style={styles.label}>
-              {l}
+          {labels.map((label, index) => (
+            <Li key={index}>
+              {label}
               {onEdit ? (
-                <button
-                  onClick={() => {
-                    this.handleDeleteLabel(i);
-                  }}
-                  style={styles.btn}
-                >
+                <XButton onClick={() => this.handleDeleteLabel(index)}>
                   x
-                </button>
+                </XButton>
               ) : null}
-            </li>
+            </Li>
           ))}
         </ul>
       </div>

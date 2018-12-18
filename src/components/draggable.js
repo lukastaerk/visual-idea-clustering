@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { removeAvtiveIdea } from "../actions";
 
 class Draggable extends Component {
   constructor(props) {
@@ -19,7 +21,8 @@ class Draggable extends Component {
       container: container
     };
     if (ev.target.classList[1] !== type) return null;
-    ev.dataTransfer.setData("text", JSON.stringify(data));
+    ev.dataTransfer.setData("json", JSON.stringify(data));
+    if (type === "idea") this.props.dispatch(removeAvtiveIdea());
   };
 
   // methods
@@ -40,4 +43,4 @@ class Draggable extends Component {
   }
 }
 
-export default Draggable;
+export default connect()(Draggable);

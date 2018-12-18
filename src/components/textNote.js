@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { textnoteIcon } from "../icons";
-import { Section } from "../styledComponents";
+import { Section, EditButton } from "../styledComponents";
 
 class TextNote extends Component {
   constructor(props) {
@@ -34,13 +34,17 @@ class TextNote extends Component {
           <div style={{ float: "left", paddingTop: ".5rem" }}>Textnote:</div>
           <div style={{ float: "right" }}>
             <img alt="textnote" height="40" src={textnoteIcon} />
-            <EditButton onEdit={onEdit} handleEdit={this.handleEdit} />
+            <EditButton onClick={this.handleEdit}>
+              {onEdit ? "Save" : "Edit"}
+            </EditButton>
           </div>
         </Section>
         {onEdit ? (
           <textarea
             ref={node => (this.textarea = node)}
             defaultValue={textnote}
+            onFocus={focusLast}
+            autoFocus
           />
         ) : (
           <div style={{ marginLeft: "5px", fontSize: 14 }}>{textnote}</div>
@@ -50,15 +54,10 @@ class TextNote extends Component {
   }
 }
 
-export const EditButton = ({ handleEdit, onEdit }) => (
-  <button
-    style={{ margin: "5px 5px" }}
-    type="button"
-    className="btn btn-sm small"
-    onClick={handleEdit}
-  >
-    {onEdit ? "Save" : "Edit"}
-  </button>
-);
+const focusLast = e => {
+  var temp_value = e.target.value;
+  e.target.value = "";
+  e.target.value = temp_value;
+};
 
 export default TextNote;

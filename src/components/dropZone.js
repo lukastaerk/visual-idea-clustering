@@ -7,7 +7,9 @@ class DropZone extends Component {
   handleDrop = event => {
     event.preventDefault();
     const { sink, dispatch } = this.props;
-    const data = JSON.parse(event.dataTransfer.getData("text"));
+    const unparsed = event.dataTransfer.getData("json");
+    if (typeof unparsed !== "string" || unparsed.length === 0) return null;
+    const data = JSON.parse(unparsed);
     const { id, type, container } = data;
     if (type !== "idea" || isEqual(container, sink)) return null;
     else return dispatch(moveIdea(container, sink, id));
