@@ -1,15 +1,15 @@
 import React from "react";
 import { DropZone } from "./";
-import { button } from "../constants/color";
+import { button, ideaColor } from "../constants/color";
 import { ClusterButton, Box } from "../styledComponents";
 
 const Item = ({ id, name }) => {
   return (
-    <DropZone sink={{ type: "CLUSTER", id: id }}>
-      <a href={`#${id}`} style={{ textDecoration: "none" }}>
+    <a href={`#${id}`} style={{ textDecoration: "none" }}>
+      <DropZone sink={{ type: "CLUSTER", id: id }} dropColor={ideaColor}>
         <ClusterButton>{name}</ClusterButton>
-      </a>
-    </DropZone>
+      </DropZone>
+    </a>
   );
 };
 

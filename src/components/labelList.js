@@ -36,7 +36,7 @@ class LabelList extends Component {
 
   handleEdit = event => {
     if (this.state.onEdit) {
-      this.handleInput({ ...event, target: this.input, key: "Enter" });
+      this.handleInput({ key: "Enter" });
     }
     this.setState(prevState => ({
       onEdit: !prevState.onEdit
@@ -44,11 +44,11 @@ class LabelList extends Component {
   };
   handleInput = event => {
     if (event.key === "Enter" || event.key === " ") {
-      const value = event.target.value.trim();
-      if (value.length <= 0) return (event.target.value = "");
+      const value = this.input.value.trim();
+      if (value.length <= 0) return (this.input.value = "");
       const labels = this.props.labels ? this.props.labels : [];
       this.props.handleSave({ labels: [value, ...labels] });
-      event.target.value = "";
+      this.input.value = "";
     }
   };
 

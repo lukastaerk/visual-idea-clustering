@@ -6,6 +6,7 @@ import { isEqual } from "lodash";
 class DropZone extends Component {
   handleDrop = event => {
     event.preventDefault();
+    this.allowDropColor(null);
     const { sink, dispatch } = this.props;
     const unparsed = event.dataTransfer.getData("json");
     if (typeof unparsed !== "string" || unparsed.length === 0) return null;
@@ -14,10 +15,21 @@ class DropZone extends Component {
     if (type !== "idea" || isEqual(container, sink)) return null;
     else return dispatch(moveIdea(container, sink, id));
   };
+  allowDropColor = color => {
+    this.dropZone.firstElementChild.style.background = color;
+  };
   render() {
-    const { children } = this.props;
+    const { children, dropColor } = this.props;
     return (
-      <div onDrop={this.handleDrop} onDragOver={ev => ev.preventDefault()}>
+      <div
+        ref={node => (this.dropZone = node)}
+        onDrop={this.handleDrop}
+        onDragOver={ev => {
+          ev.preventDefault();
+          this.allowDropColor(dropColor);
+        }}
+        onDragLeave={() => this.allowDropColor(null)}
+      >
         {children}
       </div>
     );

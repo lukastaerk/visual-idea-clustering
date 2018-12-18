@@ -90,7 +90,8 @@ class Idea extends Component {
       container,
       data: { id }
     } = this.props;
-    if (this.state.hasEllipText) {
+    if (this.state.hasEllipText && false) {
+      //display full can be removed
       this.setState(prevState => {
         return { displayFull: !prevState.displayFull };
       });

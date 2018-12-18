@@ -11,12 +11,17 @@ import {
 } from "./components";
 import CHI19S1_ideas from "./data/CHI19S1-ideas.json";
 import { loadIdeas, resetState } from "./actions";
-import { backgroundColor } from "./constants/color";
+import { backgroundColor, lightRed } from "./constants/color";
 var FileSaver = require("file-saver");
 
 class App extends Component {
   componentDidMount() {
     this.handleNextIdeas();
+  }
+  componentDidUpdate(prevProps) {
+    if (this.props.stackIdeas.length === 0) {
+      this.handleNextIdeas();
+    }
   }
 
   dataLoader = (fromIndex, toIndex, JSON_DATA) => {
@@ -69,7 +74,7 @@ class App extends Component {
               nextIdeas={stackIdeas}
               type="STACK"
             />
-            <DropZone sink={{ type: "TRASH" }}>
+            <DropZone sink={{ type: "TRASH" }} dropColor={lightRed}>
               <IdeaStack name={"Idea Trash"} type="TRASH" />
             </DropZone>
           </div>

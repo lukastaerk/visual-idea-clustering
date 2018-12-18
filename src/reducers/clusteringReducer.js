@@ -39,7 +39,8 @@ export default (state = initialState, action) => {
       [idea, newState] = removeIdeaFromSource(
         state,
         action.container,
-        action.id
+        action.id,
+        true
       );
       if (!newState) return state;
       newState = addIdeaToSink(newState, action.container, {
@@ -62,7 +63,7 @@ function removeElement(id, array) {
   let resultArray = [...array.slice(0, index), ...array.slice(index + 1)];
   return [array[index], resultArray];
 }
-function removeIdeaFromSource(state, source, id) {
+function removeIdeaFromSource(state, source, id, keepSource = false) {
   let boardIdeas, stackIdeas, clusters, idea, cluster, ideaList;
   switch (source.type) {
     case "BOARD":
@@ -74,7 +75,7 @@ function removeIdeaFromSource(state, source, id) {
     case "CLUSTER":
       [cluster, clusters] = removeElement(source.id, state.clusters);
       [idea, ideaList] = removeElement(id, cluster.ideas);
-      if (ideaList.length < 1) {
+      if (ideaList.length < 1 && !keepSource) {
         return [idea, { ...state, clusters: clusters }];
       }
       return [

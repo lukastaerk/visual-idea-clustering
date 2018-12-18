@@ -4,7 +4,6 @@ const Box = styled.div(
   {
     margin: "20px 10px",
     borderRadius: 5,
-
     overflow: "hidden",
     textAlign: "center"
   },

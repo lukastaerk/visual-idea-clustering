@@ -1,6 +1,8 @@
 import primary from "@material-ui/core/colors/amber";
 import secondary from "@material-ui/core/colors/grey";
+import red from "@material-ui/core/colors/red";
 
+const lightRed = red[100];
 const ideaColor = primary[100];
 const clusterColor = primary[300];
 const boardColor = secondary[50];
@@ -25,5 +27,6 @@ export {
   borderColor,
   backgroundColor,
   button,
-  header
+  header,
+  lightRed
 };

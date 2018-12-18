@@ -18,7 +18,7 @@ class TextNote extends Component {
   }
 
   handleEdit = event => {
-    if (this.state.onEdit) {
+    if (this.state.onEdit && this.textarea.value.trim().length > 0) {
       this.props.handleSave({ textnote: this.textarea.value });
     }
     this.setState(prevState => ({
