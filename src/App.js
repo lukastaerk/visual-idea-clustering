@@ -98,7 +98,7 @@ const findIdea = ({ id, container }, props) => {
   switch (container.type) {
     case "BOARD":
       return props.boardIdeas.find(i => i.id === id);
-    case "Stack":
+    case "STACK":
       return props.stackIdeas.find(i => i.id === id);
     case "CLUSTER":
       return props.clusters
