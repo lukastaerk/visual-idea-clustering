@@ -6,6 +6,7 @@ const initialState = {
   nextIndex: 0
 };
 export default (state = initialState, action) => {
+  console.log(state, "state");
   const { type } = action;
   var idea, newState, clusters, c;
   switch (type) {

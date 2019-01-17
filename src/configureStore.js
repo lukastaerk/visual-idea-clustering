@@ -6,14 +6,13 @@ import { loadState, saveState } from "./localStorage";
 
 const configureStore = () => {
   var persistedState = loadState();
-  const store = createStore(
-    rootReducer,
-    {
-      clustering: { present: persistedState, past: [], future: [] },
-      activeIdea: null
-    },
-    applyMiddleware(thunk)
-  );
+  var state = persistedState
+    ? {
+        clustering: { present: persistedState, past: [], future: [] },
+        activeIdea: null
+      }
+    : undefined;
+  const store = createStore(rootReducer, state, applyMiddleware(thunk));
   if (process.env.NODE_ENV !== "production") {
     store.dispatch = addLoggingToDispatch(store);
   }

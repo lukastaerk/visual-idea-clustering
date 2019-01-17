@@ -13,7 +13,7 @@ const Item = ({ id, name }) => {
   );
 };
 
-const ClusterList = ({ clusters }) => {
+const ClusterList = ({ clusters = [] }) => {
   var clusterList = clusters
     .sort((a, b) => {
       if (!a.name) return true; //undefined at the end of the list
