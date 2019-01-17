@@ -14,7 +14,14 @@ export const loadState = () => {
     if (serializedState === null) {
       return undefined;
     }
-    return JSON.parse(serializedState);
+    return {
+      clustering: {
+        present: JSON.parse(serializedState),
+        past: [],
+        future: []
+      },
+      activeIdea: null
+    };
   } catch (err) {
     return undefined;
   }
