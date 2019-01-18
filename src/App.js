@@ -19,9 +19,7 @@ class App extends Component {
     this.handleNextIdeas();
   }
   componentDidUpdate(prevProps) {
-    if (this.props.stackIdeas.length === 0) {
-      this.handleNextIdeas();
-    }
+    this.handleNextIdeas();
   }
 
   dataLoader = (fromIndex, toIndex, JSON_DATA) => {
@@ -65,7 +63,6 @@ class App extends Component {
         <div className="d-flex flex-row">
           <div className="float-left" style={{ width: 180 }}>
             <MenuBar
-              handleNextIdeas={this.handleNextIdeas}
               handleDownloadState={this.handleDownloadState}
               handleResetState={this.props.resetState}
             />

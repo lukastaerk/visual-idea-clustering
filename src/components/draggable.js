@@ -9,7 +9,7 @@ class Draggable extends Component {
   }
 
   handleDragStart = ev => {
-    const { id, type, container } = this.props;
+    const { id, type, container, activeidea } = this.props;
     const idea = this.node.current;
     var rect = idea.getBoundingClientRect();
     var x = ev.clientX - rect.x;
@@ -22,7 +22,8 @@ class Draggable extends Component {
     };
     if (ev.target.classList[1] !== type) return null;
     ev.dataTransfer.setData("json", JSON.stringify(data));
-    if (type === "idea") this.props.dispatch(removeAvtiveIdea());
+    if (type === "idea" && activeidea !== null)
+      this.props.dispatch(removeAvtiveIdea());
   };
 
   // methods
@@ -43,4 +44,4 @@ class Draggable extends Component {
   }
 }
 
-export default connect()(Draggable);
+export default connect(state => ({ activeidea: state.activeIdea }))(Draggable);
