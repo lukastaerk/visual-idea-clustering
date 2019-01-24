@@ -37,7 +37,7 @@ const getSinkFormTarget = target => {
   } else if (className.slice(0, 4) === "IDEA") {
     return {
       type: className.slice(0, 4),
-      id: parseInt(className.slice(4))
+      id: className.slice(4)
     };
   } else if (className === "BOARD") {
     return { type: className };

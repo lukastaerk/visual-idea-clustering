@@ -23,7 +23,7 @@ const ActiveIdea = ({
 }) => {
   return (
     <div style={styles.box}>
-      <H6>{"Idea " + id}</H6>
+      <H6>{"Idea"}</H6>
       <LabelList
         id={id}
         labels={labels}

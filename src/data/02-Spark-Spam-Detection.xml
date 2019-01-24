@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:gi2mo="http://purl.org/gi2mo/ns#"
+         xmlns:inov="http://purl.org/innovonto/types/"
+         xmlns:dcterms="http://purl.org/dc/terms/">
+
+    <rdf:Description rdf:about="http://purl.org/innovonto/ideas/91dd6ec9-87e9-41ba-9bb9-3bcc385d97d4">
+        <gi2mo:hasStatus rdf:resource="http://purl.org/innovonto/ideastatus/spark/approved"/>
+        <gi2mo:hasCreator rdf:resource="http://purl.org/innovonto/users/25"/>
+        <inov:challenge rdf:resource="http://purl.org/innovonto/challenges/chi19S3"/>
+        <gi2mo:hasSubmissionMethod rdf:resource="http://purl.org/innovonto/submission-methods/chi19-mturk-interface"/>
+        <gi2mo:hasIdeaContest rdf:resource="http://purl.org/innovonto/ideaContests/TCO" />
+        <gi2mo:content>Every piece of cloth that has the TCO technology in it is changing its color when it needs to be washed. Therefore the person knows by one look which clothes need to be washed and which can be used again.</gi2mo:content>
+        <dcterms:created>2018-12-01T12:13:51+00:00</dcterms:created>
+
+        <gi2mo:versionInfo>
+            <rdf:Description rdf:about="http://purl.org/innovonto/concepts/122222">
+                <gi2mo:versionNumber>1</gi2mo:versionNumber>
+                <gi2mo:versionDate>2018-12-01T12:13:51+00:00</gi2mo:versionDate>
+            </rdf:Description>
+        </gi2mo:versionInfo>
+
+        <inov:concept>
+            <rdf:Description rdf:about="http://purl.org/innovonto/concepts/125">
+                <inov:conceptSurface>window</inov:conceptSurface>
+                <inov:linkedConcept rdf:resource="http://dbpedia.org/resource/Sticker"/>
+                <inov:startIndex>5</inov:startIndex>
+                <inov:endIndex>12</inov:endIndex>
+            </rdf:Description>
+        </inov:concept>
+
+        <inov:concept>
+            <rdf:Description rdf:about="http://purl.org/innovonto/concepts/126">
+                <inov:conceptSurface>window</inov:conceptSurface>
+                <inov:linkedConcept rdf:resource="http://dbpedia.org/resource/Sticker"/>
+                <inov:startIndex>5</inov:startIndex>
+                <inov:endIndex>12</inov:endIndex>
+            </rdf:Description>
+        </inov:concept>
+
+        <inov:markedAsSpam>false</inov:markedAsSpam>
+        <inov:markedAsDuplicate>false</inov:markedAsDuplicate>
+
+    </rdf:Description>
+
+</rdf:RDF>

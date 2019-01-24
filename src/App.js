@@ -9,13 +9,18 @@ import {
   DropZone,
   ActiveIdea
 } from "./components";
-import CHI19S1_ideas from "./data/CHI19S1-ideas.json";
+import { loadData } from "./utils/loadData";
+import * as CHI19S1_ideas from "./data/CHI19S1-ideas-new.json";
 import { loadIdeas, resetState } from "./actions";
 import { backgroundColor, lightRed } from "./constants/color";
 var FileSaver = require("file-saver");
 
+//const data = await loadData.catch(err=>console.log(err));
+
 class App extends Component {
-  componentDidMount() {
+  async componentDidMount() {
+    const res = await loadData().catch(err => console.log(err));
+    console.log(res);
     this.handleNextIdeas();
   }
   componentDidUpdate(prevProps) {
@@ -25,7 +30,11 @@ class App extends Component {
   dataLoader = (fromIndex, toIndex, JSON_DATA) => {
     const data = JSON_DATA.slice(fromIndex, toIndex);
     var ideas = data.map(idea => {
-      return { ...idea, position: { left: 0, top: 0 } };
+      return {
+        content: idea.content,
+        id: idea["@id"],
+        position: { left: 0, top: 0 }
+      };
     });
     return ideas.reverse();
   };
@@ -33,7 +42,11 @@ class App extends Component {
   handleNextIdeas = () => {
     const { stackIdeas, nextIndex } = this.props;
     if (stackIdeas.length !== 0) return null; //when stack still holdes ideas don't give more ideas
-    const nextStack = this.dataLoader(nextIndex, nextIndex + 5, CHI19S1_ideas);
+    const nextStack = this.dataLoader(
+      nextIndex,
+      nextIndex + 5,
+      CHI19S1_ideas["@graph"]
+    );
     this.props.loadIdeas(nextStack);
   };
 

@@ -51,7 +51,7 @@ var styles = {
     left: 0,
     float: "left"
   },
-  description: {
+  content: {
     fontSize: 10,
     maxHeight: 80
   },
@@ -68,7 +68,7 @@ class Idea extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      textHeight: styles.description.maxHeight,
+      textHeight: styles.content.maxHeight,
       displayFull: false
     };
     this.ideaRef = React.createRef();
@@ -76,12 +76,12 @@ class Idea extends Component {
 
   componentDidMount() {
     const { textHeight, text } = ellipsizeTextBox(
-      "description" + this.props.data.id
+      "content" + this.props.data.id
     );
     this.setState({
       textHeight: textHeight,
       ellipText: text,
-      hasEllipText: textHeight > styles.description.maxHeight
+      hasEllipText: textHeight > styles.content.maxHeight
     });
   }
   handleOnClick = ev => {
@@ -101,7 +101,7 @@ class Idea extends Component {
 
   render() {
     const {
-      data: { position, id, description, labels, textnote },
+      data: { position, id, content, labels, textnote },
       container,
       dropZone,
       activeIdea
@@ -122,10 +122,10 @@ class Idea extends Component {
       style = { ...style, background: "white", border: "3px solid black" };
     }
 
-    var text = ellipText && !displayFull ? ellipText : description;
-    var styleTextBox = styles.description;
+    var text = ellipText && !displayFull ? ellipText : content;
+    var styleTextBox = styles.content;
     if (displayFull) {
-      style.height = style.height + textHeight - styles.description.maxHeight;
+      style.height = style.height + textHeight - styles.content.maxHeight;
       styleTextBox = { ...styleTextBox, maxHeight: textHeight };
     }
     return (
@@ -140,7 +140,7 @@ class Idea extends Component {
         <div>
           <h6 style={styles.h6}>
             {" "}
-            {"Idea " + id}
+            {"Idea"}
             {labels && labels.length ? (
               <img
                 draggable="false"
@@ -160,7 +160,7 @@ class Idea extends Component {
               />
             ) : null}
           </h6>
-          <div id={"description" + id} style={styleTextBox}>
+          <div id={"content" + id} style={styleTextBox}>
             {text}
           </div>
         </div>
