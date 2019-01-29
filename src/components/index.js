@@ -10,6 +10,7 @@ import UndoRedo from "./undoRedo";
 import ActiveIdea from "./activeIdea";
 import TextNote from "./textNote";
 import LabelList from "./labelList";
+import DisplayState from "./displayState";
 export {
   Idea,
   renderIdeas,
@@ -24,5 +25,6 @@ export {
   UndoRedo,
   ActiveIdea,
   TextNote,
-  LabelList
+  LabelList,
+  DisplayState
 };

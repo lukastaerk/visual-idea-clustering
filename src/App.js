@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Router } from "@reach/router";
 import {
   Board,
   Header,
@@ -7,23 +8,19 @@ import {
   IdeaStack,
   ClusterList,
   DropZone,
-  ActiveIdea
+  ActiveIdea,
+  DisplayState
 } from "./components";
-import { loadData } from "./utils/loadData";
-import * as CHI19S1_ideas from "./data/CHI19S1-ideas-new.json";
+import DATA from "./data";
+import { downloadState } from "./utils";
 import { loadIdeas, resetState } from "./actions";
 import { backgroundColor, lightRed } from "./constants/color";
-var FileSaver = require("file-saver");
-
-//const data = await loadData.catch(err=>console.log(err));
 
 class App extends Component {
-  async componentDidMount() {
-    const res = await loadData().catch(err => console.log(err));
-    console.log(res);
+  componentDidMount() {
     this.handleNextIdeas();
   }
-  componentDidUpdate(prevProps) {
+  componentDidUpdate() {
     this.handleNextIdeas();
   }
 
@@ -32,7 +29,11 @@ class App extends Component {
     var ideas = data.map(idea => {
       return {
         content: idea.content,
-        id: idea["@id"],
+        "@id": idea["@id"],
+        id: idea["@id"]
+          .split("/")
+          .filter(v => v !== "")
+          .pop(),
         position: { left: 0, top: 0 }
       };
     });
@@ -42,29 +43,8 @@ class App extends Component {
   handleNextIdeas = () => {
     const { stackIdeas, nextIndex } = this.props;
     if (stackIdeas.length !== 0) return null; //when stack still holdes ideas don't give more ideas
-    const nextStack = this.dataLoader(
-      nextIndex,
-      nextIndex + 5,
-      CHI19S1_ideas["@graph"]
-    );
+    const nextStack = this.dataLoader(nextIndex, nextIndex + 5, DATA["@graph"]);
     this.props.loadIdeas(nextStack);
-  };
-
-  handleDownloadState = event => {
-    const state = this.props;
-    let date = new Date();
-    var blob = new Blob([JSON.stringify(state, null, 2)], {
-      type: "application/json;charset=utf-8"
-    });
-    FileSaver.saveAs(
-      blob,
-      "Clustering-State-" +
-        date
-          .toGMTString()
-          .split(" ")
-          .join("-") +
-        ".json"
-    );
   };
 
   render() {
@@ -76,7 +56,7 @@ class App extends Component {
         <div className="d-flex flex-row">
           <div className="float-left" style={{ width: 180 }}>
             <MenuBar
-              handleDownloadState={this.handleDownloadState}
+              handleDownloadState={() => downloadState(this.props)}
               handleResetState={this.props.resetState}
             />
             <IdeaStack
@@ -88,7 +68,10 @@ class App extends Component {
               <IdeaStack name={"Idea Trash"} type="TRASH" />
             </DropZone>
           </div>
-          <Board boardIdeas={boardIdeas} clusters={clusters} />
+          <Router style={{ overflow: "auto", height: "calc(100vh - 80px)" }}>
+            <Board path="/" boardIdeas={boardIdeas} clusters={clusters} />
+            <DisplayState path="/state" state={{ boardIdeas, clusters }} />
+          </Router>
           <div className="float-right" style={{ width: 400 }}>
             {activeIdea ? (
               <ActiveIdea

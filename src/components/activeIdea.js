@@ -8,19 +8,12 @@ const styles = {
   box: {
     margin: "10px 5px"
   },
-  description: {
+  content: {
     marginLeft: "5px",
     fontSize: 14
   }
 };
-const ActiveIdea = ({
-  id,
-  container,
-  description,
-  labels,
-  textnote,
-  dispatch
-}) => {
+const ActiveIdea = ({ id, container, content, labels, textnote, dispatch }) => {
   return (
     <div style={styles.box}>
       <H6>{"Idea"}</H6>
@@ -34,8 +27,8 @@ const ActiveIdea = ({
         textnote={textnote}
         handleSave={obj => dispatch(updateIdea(id, container, obj))}
       />
-      <Section>Description:</Section>
-      <div style={styles.description}>{description}</div>
+      <Section>content:</Section>
+      <div style={styles.content}>{content}</div>
     </div>
   );
 };
