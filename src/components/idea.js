@@ -101,7 +101,7 @@ class Idea extends Component {
 
   render() {
     const {
-      data: { position, id, content, labels, textnote },
+      data: { position, id, content, labels, textnote, title },
       container,
       dropZone,
       activeIdea
@@ -139,8 +139,7 @@ class Idea extends Component {
       >
         <div>
           <h6 style={styles.h6}>
-            {" "}
-            {"Idea"}
+            {title || "Idea"}
             {labels && labels.length ? (
               <img
                 draggable="false"

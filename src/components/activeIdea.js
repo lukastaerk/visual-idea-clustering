@@ -13,10 +13,18 @@ const styles = {
     fontSize: 14
   }
 };
-const ActiveIdea = ({ id, container, content, labels, textnote, dispatch }) => {
+const ActiveIdea = ({
+  id,
+  container,
+  content,
+  labels,
+  textnote,
+  title,
+  dispatch
+}) => {
   return (
     <div style={styles.box}>
-      <H6>{"Idea"}</H6>
+      <H6>{title || "Idea"}</H6>
       <LabelList
         id={id}
         labels={labels}

@@ -34,6 +34,7 @@ class App extends Component {
           .split("/")
           .filter(v => v !== "")
           .pop(),
+        title: idea.title,
         position: { left: 0, top: 0 }
       };
     });
