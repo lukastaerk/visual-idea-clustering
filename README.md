@@ -32,3 +32,7 @@
 ## View
 
 ![Example](/public/ScreenshotVisualIdeaClustering.png)
+
+## Activity Diagram
+
+![Diagram](/public/ActivityDiagramClustering.png)
