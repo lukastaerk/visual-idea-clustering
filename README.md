@@ -19,7 +19,7 @@
 - [x] Drag and drop logik
 - [x] Dynamische Anzahl von Ideen
 - [x] Clustering Logik
-- [x] Rename Clusters, onDoubleClick on header. save onEnter.
+- [x] Rename Clusters, onDoubleClick on header. save onEnter
 - [ ] Zoomable Map of idea space, how to navigate on the map?
 - [x] Export Button off idea Space.
 - [x] List of Clusters as DropZone to easily move ideas
