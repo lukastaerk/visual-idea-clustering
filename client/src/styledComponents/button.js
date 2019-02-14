@@ -27,16 +27,18 @@ let Button = ({ classes, children, ...props }) => {
 Button = withStyles(styles)(Button);
 
 const editStyle = {
-  margin: "5px 5px",
+  padding: "5px 5px",
+  borderRadius: 5,
   color: button.text,
   "&:hover": {
     backgroundColor: ideaColor
-  }
+  },
+  cursor: "pointer"
 };
 const EditButton = ({ children, ...props }) => (
-  <button css={editStyle} type="button" className="btn btn-sm small" {...props}>
+  <span css={editStyle} {...props}>
     {children}
-  </button>
+  </span>
 );
 
 const ClusterButton = styled.div({

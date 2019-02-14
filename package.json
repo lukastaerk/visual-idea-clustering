@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "scripts": {
     "init": "concurrently \"cd frontend && npm install\" \"cd backend && npm install\"",
-    "start": "concurrently \"npm run start:client\" \"npm run start:server\"",
-    "start:client": "cd client && npm run start",
-    "start:server": "cd server && npm run start",
-    "test": "npm run test-client && npm run test-server",
-    "test-client": "cd client && npm run test",
-    "test-server": "cd server && npm run test"
+    "start": "concurrently \"npm start:client\" \"npm start:server\"",
+    "start:client": "cd client && npm start",
+    "start:server": "cd server && npm start",
+    "test": "npm test-client && npm test-server",
+    "test-client": "cd client && npm test",
+    "test-server": "cd server && npm test"
   },
   "devDependencies": {
     "concurrently": "^4.1.0"

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { renameCluster } from "../actions";
+import { edit } from "../icons";
+import { EditButton } from "../styledComponents";
 
 class RenameableH6 extends Component {
   constructor(props) {
@@ -42,8 +44,11 @@ class RenameableH6 extends Component {
         {onRename ? (
           <Input value={name} handleSave={this.handleSaveName} />
         ) : (
-          name
+          <span>{name + " "}</span>
         )}
+        <EditButton onClick={this.handleRename}>
+          <img alt="edit" height="10" src={edit} />
+        </EditButton>
       </h6>
     );
   }
