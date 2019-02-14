@@ -18,7 +18,10 @@ export const downloadState = state => {
 
 function convert(state) {
   var { boardIdeas, clusters } = state;
-  var ideas = boardIdeas.map(idea => ({ ...idea, cluster: null }));
+  var ideas = boardIdeas.map(({ title, ...idea }) => ({
+    ...idea,
+    cluster: null
+  }));
   clusters.forEach(c => {
     ideas = [...ideas, ...c.ideas.map(i => ({ ...i, cluster: c.id }))];
   });

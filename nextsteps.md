@@ -1,7 +1,3 @@
-double click on idea activ
-relation between ideas
-links
-
-labels
-kommentare
-sidebar icons on ideas
+- server rest-API
+- server algorithm to calculate Idea-Map t-SNE
+- edit-button for Cluster renaming

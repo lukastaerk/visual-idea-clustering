@@ -40,7 +40,6 @@
      "content": "covering table tennis... ",
      "@id": "http://purl.org/innovonto/ontoideaLegacy/ideas/21f895e3-410e-48a8-820d-546fee15894a",
      "id": "21f895e3-410e-48a8-820d-546fee15894a",
-     "title": "new table tennis fun",
      "position": {
        "left": 91,
        "top": 101
