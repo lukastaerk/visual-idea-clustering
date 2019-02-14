@@ -29,6 +29,39 @@
 
 - bring ideas in relation, build Clusters, summerize and fliter them to generate quality ideas from that.
 
+## Transaction Data with Server
+
+- result.json
+
+````{
+  "ideas": [
+   {
+     "content": "covering table tennis... ",
+     "@id": "http://purl.org/innovonto/ontoideaLegacy/ideas/21f895e3-410e-48a8-820d-546fee15894a",
+     "id": "21f895e3-410e-48a8-820d-546fee15894a",
+     "title": "new table tennis fun",
+     "position": {
+       "left": 91,
+       "top": 101
+     },
+     "labels": [
+       "firstLabel"
+     ],
+     "cluster": "3bf97c68-50e4-4e19-b524-e8c2ab77727c"
+   }, ...
+ ],
+ "clusters": [
+   {
+     "id": "34414e3a-4aaa-4d9e-9428-f37353559c80",
+     "name": "Logistics",
+     "position": {
+       "left": 208,
+       "top": 724
+     }
+   }, ...
+ ]
+}```
+
 ## View
 
 ![Example](/public/ScreenshotVisualIdeaClustering.png)
@@ -36,3 +69,4 @@
 ## Activity Diagram
 
 ![Diagram](/public/ActivityDiagramClustering.png)
+````
