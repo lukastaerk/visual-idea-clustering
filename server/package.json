@@ -1,0 +1,35 @@
+{
+  "name": "server-clustering-app",
+  "version": "0.1.0",
+  "description": "\"server to handle data from clustering prozess\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js --exec babel-node --presets babel-preset-env"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/luka1220/visual-idea-clustering/server"
+  },
+  "keywords": [
+    "mongodb",
+    "data",
+    "clustering",
+    "ideation"
+  ],
+  "author": "Luka Stärk",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/core": "^7.2.2",
+    "express": "^4.16.4",
+    "mongoose": "^5.4.12",
+    "webpack": "^4.29.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.5",
+    "babel-preset-env": "^1.7.0",
+    "nodemon": "^1.18.10"
+  }
+}
