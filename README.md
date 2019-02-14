@@ -33,7 +33,8 @@
 
 - result.json
 
-````{
+```
+{
   "ideas": [
    {
      "content": "covering table tennis... ",
@@ -60,7 +61,8 @@
      }
    }, ...
  ]
-}```
+}
+```
 
 ## View
 
@@ -69,4 +71,7 @@
 ## Activity Diagram
 
 ![Diagram](/public/ActivityDiagramClustering.png)
-````
+
+```
+
+```
