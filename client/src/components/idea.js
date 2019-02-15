@@ -4,10 +4,11 @@ import { setActiveIdea } from "../actions";
 import Draggable from "./draggable";
 import { ideaColor, borderColor } from "../constants/color";
 import { labelIcon, textnoteIcon } from "../icons";
+import { H6 } from "../styledComponents";
 
 export const renderIdeas = (ideas, container, dropZone) => {
   if (!ideas) return null;
-  const ideasRender = ideas.map((idea, i) => {
+  const ideasRender = ideas.map(idea => {
     return (
       <Idea
         container={container}
@@ -38,7 +39,6 @@ function ellipsizeTextBox(id) {
 var styles = {
   ideaBox: {
     position: "absolute",
-    borderRadius: 10,
     border: "2px solid " + borderColor,
     width: 120,
     height: 120,
@@ -138,7 +138,7 @@ class Idea extends Component {
         onClick={this.handleOnClick}
       >
         <div>
-          <h6 style={styles.h6}>
+          <H6 style={styles.h6}>
             {title || "Idea"}
             {labels && labels.length ? (
               <img
@@ -158,7 +158,7 @@ class Idea extends Component {
                 src={textnoteIcon}
               />
             ) : null}
-          </h6>
+          </H6>
           <div id={"content" + id} style={styleTextBox}>
             {text}
           </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import { DropZone } from "./";
 import { button, ideaColor } from "../constants/color";
-import { ClusterButton, Box } from "../styledComponents";
+import { ClusterButton, Box, H6 } from "../styledComponents";
 
 const Item = ({ id, name }) => {
   return (
@@ -25,7 +25,7 @@ const ClusterList = ({ clusters = [] }) => {
     ));
   return (
     <Box color={button.text} backgroundColor={button.main}>
-      <h6>Clusters on Board</h6>
+      <H6>Clusters</H6>
       {clusterList}
     </Box>
   );

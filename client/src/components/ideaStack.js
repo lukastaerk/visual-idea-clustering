@@ -1,14 +1,17 @@
 import React from "react";
 import { renderIdeas } from "./idea";
-import { button } from "../constants/color";
-import { H6, Box, IdeaContainer } from "../styledComponents";
+import { H6, Box, IdeaContainer, EditButton } from "../styledComponents";
 
 const IdeaStack = ({ nextIdeas, name, type }) => {
   const ideasDisplay = renderIdeas(nextIdeas, { type: type }, type);
   return (
-    <Box color={button.text} style={{ padding: 10 }}>
+    <Box style={{ padding: 10 }}>
       <H6> {name}</H6>
       <IdeaContainer>{ideasDisplay}</IdeaContainer>
+      <p>
+        <EditButton fullWidth={false}>{"<"}</EditButton>
+        <EditButton fullWidth={false}>{">"}</EditButton>
+      </p>
     </Box>
   );
 };

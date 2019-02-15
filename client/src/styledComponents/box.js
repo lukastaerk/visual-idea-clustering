@@ -9,8 +9,7 @@ const Box = styled.div(
   },
   ({ color, backgroundColor }) => ({
     color,
-    backgroundColor,
-    border: `1px solid ${color}`
+    backgroundColor
   })
 );
 

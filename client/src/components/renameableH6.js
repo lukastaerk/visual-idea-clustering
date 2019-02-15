@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { renameCluster } from "../actions";
 import { edit } from "../icons";
-import { EditButton } from "../styledComponents";
+import { EditButton, H6 } from "../styledComponents";
 
 class RenameableH6 extends Component {
   constructor(props) {
@@ -40,7 +40,7 @@ class RenameableH6 extends Component {
     let { style, className, name } = this.props;
     const { onRename } = this.state;
     return (
-      <h6 style={style} className={className} onDoubleClick={this.handleRename}>
+      <H6 style={style} className={className} onDoubleClick={this.handleRename}>
         {onRename ? (
           <Input value={name} handleSave={this.handleSaveName} />
         ) : (
@@ -49,7 +49,7 @@ class RenameableH6 extends Component {
         <EditButton onClick={this.handleRename}>
           <img alt="edit" height="10" src={edit} />
         </EditButton>
-      </h6>
+      </H6>
     );
   }
 }

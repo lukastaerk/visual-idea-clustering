@@ -1,11 +1,21 @@
 import React from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
 
-const styles = {
-  h6: {
+const styles = theme => ({
+  root: {
+    ...theme.typography.button,
+    paddingTop: theme.spacing.unit / 2,
     textAlign: "center"
   }
+});
+
+const H6 = ({ children, classes }) => (
+  <h6 className={classes.root}>{children}</h6>
+);
+
+H6.propTypes = {
+  classes: PropTypes.object.isRequired
 };
 
-const H6 = ({ children }) => <h6 style={styles.h6}>{children}</h6>;
-
-export default H6;
+export default withStyles(styles)(H6);

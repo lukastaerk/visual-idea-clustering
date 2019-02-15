@@ -1,10 +1,9 @@
 import React from "react";
-import { Button } from "../styledComponents";
+import { UndoRedo } from "./";
 
-const MenuBar = ({ handleDownloadState, handleResetState, classes }) => (
+const MenuBar = () => (
   <div style={{ marginRight: 10 }}>
-    <Button onClick={handleDownloadState}>{"Download State"}</Button>
-    <Button onClick={handleResetState}>{"Reset State"}</Button>
+    <UndoRedo />
   </div>
 );
 

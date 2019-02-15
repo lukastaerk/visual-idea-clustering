@@ -7,14 +7,13 @@ import {
   MenuBar,
   IdeaStack,
   ClusterList,
-  DropZone,
   ActiveIdea,
   DisplayState
 } from "./components";
 import DATA from "./data";
 import { downloadState } from "./utils";
 import { loadIdeas, resetState } from "./actions";
-import { backgroundColor, lightRed } from "./constants/color";
+import { backgroundColor } from "./constants/color";
 
 class App extends Component {
   componentDidMount() {
@@ -34,7 +33,7 @@ class App extends Component {
           .split("/")
           .filter(v => v !== "")
           .pop(),
-        title: idea.title ? idea.title : "Idea",
+        //title: idea.title ? idea.title : "Idea",
         position: { left: 0, top: 0 }
       };
     });
@@ -53,21 +52,18 @@ class App extends Component {
 
     return (
       <div className="container-fluid" style={{ background: backgroundColor }}>
-        <Header />
+        <Header
+          handleDownloadState={() => downloadState(this.props)}
+          handleResetState={this.props.resetState}
+        />
         <div className="d-flex flex-row">
           <div className="float-left" style={{ width: 180 }}>
-            <MenuBar
-              handleDownloadState={() => downloadState(this.props)}
-              handleResetState={this.props.resetState}
-            />
+            <MenuBar />
             <IdeaStack
               name={"Idea Stack"}
               nextIdeas={stackIdeas}
               type="STACK"
             />
-            <DropZone sink={{ type: "TRASH" }} dropColor={lightRed}>
-              <IdeaStack name={"Idea Trash"} type="TRASH" />
-            </DropZone>
           </div>
           <Router style={{ overflow: "auto", height: "calc(100vh - 80px)" }}>
             <Board path="/" boardIdeas={boardIdeas} clusters={clusters} />

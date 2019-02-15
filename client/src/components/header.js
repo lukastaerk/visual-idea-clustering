@@ -2,7 +2,7 @@ import React from "react";
 import { App_Name } from "./../constants/index.json";
 import { logoI2M } from "../logos";
 import { header } from "../constants/color";
-import { UndoRedo } from "./";
+import { Button } from "../styledComponents";
 
 var styles = {
   header: {
@@ -19,10 +19,11 @@ var styles = {
   }
 };
 
-const Header = () => (
+const Header = ({ handleDownloadState, handleResetState, classes }) => (
   <div className="row header" style={styles.header}>
     <div className="col-auto" style={styles.h}>
-      <UndoRedo />
+      <Button onClick={handleDownloadState}>{"Download State"}</Button>
+      <Button onClick={handleResetState}>{"Reset State"}</Button>
     </div>
     <div className="col" style={styles.h}>
       <h2>{App_Name}</h2>

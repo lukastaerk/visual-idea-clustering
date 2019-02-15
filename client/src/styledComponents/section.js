@@ -1,5 +1,6 @@
 import React from "react";
 import { header } from "../constants/color";
+import { H6 } from "./";
 
 const style = {
   fontSize: 16,
@@ -8,7 +9,7 @@ const style = {
 
 const Section = ({ children }) => (
   <div className="clearfix" style={style}>
-    {children}
+    <H6>{children}</H6>
   </div>
 );
 
