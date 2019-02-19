@@ -7,11 +7,14 @@ const styles = theme => ({
     ...theme.typography.button,
     paddingTop: theme.spacing.unit / 2,
     textAlign: "center"
+  },
+  bold: {
+    fontWeight: "bold"
   }
 });
 
-const H6 = ({ children, classes }) => (
-  <h6 className={classes.root}>{children}</h6>
+const H6 = ({ children, classes, bold }) => (
+  <h6 className={`${classes.root} ${bold ? classes.bold : ""}`}>{children}</h6>
 );
 
 H6.propTypes = {

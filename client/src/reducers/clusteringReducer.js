@@ -1,13 +1,15 @@
 import Cluster from "../models/cluster";
+import { getDATA } from "../data";
 const initialState = {
   stackIdeas: [],
   boardIdeas: [],
   clusters: [],
   nextIndex: 0
 };
-export default (state = initialState, action) => {
+
+export default (state = { ...initialState, stackIdeas: getDATA }, action) => {
   const { type } = action;
-  var idea, newState, clusters, c;
+  var idea, newState, clusters, stackIdeas, c;
   switch (type) {
     case "MOVE_IDEA":
       const { source, sink, id, position } = action;
@@ -18,7 +20,7 @@ export default (state = initialState, action) => {
       return newState;
     case "LOAD_IDEAS":
       const { ideas } = action;
-      const stackIdeas = [...state.stackIdeas, ...ideas];
+      stackIdeas = [...state.stackIdeas, ...ideas];
       return {
         ...state,
         stackIdeas: stackIdeas,
@@ -32,8 +34,23 @@ export default (state = initialState, action) => {
       const { id: rnid, name: rnname } = action;
       [c, clusters] = removeElement(rnid, state.clusters);
       return { ...state, clusters: [...clusters, { ...c, name: rnname }] };
+    case "TURN_OVER_STACK":
+      stackIdeas = state.stackIdeas;
+      return {
+        ...state,
+        stackIdeas: [...stackIdeas.slice(1, stackIdeas.length), stackIdeas[0]]
+      };
+    case "TURN_BACK_STACK":
+      stackIdeas = state.stackIdeas;
+      return {
+        ...state,
+        stackIdeas: [
+          stackIdeas[stackIdeas.length - 1],
+          ...stackIdeas.slice(0, stackIdeas.length - 1)
+        ]
+      };
     case "RESET_STATE":
-      return initialState;
+      return { ...initialState, stackIdeas: getDATA() };
     case "UPDATE_IDEA":
       const { updateObj } = action;
       [idea, newState] = removeIdeaFromSource(

@@ -1,13 +1,17 @@
 import React from "react";
 import { DropZone } from "./";
 import { button, ideaColor } from "../constants/color";
-import { ClusterButton, Box, H6 } from "../styledComponents";
+import { ClusterButton, Box, H6, Number } from "../styledComponents";
 
-const Item = ({ id, name }) => {
+const Item = ({ id, name, numberOfIdeas }) => {
   return (
     <a href={`#${id}`} style={{ textDecoration: "none" }}>
       <DropZone sink={{ type: "CLUSTER", id: id }} dropColor={ideaColor}>
-        <ClusterButton>{name}</ClusterButton>
+        <ClusterButton>
+          <H6>
+            {name} <Number>{numberOfIdeas}</Number>
+          </H6>
+        </ClusterButton>
       </DropZone>
     </a>
   );
@@ -21,11 +25,16 @@ const ClusterList = ({ clusters = [] }) => {
       else return a.name.toLowerCase() > b.name.toLowerCase();
     })
     .map(c => (
-      <Item key={"list" + c.id} name={c.name || "unnamed"} id={c.id} />
+      <Item
+        key={"list" + c.id}
+        name={c.name || "unnamed"}
+        id={c.id}
+        numberOfIdeas={c.ideas.length}
+      />
     ));
   return (
     <Box color={button.text} backgroundColor={button.main}>
-      <H6>Clusters</H6>
+      <H6 bold={true}>Clusters</H6>
       {clusterList}
     </Box>
   );

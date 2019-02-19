@@ -23,6 +23,14 @@ const moveIdea = (source, sink, id, position) => ({
   position
 });
 
+const turnOverStack = () => ({
+  type: "TURN_OVER_STACK"
+});
+
+const turnBackStack = () => ({
+  type: "TURN_BACK_STACK"
+});
+
 const resetState = () => ({
   type: "RESET_STATE"
 });
@@ -49,6 +57,8 @@ export {
   moveCluster,
   loadIdeas,
   renameCluster,
+  turnOverStack,
+  turnBackStack,
   resetState,
   setActiveIdea,
   updateIdea,

@@ -10,43 +10,11 @@ import {
   ActiveIdea,
   DisplayState
 } from "./components";
-import DATA from "./data";
 import { downloadState } from "./utils";
 import { loadIdeas, resetState } from "./actions";
 import { backgroundColor } from "./constants/color";
 
 class App extends Component {
-  componentDidMount() {
-    this.handleNextIdeas();
-  }
-  componentDidUpdate() {
-    this.handleNextIdeas();
-  }
-
-  dataLoader = (fromIndex, toIndex, JSON_DATA) => {
-    const data = JSON_DATA.slice(fromIndex, toIndex);
-    var ideas = data.map(idea => {
-      return {
-        content: idea.content,
-        "@id": idea["@id"],
-        id: idea["@id"]
-          .split("/")
-          .filter(v => v !== "")
-          .pop(),
-        //title: idea.title ? idea.title : "Idea",
-        position: { left: 0, top: 0 }
-      };
-    });
-    return ideas.reverse();
-  };
-
-  handleNextIdeas = () => {
-    const { stackIdeas, nextIndex } = this.props;
-    if (stackIdeas.length !== 0) return null; //when stack still holdes ideas don't give more ideas
-    const nextStack = this.dataLoader(nextIndex, nextIndex + 5, DATA["@graph"]);
-    this.props.loadIdeas(nextStack);
-  };
-
   render() {
     const { stackIdeas, boardIdeas, clusters, activeIdea } = this.props;
 
@@ -61,7 +29,8 @@ class App extends Component {
             <MenuBar />
             <IdeaStack
               name={"Idea Stack"}
-              nextIdeas={stackIdeas}
+              stackLength={stackIdeas.length}
+              nextIdea={stackIdeas.length ? stackIdeas[0] : null}
               type="STACK"
             />
           </div>

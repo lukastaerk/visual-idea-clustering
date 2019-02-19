@@ -18,7 +18,7 @@ export const renderIdeas = (ideas, container, dropZone) => {
       />
     );
   });
-  return ideasRender;
+  return ideasRender.reverse();
 };
 
 function ellipsizeTextBox(id) {

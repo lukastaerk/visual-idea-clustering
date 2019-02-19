@@ -4,6 +4,7 @@ import Section from "./section";
 import { Box } from "./box";
 import { Li, XButton } from "./label";
 import { IdeaContainer } from "./ideaContainer";
+import { Number } from "./number";
 
 export {
   Button,
@@ -14,5 +15,6 @@ export {
   Box,
   Li,
   XButton,
-  IdeaContainer
+  IdeaContainer,
+  Number
 };
