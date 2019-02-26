@@ -3,6 +3,7 @@
 ### Run:
 
 - `npm install`
+- `npm init`
 - `npm start`
 
 ### Tests:
