@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "scripts": {
     "init": "concurrently \"cd client && npm install\" \"cd server && npm install\"",
-    "start": "concurrently \"npm start:client\" \"npm start:server\"",
+    "start": "concurrently \"npm run start:client\" \"npm run start:server\"",
     "start:client": "cd client && npm start",
     "start:server": "cd server && npm start",
     "test": "npm test-client && npm test-server",

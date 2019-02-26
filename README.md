@@ -1,10 +1,15 @@
 ## Visual idea Clustering
 
-### Run:
+## Setup:
 
 - `npm install`
-- `npm init`
-- `npm start`
+- `npm run init`
+
+### Run:
+
+- `npm start` to start both server and client.
+- `npm run start:client`
+- `npm run start:server`
 
 ### Tests:
 
@@ -28,7 +33,7 @@
 
 ## Application
 
-- bring ideas in relation, build Clusters, summerize and fliter them to generate quality ideas from that.
+- bring ideas in relation, build Clusters, summerize and filter them to generate quality ideas from that.
 
 ## Transaction Data with Server
 
