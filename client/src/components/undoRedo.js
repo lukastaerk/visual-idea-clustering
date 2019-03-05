@@ -4,7 +4,14 @@ import { connect } from "react-redux";
 import { Button } from "../styledComponents";
 
 let UndoRedo = ({ canUndo, canRedo, onUndo, onRedo, classes }) => (
-  <p>
+  <p
+    style={{
+      position: "fixed",
+      bottom: 0,
+      left: "calc(50% - 100px)",
+      zIndex: 1
+    }}
+  >
     <Button onClick={onUndo} disabled={!canUndo} fullWidth={false}>
       Undo
     </Button>

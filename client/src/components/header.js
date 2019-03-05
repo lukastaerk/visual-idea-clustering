@@ -4,6 +4,7 @@ import { logoI2M } from "../logos";
 import { header } from "../constants/color";
 import { download, reset } from "../icons";
 import { Button } from "../styledComponents";
+import { UndoRedo } from "./";
 
 var styles = {
   header: {
@@ -23,6 +24,7 @@ var styles = {
 const Header = ({ handleDownloadState, handleResetState, classes }) => (
   <div className="row header" style={styles.header}>
     <div className="col-auto" style={styles.h}>
+      <UndoRedo />
       <Button onClick={handleDownloadState}>
         {"Download"} <img alt="download" height={20} src={download} />
       </Button>

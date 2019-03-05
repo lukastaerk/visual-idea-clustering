@@ -39,11 +39,12 @@ function ellipsizeTextBox(id) {
 var styles = {
   ideaBox: {
     position: "absolute",
-    border: "2px solid " + borderColor,
+    //border: "2px solid " + borderColor,
     width: 120,
     height: 120,
     cursor: "move",
-    zIndex: 2
+    zIndex: 2,
+    background: ideaColor
   },
   inCluster: {
     position: "relative",
@@ -52,11 +53,9 @@ var styles = {
     float: "left"
   },
   content: {
+    padding: "0px 5px",
     fontSize: 10,
     maxHeight: 80
-  },
-  h6: {
-    textAlign: "center"
   },
   icon: {
     float: "right",
@@ -109,17 +108,10 @@ class Idea extends Component {
     const { displayFull, textHeight, ellipText } = this.state;
     var style = {
       ...styles.ideaBox,
-      ...position,
-      background: ideaColor
+      ...position
     };
-    if (container.type === "BOARD") {
-      style = { ...style, background: ideaColor };
-    }
-    if (container.type === "CLUSTER") {
+    if (container.type === "CLUSTER" || container.type === "STACK") {
       style = { ...style, ...styles.inCluster };
-    }
-    if (activeIdea === id) {
-      style = { ...style, background: "white", border: "3px solid black" };
     }
 
     var text = ellipText && !displayFull ? ellipText : content;
@@ -138,7 +130,7 @@ class Idea extends Component {
         onClick={this.handleOnClick}
       >
         <div>
-          <H6 style={styles.h6}>
+          <H6 bold={activeIdea === id}>
             {title || "Idea"}
             {labels && labels.length ? (
               <img

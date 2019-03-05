@@ -1,7 +1,7 @@
 import DATA from "./ac1-export-complete.json";
 
 const getDATA = () => {
-  var ideas = DATA["@graph"].map(idea => {
+  var ideas = DATA["@graph"].map((idea, i) => {
     return {
       content: idea.content,
       "@id": idea["@id"],
@@ -9,7 +9,7 @@ const getDATA = () => {
         .split("/")
         .filter(v => v !== "")
         .pop(),
-      //title: idea.title ? idea.title : "Idea",
+      title: `Idea ${i}`,
       position: { left: 0, top: 0 }
     };
   });

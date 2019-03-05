@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Idea } from "./";
+import { Idea, renderIdeas } from "./";
 import { turnOverStack, turnBackStack } from "../actions";
 import {
   H6,
@@ -10,29 +10,19 @@ import {
   Number
 } from "../styledComponents";
 
-const IdeaStack = ({ nextIdea, name, type, stackLength, dispatch }) => {
+const IdeaStack = ({ stackIdeas, type, dispatch }) => {
+  const DisplayIdeas = renderIdeas(stackIdeas, { type });
   return (
-    <Box style={{ padding: 10 }}>
+    <div>
       <H6 bold={true}>
-        {" "}
-        {name} <Number>{stackLength}</Number>
+        {"Idea Stack"} <Number>{stackIdeas.length}</Number>
       </H6>
-
-      <IdeaContainer>
-        {nextIdea ? (
-          <Idea
-            container={{ type }}
-            dropZone={type}
-            key={nextIdea.id}
-            data={nextIdea}
-          />
-        ) : null}
-      </IdeaContainer>
-      <p>
+      <p style={{ textAlign: "center" }}>
         <EditButton onClick={() => dispatch(turnBackStack())}>{"<"}</EditButton>
         <EditButton onClick={() => dispatch(turnOverStack())}>{">"}</EditButton>
       </p>
-    </Box>
+      <Box style={{ padding: 10 }}>{DisplayIdeas}</Box>
+    </div>
   );
 };
 

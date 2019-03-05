@@ -4,8 +4,8 @@ const Box = styled.div(
   {
     margin: "20px 10px",
     borderRadius: 5,
-    overflow: "hidden",
-    textAlign: "center"
+    overflow: "auto",
+    maxHeight: "calc(100vh - 300px)"
   },
   ({ color, backgroundColor }) => ({
     color,

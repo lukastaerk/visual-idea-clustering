@@ -4,7 +4,6 @@ import { Router } from "@reach/router";
 import {
   Board,
   Header,
-  MenuBar,
   IdeaStack,
   ClusterList,
   ActiveIdea,
@@ -26,11 +25,9 @@ class App extends Component {
         />
         <div className="d-flex flex-row">
           <div className="float-left" style={{ width: 180 }}>
-            <MenuBar />
             <IdeaStack
               name={"Idea Stack"}
-              stackLength={stackIdeas.length}
-              nextIdea={stackIdeas.length ? stackIdeas[0] : null}
+              stackIdeas={stackIdeas}
               type="STACK"
             />
           </div>

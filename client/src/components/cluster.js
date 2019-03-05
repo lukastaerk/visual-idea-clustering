@@ -11,7 +11,7 @@ export const renderClusters = clusters => {
   });
   return clustersRender;
 };
-const getShape = length => {
+export const getShape = length => {
   let sqrtUp = Math.round(Math.sqrt(length) + 0.49);
   let diff = parseInt((sqrtUp ** 2 - length) / sqrtUp);
   return [sqrtUp, sqrtUp - diff];
@@ -44,7 +44,7 @@ const Cluster = ({ id, position, ideas, name }) => {
   };
   const dropZone = "CLUSTER" + id;
   const container = { type: "CLUSTER", id: id };
-  var displayIdeas = renderIdeas(ideas, container, dropZone);
+  var displayIdeas = renderIdeas(ideas, container, dropZone).reverse();
   return (
     <Draggable id={id} dropZone={dropZone} type={"cluster"} style={style}>
       <div id={id}>

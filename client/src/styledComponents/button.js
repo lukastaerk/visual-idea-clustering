@@ -43,7 +43,6 @@ const EditButton = ({ children, ...props }) => (
 
 const ClusterButton = styled.div({
   background: clusterColor,
-  border: `.5px solid ${button.dark}`,
   borderRadius: 5,
   padding: "5px 0px 5px 0px",
   color: button.text,
