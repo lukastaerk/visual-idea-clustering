@@ -8,8 +8,9 @@ const Item = ({ id, name, numberOfIdeas }) => {
     <a href={`#${id}`} style={{ textDecoration: "none" }}>
       <DropZone sink={{ type: "CLUSTER", id: id }} dropColor={ideaColor}>
         <ClusterButton>
-          <H6>
-            {name} <Number>{numberOfIdeas}</Number>
+          <H6 noCenter={true}>
+            {name}
+            <Number>{numberOfIdeas}</Number>
           </H6>
         </ClusterButton>
       </DropZone>
@@ -20,6 +21,7 @@ const Item = ({ id, name, numberOfIdeas }) => {
 const ClusterList = ({ clusters = [] }) => {
   var clusterList = clusters
     .sort((a, b) => {
+      if (!a.name && !b.name) return a.ideas.length < b.ideas.length;
       if (!a.name) return true; //undefined at the end of the list
       if (!b.name) return false;
       else return a.name.toLowerCase() > b.name.toLowerCase();
