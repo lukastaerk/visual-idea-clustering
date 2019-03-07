@@ -1,8 +1,9 @@
 import React from "react";
 import Draggable from "./draggable";
 import RenameableH6 from "./renameableH6";
+import { ideaSize } from "./../constants/index.json";
 import { renderIdeas } from "./";
-import { clusterColor, borderColor } from "./../constants/color";
+import { clusterColor } from "./../constants/color";
 
 export const renderClusters = clusters => {
   if (!clusters) return null;
@@ -21,12 +22,11 @@ var styles = {
   clusterBox: {
     position: "absolute",
     borderRadius: 10,
-    border: "2px solid " + borderColor,
+    padding: "2px 2px",
     background: clusterColor,
     touchAction: "none",
     cursor: "move",
     zIndex: 1,
-    margin: "0 auto",
     overflow: "hidden"
   },
   h6: {
@@ -40,7 +40,10 @@ const Cluster = ({ id, position, ideas, name }) => {
   var style = {
     ...styles.clusterBox,
     ...position,
-    ...{ width: 4 + 120 * width, height: 120 * height + 50 }
+    ...{
+      width: 4 + ideaSize.width * width,
+      height: ideaSize.height * height + 50
+    }
   };
   const dropZone = "CLUSTER" + id;
   const container = { type: "CLUSTER", id: id };

@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { setActiveIdea } from "../actions";
 import Draggable from "./draggable";
-import { ideaColor, borderColor } from "../constants/color";
+import { ideaColor } from "../constants/color";
+import { ideaSize } from "./../constants/index.json";
 import { labelIcon, textnoteIcon } from "../icons";
 import { H6 } from "../styledComponents";
 
@@ -39,9 +40,8 @@ function ellipsizeTextBox(id) {
 var styles = {
   ideaBox: {
     position: "absolute",
-    //border: "2px solid " + borderColor,
-    width: 120,
-    height: 120,
+    width: ideaSize.width,
+    height: ideaSize.height,
     cursor: "move",
     zIndex: 2,
     background: ideaColor
@@ -54,12 +54,12 @@ var styles = {
   },
   content: {
     padding: "0px 5px",
-    fontSize: 10,
-    maxHeight: 80
+    fontSize: ideaSize.fontSize,
+    maxHeight: ideaSize.contentHeight
   },
   icon: {
     float: "right",
-    fontSize: 10
+    fontSize: ideaSize.fontSize
   }
 };
 

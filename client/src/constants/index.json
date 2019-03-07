@@ -1,26 +1,9 @@
 {
   "App_Name": "Visual Idea Clustering",
-  "colors": {
-    "green": "rgb(48, 255, 30)",
-    "greenOpacity": "rgba(48, 255, 30, 0.5)",
-    "yellow": "rgb(255, 214, 0)",
-    "yellowOpacity": "rgba(255, 214, 0, 0.5)",
-    "board": {
-      "background": "#f9f9f9"
-    },
-    "idea": {
-      "default": "rgb(95, 204, 122)",
-      "onBoard": "rgba(95, 204, 122, 0.5)",
-      "border": "rgb(72, 158, 93)"
-    },
-    "stack": {
-      "warning": "#f78a8a"
-    },
-    "header": {
-      "background": "#282c34"
-    },
-    "cluster": {
-      "background": "rgba(255, 221, 122, 0.5)"
-    }
+  "ideaSize": {
+    "width": 120,
+    "height": 120,
+    "contentHeight": 80,
+    "fontSize": 10
   }
 }

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { getSinkFromTarget } from "../utils";
 import { renderIdeas, renderClusters } from "./";
 import { moveIdea, moveCluster } from "../actions";
-import { isEqual } from "lodash";
 import { boardColor } from "./../constants/color";
 
 var styles = {
@@ -23,27 +23,6 @@ const mapDispatchToProps = dispatch => ({
   moveIdea: (...props) => dispatch(moveIdea(...props)),
   moveCluster: (...props) => dispatch(moveCluster(...props))
 });
-
-const getSinkFormTarget = target => {
-  let className = target.classList[0];
-  if (!className) {
-    return getSinkFormTarget(target.parentElement);
-  }
-  if (className.slice(0, 7) === "CLUSTER") {
-    return {
-      type: className.slice(0, 7),
-      id: className.slice(7)
-    };
-  } else if (className.slice(0, 4) === "IDEA") {
-    return {
-      type: className.slice(0, 4),
-      id: className.slice(4)
-    };
-  } else if (className === "BOARD") {
-    return { type: className };
-  }
-  return getSinkFormTarget(target.parentElement);
-};
 
 class Board extends Component {
   constructor(props) {
@@ -72,7 +51,7 @@ class Board extends Component {
       top: event.clientY - y - top
     };
     if (type === "idea") {
-      let sink = getSinkFormTarget(event.target);
+      let sink = getSinkFromTarget(event.target);
 
       if (sink.type === "IDEA" && sink.id === id) {
         sink = { type: "BOARD" };

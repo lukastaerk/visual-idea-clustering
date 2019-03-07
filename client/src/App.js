@@ -10,6 +10,7 @@ import {
 } from "./components";
 import { downloadState } from "./utils";
 import { loadIdeas, resetState } from "./actions";
+import { ideaSize } from "./constants/index.json";
 import { backgroundColor } from "./constants/color";
 
 class App extends Component {
@@ -23,7 +24,7 @@ class App extends Component {
           handleResetState={this.props.resetState}
         />
         <div className="d-flex flex-row">
-          <div className="float-left" style={{ width: 180 }}>
+          <div className="float-left" style={{ width: ideaSize.width + 60 }}>
             <IdeaStack
               name={"Idea Stack"}
               stackIdeas={stackIdeas}
