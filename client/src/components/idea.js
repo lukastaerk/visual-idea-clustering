@@ -4,8 +4,7 @@ import { setActiveIdea } from "../actions";
 import Draggable from "./draggable";
 import { ideaColor } from "../constants/color";
 import { ideaSize } from "./../constants/index.json";
-import { labelIcon, textnoteIcon } from "../icons";
-import { H6 } from "../styledComponents";
+import { H6, LabelIcon, TextnoteIcon } from "../styledComponents";
 
 export const renderIdeas = (ideas, container, dropZone) => {
   if (!ideas) return null;
@@ -19,7 +18,7 @@ export const renderIdeas = (ideas, container, dropZone) => {
       />
     );
   });
-  return ideasRender.reverse();
+  return ideasRender;
 };
 
 function ellipsizeTextBox(id) {
@@ -56,10 +55,6 @@ var styles = {
     padding: "0px 5px",
     fontSize: ideaSize.fontSize,
     maxHeight: ideaSize.contentHeight
-  },
-  icon: {
-    float: "right",
-    fontSize: ideaSize.fontSize
   }
 };
 
@@ -79,8 +74,7 @@ class Idea extends Component {
     );
     this.setState({
       textHeight: textHeight,
-      ellipText: text,
-      hasEllipText: textHeight > styles.content.maxHeight
+      ellipText: text
     });
   }
   handleOnClick = ev => {
@@ -89,12 +83,6 @@ class Idea extends Component {
       container,
       data: { id }
     } = this.props;
-    if (this.state.hasEllipText && false) {
-      //display full can be removed
-      this.setState(prevState => {
-        return { displayFull: !prevState.displayFull };
-      });
-    }
     boundSetActiveIdea(id, container);
   };
 
@@ -105,7 +93,7 @@ class Idea extends Component {
       dropZone,
       activeIdea
     } = this.props;
-    const { displayFull, textHeight, ellipText } = this.state;
+    const { ellipText } = this.state;
     var style = {
       ...styles.ideaBox,
       ...position
@@ -114,12 +102,8 @@ class Idea extends Component {
       style = { ...style, ...styles.inCluster };
     }
 
-    var text = ellipText && !displayFull ? ellipText : content;
+    var text = ellipText ? ellipText : content;
     var styleTextBox = styles.content;
-    if (displayFull) {
-      style.height = style.height + textHeight - styles.content.maxHeight;
-      styleTextBox = { ...styleTextBox, maxHeight: textHeight };
-    }
     return (
       <Draggable
         id={id}
@@ -132,24 +116,8 @@ class Idea extends Component {
         <div>
           <H6 bold={activeIdea === id}>
             {title || "Idea"}
-            {labels && labels.length ? (
-              <img
-                draggable="false"
-                style={styles.icon}
-                alt="label"
-                height="20"
-                src={labelIcon}
-              />
-            ) : null}
-            {textnote ? (
-              <img
-                draggable="false"
-                style={styles.icon}
-                alt="textnote"
-                height="20"
-                src={textnoteIcon}
-              />
-            ) : null}
+            {labels && labels.length ? <LabelIcon /> : null}
+            {textnote ? <TextnoteIcon /> : null}
           </H6>
           <div id={"content" + id} style={styleTextBox}>
             {text}

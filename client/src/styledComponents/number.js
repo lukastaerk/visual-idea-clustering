@@ -4,9 +4,8 @@ import { ideaColor } from "../constants/color";
 const Number = styled.span({
   margin: "0px 5px",
   borderRadius: 5,
-  padding: "0px 5px",
+  padding: "2px 7px",
   backgroundColor: ideaColor,
-  border: "solid 1px black",
   float: "right"
 });
 

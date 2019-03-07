@@ -47,7 +47,7 @@ const Cluster = ({ id, position, ideas, name }) => {
   };
   const dropZone = "CLUSTER" + id;
   const container = { type: "CLUSTER", id: id };
-  var displayIdeas = renderIdeas(ideas, container, dropZone).reverse();
+  var displayIdeas = renderIdeas(ideas, container, dropZone);
   return (
     <Draggable id={id} dropZone={dropZone} type={"cluster"} style={style}>
       <div id={id}>

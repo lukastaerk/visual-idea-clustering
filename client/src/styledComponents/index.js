@@ -5,7 +5,8 @@ import { Box } from "./box";
 import { Li, XButton } from "./label";
 import { IdeaContainer } from "./ideaContainer";
 import { Number } from "./number";
-
+import LabelIcon from "./LabelIcon";
+import TextnoteIcon from "./TextnoteIcon";
 export {
   Button,
   H6,
@@ -16,5 +17,7 @@ export {
   Li,
   XButton,
   IdeaContainer,
-  Number
+  Number,
+  LabelIcon,
+  TextnoteIcon
 };
