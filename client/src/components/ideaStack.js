@@ -1,14 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Idea, renderIdeas } from "./";
+import { renderIdeas } from "./";
 import { turnOverStack, turnBackStack } from "../actions";
-import {
-  H6,
-  Box,
-  IdeaContainer,
-  EditButton,
-  Number
-} from "../styledComponents";
+import { H6, Box, EditButton, Number } from "../styledComponents";
 
 const IdeaStack = ({ stackIdeas, type, dispatch }) => {
   const DisplayIdeas = renderIdeas(stackIdeas, { type });

@@ -6,8 +6,7 @@ import {
   Header,
   IdeaStack,
   ClusterList,
-  ActiveIdea,
-  DisplayState
+  ActiveIdea
 } from "./components";
 import { downloadState } from "./utils";
 import { loadIdeas, resetState } from "./actions";
@@ -33,7 +32,6 @@ class App extends Component {
           </div>
           <Router style={{ overflow: "auto", height: "calc(100vh - 80px)" }}>
             <Board path="/" boardIdeas={boardIdeas} clusters={clusters} />
-            <DisplayState path="/state" state={{ boardIdeas, clusters }} />
           </Router>
           <div className="float-right" style={{ width: 400 }}>
             {activeIdea ? (

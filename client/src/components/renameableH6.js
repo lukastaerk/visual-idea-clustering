@@ -37,14 +37,14 @@ class RenameableH6 extends Component {
   };
 
   render() {
-    let { style, className, name } = this.props;
+    let { style, className, name, defaultName } = this.props;
     const { onRename } = this.state;
     return (
       <H6 style={style} className={className} onDoubleClick={this.handleRename}>
         {onRename ? (
           <Input value={name} handleSave={this.handleSaveName} />
         ) : (
-          <span>{name + " "}</span>
+          <span>{name || defaultName}</span>
         )}
         <EditButton onClick={this.handleRename}>
           <img alt="edit" height="10" src={edit} />

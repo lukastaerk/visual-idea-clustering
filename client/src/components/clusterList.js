@@ -29,7 +29,7 @@ const ClusterList = ({ clusters = [] }) => {
     .map(c => (
       <Item
         key={"list" + c.id}
-        name={c.name || "unnamed"}
+        name={c.name || "CLUSTER"}
         id={c.id}
         numberOfIdeas={c.ideas.length}
       />

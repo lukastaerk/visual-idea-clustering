@@ -51,7 +51,8 @@ const Cluster = ({ id, position, ideas, name }) => {
         <RenameableH6
           container={container}
           style={styles.h6}
-          name={name || "Cluster"}
+          name={name}
+          defaultName={"CLUSTER"}
         />
         {displayIdeas}
       </div>
