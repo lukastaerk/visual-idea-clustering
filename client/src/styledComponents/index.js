@@ -1,5 +1,6 @@
 import { Button, EditButton, ClusterButton } from "./button";
 import H6 from "./h6";
+import H2 from "./h2";
 import Section from "./section";
 import { Box } from "./box";
 import { Li, XButton } from "./label";
@@ -10,6 +11,7 @@ import TextnoteIcon from "./TextnoteIcon";
 export {
   Button,
   H6,
+  H2,
   Section,
   EditButton,
   ClusterButton,

@@ -14,12 +14,7 @@ const styles = theme => ({
 
 let Button = ({ classes, children, ...props }) => {
   return (
-    <MUIButton
-      className={classes.button}
-      size="small"
-      fullWidth={true}
-      {...props}
-    >
+    <MUIButton className={classes.button} size="small" {...props}>
       {children}
     </MUIButton>
   );

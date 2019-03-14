@@ -3,8 +3,9 @@ import { App_Name } from "./../constants/index.json";
 import { logoI2M } from "../logos";
 import { header } from "../constants/color";
 import { download, reset } from "../icons";
-import { Button } from "../styledComponents";
+import { Button, H6, H2 } from "../styledComponents";
 import { UndoRedo } from "./";
+import { Link } from "@reach/router";
 
 var styles = {
   header: {
@@ -21,7 +22,7 @@ var styles = {
   }
 };
 
-const Header = ({ handleDownloadState, handleResetState, classes }) => (
+const Header = ({ handleDownloadState, handleResetState }) => (
   <div className="row header" style={styles.header}>
     <div className="col-auto" style={styles.h}>
       <UndoRedo />
@@ -31,11 +32,20 @@ const Header = ({ handleDownloadState, handleResetState, classes }) => (
       <Button onClick={handleResetState}>
         {"Reset"} <img alt="reset" height={20} src={reset} />
       </Button>
+      <Button>{"Import Sparks"}</Button>
     </div>
     <div className="col" style={styles.h}>
-      <h2>{App_Name}</h2>
+      <Link to="/">
+        <H2>{App_Name}</H2>
+      </Link>
     </div>
-    <div className="col-auto">
+    <div className="col-auto" style={styles.h}>
+      <Link to="/ideas">
+        <H6>{"Ideas"}</H6>
+      </Link>
+      <Link to="/create-idea">
+        <H6>{"Create Idea"}</H6>
+      </Link>
       <img alt="logo" height="80" src={logoI2M} />
     </div>
   </div>

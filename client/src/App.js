@@ -6,7 +6,9 @@ import {
   Header,
   IdeaStack,
   ClusterList,
-  ActiveIdea
+  ActiveIdea,
+  CreateIdea,
+  ViewCreatedIdeas
 } from "./components";
 import { downloadState } from "./utils";
 import { loadIdeas, resetState } from "./actions";
@@ -31,8 +33,16 @@ class App extends Component {
               type="STACK"
             />
           </div>
-          <Router style={{ overflow: "auto", height: "calc(100vh - 80px)" }}>
+          <Router
+            style={{
+              overflow: "auto",
+              height: "calc(100vh - 80px)",
+              width: `calc(100vw - ${ideaSize.width}px)`
+            }}
+          >
             <Board path="/" boardIdeas={boardIdeas} clusters={clusters} />
+            <CreateIdea path="/create-idea" />
+            <ViewCreatedIdeas path="/ideas" />
           </Router>
           <div className="float-right" style={{ width: 400 }}>
             {activeIdea ? (
