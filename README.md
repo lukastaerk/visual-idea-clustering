@@ -71,11 +71,11 @@
 
 ## View
 
-![Example](/public/ScreenshotVisualIdeaClustering.png)
+![Example](/client/public/ScreenshotVisualIdeaClustering.png)
 
 ## Activity Diagram
 
-![Diagram](/public/ActivityDiagramClustering.png)
+![Diagram](/client/public/ActivityDiagramClustering.png)
 
 ```
 
