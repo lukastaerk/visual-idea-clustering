@@ -7,6 +7,8 @@ import { withStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import { Input } from "@material-ui/core";
+import { SectionControl } from "../styledComponents";
+import { categories } from "../data/categories.json";
 
 const styles = theme => ({
   container: {
@@ -47,6 +49,7 @@ const CreateIdea = ({ classes }) => {
           fullWidth
           multiline
           rowsMax="10"
+          rows="4"
           required
         />
         <TextField
@@ -54,6 +57,30 @@ const CreateIdea = ({ classes }) => {
           label="By which Sparks is the Idea inspired?"
           className={classes.textField}
           fullWidth
+        />
+        <TextField
+          id="content"
+          label="Describe your idea in more detail (e.g., how is it used?)"
+          className={classes.textField}
+          fullWidth
+          multiline
+          rowsMax="10"
+          rows="4"
+          required
+        />
+        <TextField
+          id="content"
+          label="Which problem does the idea solve?"
+          className={classes.textField}
+          fullWidth
+          multiline
+          rowsMax="10"
+          rows="4"
+          required
+        />
+        <SectionControl
+          label="In which of the following areas can the idea be applied?"
+          categories={categories}
         />
         <Button>
           <input type="submit" value="Submit" />

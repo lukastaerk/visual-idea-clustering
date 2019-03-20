@@ -1,0 +1,38 @@
+{
+  "categories": [
+    {
+      "title": "Domestic home",
+      "labels": [
+        "Kitchen",
+        "Bedroom",
+        "Living room",
+        "Dining room",
+        "Nursery",
+        "Bathroom",
+        "Utility room",
+        "Garage",
+        "Garden",
+        "Balcony/terrace"
+      ]
+    },
+    {
+      "title": "Industry",
+      "labels": [
+        "Offices",
+        "Shop floor",
+        "Showroom & exhibition room",
+        "Construction sites",
+        "Retail stores",
+        "Film set",
+        "Storage building",
+        "Farming",
+        "Animal husbandry",
+        "Culinary establishment",
+        "Hotels",
+        "Hospitals & medical practice",
+        "Criminal prosecution",
+        "Laboratory"
+      ]
+    }
+  ]
+}

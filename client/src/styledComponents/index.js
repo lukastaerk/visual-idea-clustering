@@ -8,6 +8,7 @@ import { IdeaContainer } from "./ideaContainer";
 import { Number } from "./number";
 import LabelIcon from "./LabelIcon";
 import TextnoteIcon from "./TextnoteIcon";
+import SectionControl from "./SelectionControl";
 export {
   Button,
   H6,
@@ -21,5 +22,6 @@ export {
   IdeaContainer,
   Number,
   LabelIcon,
-  TextnoteIcon
+  TextnoteIcon,
+  SectionControl
 };

@@ -1,9 +1,7 @@
 class Idea {
-  constructor(id, description, validatedConcepts, position) {
+  constructor(id, content) {
     this.id = id;
-    this.position = position;
-    this.description = description;
-    this.validatedConcepts = validatedConcepts;
+    this.content = content;
   }
 }
 
