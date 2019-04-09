@@ -11,6 +11,7 @@
     "@svgr/webpack": "2.4.1",
     "acorn": "^6.0.4",
     "ajv": "^6.5.5",
+    "axios": "^0.18.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "9.0.0",
     "babel-jest": "^24.1.0",

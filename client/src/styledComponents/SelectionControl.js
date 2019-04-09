@@ -24,8 +24,8 @@ class SelectionControl extends React.Component {
     ...this.props.categories
   };
 
-  handleChange = event => {
-    this.setState({ value: event.target.value });
+  handleChange = category => event => {
+    //this.setState({ category[event.target.value]: event.target.checked });
   };
 
   render() {
@@ -33,7 +33,18 @@ class SelectionControl extends React.Component {
     const { classes, categories } = this.props;
     const displayForm = categories.map(c => {
       const displayLabels = c.labels.map(l => (
-        <FormControlLabel key={l} value={l} control={<Checkbox />} label={l} />
+        <FormControlLabel
+          key={l}
+          value={l}
+          control={
+            <Checkbox
+              checked={l}
+              onChange={this.handleChange(l)}
+              value={this.state[c] && this.state[c][l]}
+            />
+          }
+          label={l}
+        />
       ));
       return (
         <FormControl

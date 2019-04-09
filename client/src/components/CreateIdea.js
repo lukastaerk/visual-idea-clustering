@@ -9,6 +9,7 @@ import TextField from "@material-ui/core/TextField";
 import { Input } from "@material-ui/core";
 import { SectionControl } from "../styledComponents";
 import { categories } from "../data/categories.json";
+import axios from "axios";
 
 const styles = theme => ({
   container: {
@@ -82,7 +83,7 @@ const CreateIdea = ({ classes }) => {
           label="In which of the following areas can the idea be applied?"
           categories={categories}
         />
-        <Button>
+        <Button onClick={axios.post("/api/idea", {})}>
           <input type="submit" value="Submit" />
         </Button>
       </form>
