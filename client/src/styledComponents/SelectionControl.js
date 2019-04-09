@@ -21,30 +21,33 @@ const styles = theme => ({
 
 class SelectionControl extends React.Component {
   state = {
-    ...this.props.categories
+    ...this.props.categories,
+    formData: this.props.formData
   };
 
-  handleChange = category => event => {
-    //this.setState({ category[event.target.value]: event.target.checked });
+  handleChange = event => {
+    const checked = event.target.checked;
+    const formData = this.state.formData;
+    const elementName = event.target.value;
+
+    if (checked) {
+      if (!formData.includes(elementName)) {
+        formData.push(elementName);
+      }
+    } else {
+      if (formData.includes(elementName)) {
+        formData.splice(formData.indexOf(elementName), 1);
+      }
+    }
+
+    this.setState({ formData: formData });
   };
 
   render() {
-    console.log(this.state);
     const { classes, categories } = this.props;
     const displayForm = categories.map(c => {
       const displayLabels = c.labels.map(l => (
-        <FormControlLabel
-          key={l}
-          value={l}
-          control={
-            <Checkbox
-              checked={l}
-              onChange={this.handleChange(l)}
-              value={this.state[c] && this.state[c][l]}
-            />
-          }
-          label={l}
-        />
+        <FormControlLabel key={l} value={l} control={<Checkbox />} label={l} />
       ));
       return (
         <FormControl
